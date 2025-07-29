@@ -1,0 +1,10 @@
+{
+    "current_stock": 14344,
+    "sim_current_date": "2022-04-15",
+    "pending_orders": [
+        {
+            "delivery_date": "2022-04-15",
+            "quantity": 242
+        }
+    ]
+}

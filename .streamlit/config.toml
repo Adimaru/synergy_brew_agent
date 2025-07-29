@@ -1,0 +1,11 @@
+[theme]
+# Primary brand color (Starbucks Green)
+primaryColor = "rgba(0, 112, 74, 1)"
+# Background color for the main app area (light cream/tan)
+backgroundColor = "#e9dcbeff"
+# Secondary background color for sidebar and interactive widgets (darker green/brown)
+secondaryBackgroundColor = "rgba(0, 112, 74, 1)"
+# Text color (light/white for contrast against dark sidebar)
+textColor = "#000000ff" # Changed to white
+# Font to use
+font = "sans serif"

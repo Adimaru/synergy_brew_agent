@@ -1,0 +1,35 @@
+[
+    {
+        "log_timestamp": "2025-07-28 23:09:58",
+        "forecast_date": "2022-04-11",
+        "product": "Latte",
+        "store_id": "Downtown Seattle",
+        "actual_sales": 128.0,
+        "forecasted_sales": 117.36136918157685,
+        "mae": 10.638630818423152,
+        "mape": 8.311430326886596,
+        "accuracy_comment": "Excellent"
+    },
+    {
+        "log_timestamp": "2025-07-28 23:09:58",
+        "forecast_date": "2022-04-12",
+        "product": "Latte",
+        "store_id": "Downtown Seattle",
+        "actual_sales": 111.0,
+        "forecasted_sales": 115.79089670293196,
+        "mae": 4.79089670293196,
+        "mape": 4.31612315579067,
+        "accuracy_comment": "Excellent"
+    },
+    {
+        "log_timestamp": "2025-07-28 23:09:59",
+        "forecast_date": "2022-04-13",
+        "product": "Latte",
+        "store_id": "Downtown Seattle",
+        "actual_sales": 131.0,
+        "forecasted_sales": 117.42377617495514,
+        "mae": 13.576223825044863,
+        "mape": 10.363529637430917,
+        "accuracy_comment": "Good"
+    }
+]

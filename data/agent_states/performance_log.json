@@ -1,0 +1,2557 @@
+[
+    {
+        "forecast_date": "2023-01-01",
+        "actual_sales": 245,
+        "forecasted_sales": 0,
+        "mae": 245,
+        "mape": 100.0
+    },
+    {
+        "forecast_date": "2023-01-02",
+        "actual_sales": 55,
+        "forecasted_sales": 0,
+        "mae": 55,
+        "mape": 100.0
+    },
+    {
+        "forecast_date": "2023-01-03",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-04",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-05",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-06",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-07",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-08",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-09",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-10",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-11",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-12",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-13",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-14",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-15",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-16",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-17",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-18",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-19",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-20",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-21",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-22",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-23",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-24",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-25",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-26",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-27",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-28",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-29",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-30",
+        "actual_sales": 0,
+        "forecasted_sales": 0,
+        "mae": 0,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-01-31",
+        "actual_sales": 0,
+        "forecasted_sales": 158.3985295009352,
+        "mae": 158.3985295009352,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-02-01",
+        "actual_sales": 0,
+        "forecasted_sales": 164.23707651705362,
+        "mae": 164.23707651705362,
+        "mape": 0
+    },
+    {
+        "forecast_date": "2023-02-02",
+        "actual_sales": 165,
+        "forecasted_sales": 196.13176428598402,
+        "mae": 31.13176428598402,
+        "mape": 18.867735930899403
+    },
+    {
+        "forecast_date": "2023-02-03",
+        "actual_sales": 149,
+        "forecasted_sales": 195.82518077371736,
+        "mae": 46.82518077371736,
+        "mape": 31.42629582128682
+    },
+    {
+        "forecast_date": "2023-02-04",
+        "actual_sales": 210,
+        "forecasted_sales": 180.79269848070274,
+        "mae": 29.20730151929726,
+        "mape": 13.90823881871298
+    },
+    {
+        "forecast_date": "2023-02-05",
+        "actual_sales": 180,
+        "forecasted_sales": 185.06314387711123,
+        "mae": 5.06314387711123,
+        "mape": 2.812857709506239
+    },
+    {
+        "forecast_date": "2023-02-06",
+        "actual_sales": 168,
+        "forecasted_sales": 138.95140417943915,
+        "mae": 29.04859582056085,
+        "mape": 17.290830845571932
+    },
+    {
+        "forecast_date": "2023-02-07",
+        "actual_sales": 136,
+        "forecasted_sales": 161.94136475626905,
+        "mae": 25.941364756269053,
+        "mape": 19.074532909021364
+    },
+    {
+        "forecast_date": "2023-02-08",
+        "actual_sales": 145,
+        "forecasted_sales": 151.93868843183515,
+        "mae": 6.938688431835146,
+        "mape": 4.785302366782859
+    },
+    {
+        "forecast_date": "2023-02-09",
+        "actual_sales": 168,
+        "forecasted_sales": 126.49386634976723,
+        "mae": 41.50613365023277,
+        "mape": 24.706031934662363
+    },
+    {
+        "forecast_date": "2023-02-10",
+        "actual_sales": 176,
+        "forecasted_sales": 167.89229426205284,
+        "mae": 8.107705737947157,
+        "mape": 4.606650987469975
+    },
+    {
+        "forecast_date": "2023-02-11",
+        "actual_sales": 201,
+        "forecasted_sales": 218.60264514516214,
+        "mae": 17.602645145162143,
+        "mape": 8.757534898090618
+    },
+    {
+        "forecast_date": "2023-02-12",
+        "actual_sales": 196,
+        "forecasted_sales": 201.1218049516118,
+        "mae": 5.121804951611807,
+        "mape": 2.6131657916386772
+    },
+    {
+        "forecast_date": "2023-02-13",
+        "actual_sales": 160,
+        "forecasted_sales": 180.43814289494327,
+        "mae": 20.43814289494327,
+        "mape": 12.773839309339543
+    },
+    {
+        "forecast_date": "2023-02-14",
+        "actual_sales": 143,
+        "forecasted_sales": 168.39197866469055,
+        "mae": 25.391978664690555,
+        "mape": 17.75662843684654
+    },
+    {
+        "forecast_date": "2023-02-15",
+        "actual_sales": 154,
+        "forecasted_sales": 164.48263429482793,
+        "mae": 10.482634294827932,
+        "mape": 6.806905386251903
+    },
+    {
+        "forecast_date": "2023-02-16",
+        "actual_sales": 158,
+        "forecasted_sales": 148.9055251958778,
+        "mae": 9.0944748041222,
+        "mape": 5.755996711469747
+    },
+    {
+        "forecast_date": "2023-02-17",
+        "actual_sales": 181,
+        "forecasted_sales": 161.83247059937847,
+        "mae": 19.167529400621532,
+        "mape": 10.589795248962172
+    },
+    {
+        "forecast_date": "2023-02-18",
+        "actual_sales": 203,
+        "forecasted_sales": 211.38052994251066,
+        "mae": 8.380529942510663,
+        "mape": 4.1283398731579615
+    },
+    {
+        "forecast_date": "2023-02-19",
+        "actual_sales": 172,
+        "forecasted_sales": 190.30049200175702,
+        "mae": 18.30049200175702,
+        "mape": 10.639820931254082
+    },
+    {
+        "forecast_date": "2023-02-20",
+        "actual_sales": 203,
+        "forecasted_sales": 173.4409455500646,
+        "mae": 29.559054449935388,
+        "mape": 14.561110566470633
+    },
+    {
+        "forecast_date": "2023-02-21",
+        "actual_sales": 159,
+        "forecasted_sales": 132.46716806643465,
+        "mae": 26.532831933565348,
+        "mape": 16.68731568148764
+    },
+    {
+        "forecast_date": "2023-02-22",
+        "actual_sales": 155,
+        "forecasted_sales": 167.1774624812616,
+        "mae": 12.177462481261614,
+        "mape": 7.856427407265558
+    },
+    {
+        "forecast_date": "2023-02-23",
+        "actual_sales": 174,
+        "forecasted_sales": 151.3489877776187,
+        "mae": 22.651012222381297,
+        "mape": 13.017823116311089
+    },
+    {
+        "forecast_date": "2023-02-24",
+        "actual_sales": 180,
+        "forecasted_sales": 179.99097226331892,
+        "mae": 0.009027736681076703,
+        "mape": 0.0050154092672648354
+    },
+    {
+        "forecast_date": "2023-02-25",
+        "actual_sales": 212,
+        "forecasted_sales": 214.77157524696102,
+        "mae": 2.771575246961021,
+        "mape": 1.307346814604255
+    },
+    {
+        "forecast_date": "2023-02-26",
+        "actual_sales": 185,
+        "forecasted_sales": 200.67686048307314,
+        "mae": 15.676860483073142,
+        "mape": 8.473978639498995
+    },
+    {
+        "forecast_date": "2023-02-27",
+        "actual_sales": 241,
+        "forecasted_sales": 158.77388944999328,
+        "mae": 82.22611055000672,
+        "mape": 34.11871807054221
+    },
+    {
+        "forecast_date": "2023-02-28",
+        "actual_sales": 170,
+        "forecasted_sales": 246.86297808423265,
+        "mae": 76.86297808423265,
+        "mape": 45.21351652013686
+    },
+    {
+        "forecast_date": "2023-03-01",
+        "actual_sales": 165,
+        "forecasted_sales": 210.59263719337264,
+        "mae": 45.59263719337264,
+        "mape": 27.63190132931675
+    },
+    {
+        "forecast_date": "2023-03-02",
+        "actual_sales": 143,
+        "forecasted_sales": 177.8159666100719,
+        "mae": 34.81596661007191,
+        "mape": 24.346829797253083
+    },
+    {
+        "forecast_date": "2023-03-03",
+        "actual_sales": 147,
+        "forecasted_sales": 151.4650116033513,
+        "mae": 4.465011603351286,
+        "mape": 3.0374228594226436
+    },
+    {
+        "forecast_date": "2023-03-04",
+        "actual_sales": 163,
+        "forecasted_sales": 152.08293369293204,
+        "mae": 10.917066307067955,
+        "mape": 6.6975866914527336
+    },
+    {
+        "forecast_date": "2023-03-05",
+        "actual_sales": 162,
+        "forecasted_sales": 116.73669305654495,
+        "mae": 45.26330694345505,
+        "mape": 27.940312928058674
+    },
+    {
+        "forecast_date": "2023-03-06",
+        "actual_sales": 162,
+        "forecasted_sales": 108.98799198466331,
+        "mae": 53.01200801533669,
+        "mape": 32.72346173786215
+    },
+    {
+        "forecast_date": "2023-03-07",
+        "actual_sales": 143,
+        "forecasted_sales": 125.46284803217372,
+        "mae": 17.537151967826276,
+        "mape": 12.263742634843549
+    },
+    {
+        "forecast_date": "2023-03-08",
+        "actual_sales": 149,
+        "forecasted_sales": 184.72904286198414,
+        "mae": 35.72904286198414,
+        "mape": 23.979223397304793
+    },
+    {
+        "forecast_date": "2023-03-09",
+        "actual_sales": 165,
+        "forecasted_sales": 165.3799118728692,
+        "mae": 0.3799118728692008,
+        "mape": 0.23024961992072776
+    },
+    {
+        "forecast_date": "2023-03-10",
+        "actual_sales": 155,
+        "forecasted_sales": 186.57928325124885,
+        "mae": 31.579283251248853,
+        "mape": 20.373731129837967
+    },
+    {
+        "forecast_date": "2023-03-11",
+        "actual_sales": 170,
+        "forecasted_sales": 192.50384796046444,
+        "mae": 22.50384796046444,
+        "mape": 13.237557623802612
+    },
+    {
+        "forecast_date": "2023-03-12",
+        "actual_sales": 185,
+        "forecasted_sales": 175.1776686032276,
+        "mae": 9.822331396772398,
+        "mape": 5.309368322579674
+    },
+    {
+        "forecast_date": "2023-03-13",
+        "actual_sales": 173,
+        "forecasted_sales": 180.78381515013487,
+        "mae": 7.7838151501348705,
+        "mape": 4.499315115684896
+    },
+    {
+        "forecast_date": "2023-03-14",
+        "actual_sales": 149,
+        "forecasted_sales": 182.44140834364387,
+        "mae": 33.44140834364387,
+        "mape": 22.443898217210652
+    },
+    {
+        "forecast_date": "2023-03-15",
+        "actual_sales": 173,
+        "forecasted_sales": 171.600902064922,
+        "mae": 1.3990979350780037,
+        "mape": 0.8087271301028924
+    },
+    {
+        "forecast_date": "2023-03-16",
+        "actual_sales": 111,
+        "forecasted_sales": 178.9945393358393,
+        "mae": 67.9945393358393,
+        "mape": 61.25634174399938
+    },
+    {
+        "forecast_date": "2023-03-17",
+        "actual_sales": 162,
+        "forecasted_sales": 121.1845985463285,
+        "mae": 40.8154014536715,
+        "mape": 25.194692255352773
+    },
+    {
+        "forecast_date": "2023-03-18",
+        "actual_sales": 181,
+        "forecasted_sales": 156.84526582076845,
+        "mae": 24.154734179231554,
+        "mape": 13.345157005100305
+    },
+    {
+        "forecast_date": "2023-03-19",
+        "actual_sales": 176,
+        "forecasted_sales": 158.00447608308392,
+        "mae": 17.995523916916085,
+        "mape": 10.224729498247775
+    },
+    {
+        "forecast_date": "2023-03-20",
+        "actual_sales": 151,
+        "forecasted_sales": 152.24588062366286,
+        "mae": 1.2458806236628561,
+        "mape": 0.8250865057369908
+    },
+    {
+        "forecast_date": "2023-03-21",
+        "actual_sales": 120,
+        "forecasted_sales": 137.49270264062287,
+        "mae": 17.492702640622866,
+        "mape": 14.577252200519055
+    },
+    {
+        "forecast_date": "2023-03-22",
+        "actual_sales": 147,
+        "forecasted_sales": 116.40836389465484,
+        "mae": 30.59163610534516,
+        "mape": 20.81063680635725
+    },
+    {
+        "forecast_date": "2023-03-23",
+        "actual_sales": 155,
+        "forecasted_sales": 119.25233729884032,
+        "mae": 35.74766270115968,
+        "mape": 23.063008194296568
+    },
+    {
+        "forecast_date": "2023-03-24",
+        "actual_sales": 172,
+        "forecasted_sales": 142.78339930196358,
+        "mae": 29.216600698036416,
+        "mape": 16.986395754672333
+    },
+    {
+        "forecast_date": "2023-03-25",
+        "actual_sales": 172,
+        "forecasted_sales": 212.04439013996313,
+        "mae": 40.04439013996313,
+        "mape": 23.281622174397167
+    },
+    {
+        "forecast_date": "2023-03-26",
+        "actual_sales": 168,
+        "forecasted_sales": 176.4306869203889,
+        "mae": 8.430686920388894,
+        "mape": 5.018266024041009
+    },
+    {
+        "forecast_date": "2023-03-27",
+        "actual_sales": 142,
+        "forecasted_sales": 156.38488886255328,
+        "mae": 14.384888862553282,
+        "mape": 10.130203424333297
+    },
+    {
+        "forecast_date": "2023-03-28",
+        "actual_sales": 164,
+        "forecasted_sales": 138.5290084503622,
+        "mae": 25.4709915496378,
+        "mape": 15.531092408315732
+    },
+    {
+        "forecast_date": "2023-03-29",
+        "actual_sales": 155,
+        "forecasted_sales": 167.1498572662757,
+        "mae": 12.149857266275689,
+        "mape": 7.8386175911456055
+    },
+    {
+        "forecast_date": "2023-03-30",
+        "actual_sales": 142,
+        "forecasted_sales": 160.06165301142704,
+        "mae": 18.06165301142704,
+        "mape": 12.719473951709185
+    },
+    {
+        "forecast_date": "2023-03-31",
+        "actual_sales": 158,
+        "forecasted_sales": 161.39201094738294,
+        "mae": 3.3920109473829427,
+        "mape": 2.1468423717613563
+    },
+    {
+        "forecast_date": "2023-04-01",
+        "actual_sales": 181,
+        "forecasted_sales": 175.80352942668216,
+        "mae": 5.196470573317839,
+        "mape": 2.8709782173026737
+    },
+    {
+        "forecast_date": "2023-04-02",
+        "actual_sales": 195,
+        "forecasted_sales": 175.92069333122248,
+        "mae": 19.07930666877752,
+        "mape": 9.784259830142318
+    },
+    {
+        "forecast_date": "2023-04-03",
+        "actual_sales": 139,
+        "forecasted_sales": 186.85193548728142,
+        "mae": 47.85193548728142,
+        "mape": 34.425852868547786
+    },
+    {
+        "forecast_date": "2023-04-04",
+        "actual_sales": 145,
+        "forecasted_sales": 150.65081141478353,
+        "mae": 5.650811414783533,
+        "mape": 3.8971113205403674
+    },
+    {
+        "forecast_date": "2023-04-05",
+        "actual_sales": 144,
+        "forecasted_sales": 153.15789255733577,
+        "mae": 9.15789255733577,
+        "mape": 6.359647609260952
+    },
+    {
+        "forecast_date": "2023-04-06",
+        "actual_sales": 128,
+        "forecasted_sales": 140.70122063782017,
+        "mae": 12.701220637820171,
+        "mape": 9.922828623297008
+    },
+    {
+        "forecast_date": "2023-04-07",
+        "actual_sales": 154,
+        "forecasted_sales": 137.43353630661147,
+        "mae": 16.566463693388528,
+        "mape": 10.757443956745798
+    },
+    {
+        "forecast_date": "2023-04-08",
+        "actual_sales": 184,
+        "forecasted_sales": 162.17769376182392,
+        "mae": 21.822306238176083,
+        "mape": 11.859949042487
+    },
+    {
+        "forecast_date": "2023-04-09",
+        "actual_sales": 180,
+        "forecasted_sales": 169.95645047111623,
+        "mae": 10.043549528883773,
+        "mape": 5.579749738268762
+    },
+    {
+        "forecast_date": "2023-04-10",
+        "actual_sales": 146,
+        "forecasted_sales": 164.46260166099123,
+        "mae": 18.462601660991226,
+        "mape": 12.645617576021387
+    },
+    {
+        "forecast_date": "2023-04-11",
+        "actual_sales": 129,
+        "forecasted_sales": 140.07006456692076,
+        "mae": 11.070064566920763,
+        "mape": 8.58144540071377
+    },
+    {
+        "forecast_date": "2023-04-12",
+        "actual_sales": 144,
+        "forecasted_sales": 139.48198182825146,
+        "mae": 4.518018171748537,
+        "mape": 3.1375126192698173
+    },
+    {
+        "forecast_date": "2023-04-13",
+        "actual_sales": 145,
+        "forecasted_sales": 136.41551177240774,
+        "mae": 8.58448822759226,
+        "mape": 5.920336708684317
+    },
+    {
+        "forecast_date": "2023-04-14",
+        "actual_sales": 138,
+        "forecasted_sales": 147.87720859251874,
+        "mae": 9.877208592518741,
+        "mape": 7.157397530810681
+    },
+    {
+        "forecast_date": "2023-04-15",
+        "actual_sales": 178,
+        "forecasted_sales": 161.25100712548675,
+        "mae": 16.74899287451325,
+        "mape": 9.409546558715308
+    },
+    {
+        "forecast_date": "2023-04-16",
+        "actual_sales": 186,
+        "forecasted_sales": 164.61751050168994,
+        "mae": 21.382489498310065,
+        "mape": 11.495962095865627
+    },
+    {
+        "forecast_date": "2023-04-17",
+        "actual_sales": 178,
+        "forecasted_sales": 154.04456275064896,
+        "mae": 23.955437249351036,
+        "mape": 13.458110814242156
+    },
+    {
+        "forecast_date": "2023-04-18",
+        "actual_sales": 153,
+        "forecasted_sales": 150.11838492926464,
+        "mae": 2.8816150707353643,
+        "mape": 1.8834085429642906
+    },
+    {
+        "forecast_date": "2023-04-19",
+        "actual_sales": 154,
+        "forecasted_sales": 158.21385407015106,
+        "mae": 4.213854070151058,
+        "mape": 2.7362688767214665
+    },
+    {
+        "forecast_date": "2023-04-20",
+        "actual_sales": 149,
+        "forecasted_sales": 156.25964518000595,
+        "mae": 7.259645180005947,
+        "mape": 4.872245087252313
+    },
+    {
+        "forecast_date": "2023-04-21",
+        "actual_sales": 121,
+        "forecasted_sales": 161.55897050122755,
+        "mae": 40.55897050122755,
+        "mape": 33.519810331593014
+    },
+    {
+        "forecast_date": "2023-04-22",
+        "actual_sales": 180,
+        "forecasted_sales": 167.58644937188728,
+        "mae": 12.413550628112716,
+        "mape": 6.896417015618176
+    },
+    {
+        "forecast_date": "2023-04-23",
+        "actual_sales": 181,
+        "forecasted_sales": 175.38525899901157,
+        "mae": 5.614741000988431,
+        "mape": 3.1020668513748237
+    },
+    {
+        "forecast_date": "2023-04-24",
+        "actual_sales": 187,
+        "forecasted_sales": 161.62967498838415,
+        "mae": 25.370325011615847,
+        "mape": 13.567018722789223
+    },
+    {
+        "forecast_date": "2023-04-25",
+        "actual_sales": 147,
+        "forecasted_sales": 157.92221559139523,
+        "mae": 10.92221559139523,
+        "mape": 7.4300786336021964
+    },
+    {
+        "forecast_date": "2023-04-26",
+        "actual_sales": 155,
+        "forecasted_sales": 161.5010846354726,
+        "mae": 6.501084635472608,
+        "mape": 4.194248151917812
+    },
+    {
+        "forecast_date": "2023-04-27",
+        "actual_sales": 149,
+        "forecasted_sales": 154.04259952661872,
+        "mae": 5.042599526618716,
+        "mape": 3.3842949843078634
+    },
+    {
+        "forecast_date": "2023-04-28",
+        "actual_sales": 132,
+        "forecasted_sales": 163.02535205288228,
+        "mae": 31.025352052882283,
+        "mape": 23.504054585516883
+    },
+    {
+        "forecast_date": "2023-04-29",
+        "actual_sales": 197,
+        "forecasted_sales": 172.41816566814506,
+        "mae": 24.581834331854935,
+        "mape": 12.478088493327379
+    },
+    {
+        "forecast_date": "2023-04-30",
+        "actual_sales": 191,
+        "forecasted_sales": 181.74137533058203,
+        "mae": 9.25862466941797,
+        "mape": 4.847447470899461
+    },
+    {
+        "forecast_date": "2023-05-01",
+        "actual_sales": 162,
+        "forecasted_sales": 168.27430311845583,
+        "mae": 6.274303118455833,
+        "mape": 3.873026616330761
+    },
+    {
+        "forecast_date": "2023-05-02",
+        "actual_sales": 136,
+        "forecasted_sales": 152.3224006997328,
+        "mae": 16.32240069973281,
+        "mape": 12.001765220391771
+    },
+    {
+        "forecast_date": "2023-05-03",
+        "actual_sales": 171,
+        "forecasted_sales": 154.86309586333414,
+        "mae": 16.136904136665862,
+        "mape": 9.436786044833838
+    },
+    {
+        "forecast_date": "2023-05-04",
+        "actual_sales": 129,
+        "forecasted_sales": 154.53131507697768,
+        "mae": 25.531315076977677,
+        "mape": 19.791717113936183
+    },
+    {
+        "forecast_date": "2023-05-05",
+        "actual_sales": 159,
+        "forecasted_sales": 152.35410733726263,
+        "mae": 6.645892662737367,
+        "mape": 4.179806706124131
+    },
+    {
+        "forecast_date": "2023-05-06",
+        "actual_sales": 213,
+        "forecasted_sales": 175.96882685181683,
+        "mae": 37.03117314818317,
+        "mape": 17.385527299616513
+    },
+    {
+        "forecast_date": "2023-05-07",
+        "actual_sales": 165,
+        "forecasted_sales": 186.6216148271601,
+        "mae": 21.6216148271601,
+        "mape": 13.104008986157636
+    },
+    {
+        "forecast_date": "2023-05-08",
+        "actual_sales": 142,
+        "forecasted_sales": 159.44329642414587,
+        "mae": 17.44329642414587,
+        "mape": 12.284011566299908
+    },
+    {
+        "forecast_date": "2023-05-09",
+        "actual_sales": 151,
+        "forecasted_sales": 142.13770920223604,
+        "mae": 8.862290797763961,
+        "mape": 5.869066753486067
+    },
+    {
+        "forecast_date": "2023-05-10",
+        "actual_sales": 142,
+        "forecasted_sales": 148.65640802798077,
+        "mae": 6.656408027980774,
+        "mape": 4.687611287310404
+    },
+    {
+        "forecast_date": "2023-05-11",
+        "actual_sales": 127,
+        "forecasted_sales": 139.53502614742467,
+        "mae": 12.535026147424674,
+        "mape": 9.870099328680846
+    },
+    {
+        "forecast_date": "2023-05-12",
+        "actual_sales": 151,
+        "forecasted_sales": 144.224409455618,
+        "mae": 6.775590544381998,
+        "mape": 4.487146055882118
+    },
+    {
+        "forecast_date": "2023-05-13",
+        "actual_sales": 164,
+        "forecasted_sales": 164.25382386591127,
+        "mae": 0.25382386591127215,
+        "mape": 0.15477064994589765
+    },
+    {
+        "forecast_date": "2023-05-14",
+        "actual_sales": 187,
+        "forecasted_sales": 156.30586717541306,
+        "mae": 30.694132824586944,
+        "mape": 16.413974772506386
+    },
+    {
+        "forecast_date": "2023-05-15",
+        "actual_sales": 136,
+        "forecasted_sales": 150.6398471034194,
+        "mae": 14.639847103419413,
+        "mape": 10.764593458396627
+    },
+    {
+        "forecast_date": "2023-05-16",
+        "actual_sales": 173,
+        "forecasted_sales": 131.5025527894073,
+        "mae": 41.497447210592696,
+        "mape": 23.986963705544913
+    },
+    {
+        "forecast_date": "2023-05-17",
+        "actual_sales": 138,
+        "forecasted_sales": 151.47085658048692,
+        "mae": 13.470856580486924,
+        "mape": 9.761490275715163
+    },
+    {
+        "forecast_date": "2023-05-18",
+        "actual_sales": 145,
+        "forecasted_sales": 139.0321863128426,
+        "mae": 5.967813687157388,
+        "mape": 4.115733577349923
+    },
+    {
+        "forecast_date": "2023-05-19",
+        "actual_sales": 162,
+        "forecasted_sales": 147.46525678489513,
+        "mae": 14.534743215104868,
+        "mape": 8.972063713027696
+    },
+    {
+        "forecast_date": "2023-05-20",
+        "actual_sales": 162,
+        "forecasted_sales": 177.1164731679947,
+        "mae": 15.116473167994712,
+        "mape": 9.331156276539945
+    },
+    {
+        "forecast_date": "2023-05-21",
+        "actual_sales": 183,
+        "forecasted_sales": 167.2324086905151,
+        "mae": 15.767591309484914,
+        "mape": 8.61617011447263
+    },
+    {
+        "forecast_date": "2023-05-22",
+        "actual_sales": 170,
+        "forecasted_sales": 160.63243991762465,
+        "mae": 9.367560082375348,
+        "mape": 5.5103294602207935
+    },
+    {
+        "forecast_date": "2023-05-23",
+        "actual_sales": 126,
+        "forecasted_sales": 152.7361597897204,
+        "mae": 26.736159789720404,
+        "mape": 21.219174436286036
+    },
+    {
+        "forecast_date": "2023-05-24",
+        "actual_sales": 153,
+        "forecasted_sales": 151.30326258267735,
+        "mae": 1.6967374173226517,
+        "mape": 1.1089787041324521
+    },
+    {
+        "forecast_date": "2023-05-25",
+        "actual_sales": 154,
+        "forecasted_sales": 147.88886939730486,
+        "mae": 6.111130602695141,
+        "mape": 3.968266625126715
+    },
+    {
+        "forecast_date": "2023-05-26",
+        "actual_sales": 162,
+        "forecasted_sales": 159.40210488084645,
+        "mae": 2.5978951191535486,
+        "mape": 1.603638962440462
+    },
+    {
+        "forecast_date": "2023-05-27",
+        "actual_sales": 161,
+        "forecasted_sales": 184.91011215112795,
+        "mae": 23.910112151127947,
+        "mape": 14.851001336104316
+    },
+    {
+        "forecast_date": "2023-05-28",
+        "actual_sales": 160,
+        "forecasted_sales": 174.49579805401945,
+        "mae": 14.495798054019446,
+        "mape": 9.059873783762153
+    },
+    {
+        "forecast_date": "2023-05-29",
+        "actual_sales": 188,
+        "forecasted_sales": 173.2521057753929,
+        "mae": 14.747894224607109,
+        "mape": 7.8446245875569725
+    },
+    {
+        "forecast_date": "2023-05-30",
+        "actual_sales": 154,
+        "forecasted_sales": 152.274643171678,
+        "mae": 1.725356828321992,
+        "mape": 1.1203615768324622
+    },
+    {
+        "forecast_date": "2023-05-31",
+        "actual_sales": 154,
+        "forecasted_sales": 157.61288509463526,
+        "mae": 3.61288509463526,
+        "mape": 2.3460292822306883
+    },
+    {
+        "forecast_date": "2023-06-01",
+        "actual_sales": 155,
+        "forecasted_sales": 151.518648677096,
+        "mae": 3.481351322904004,
+        "mape": 2.2460331115509704
+    },
+    {
+        "forecast_date": "2023-06-02",
+        "actual_sales": 140,
+        "forecasted_sales": 160.29028455623094,
+        "mae": 20.290284556230944,
+        "mape": 14.493060397307817
+    },
+    {
+        "forecast_date": "2023-06-03",
+        "actual_sales": 183,
+        "forecasted_sales": 175.17330080056053,
+        "mae": 7.826699199439474,
+        "mape": 4.276884808436871
+    },
+    {
+        "forecast_date": "2023-06-04",
+        "actual_sales": 184,
+        "forecasted_sales": 175.26164146669686,
+        "mae": 8.738358533303142,
+        "mape": 4.749107898534316
+    },
+    {
+        "forecast_date": "2023-06-05",
+        "actual_sales": 139,
+        "forecasted_sales": 161.31879596394288,
+        "mae": 22.318795963942875,
+        "mape": 16.056687743843796
+    },
+    {
+        "forecast_date": "2023-06-06",
+        "actual_sales": 178,
+        "forecasted_sales": 144.35440765551652,
+        "mae": 33.645592344483475,
+        "mape": 18.90201817105813
+    },
+    {
+        "forecast_date": "2023-06-07",
+        "actual_sales": 157,
+        "forecasted_sales": 159.52863714727212,
+        "mae": 2.5286371472721214,
+        "mape": 1.6105969090905232
+    },
+    {
+        "forecast_date": "2023-06-08",
+        "actual_sales": 132,
+        "forecasted_sales": 150.32352837451057,
+        "mae": 18.323528374510573,
+        "mape": 13.881460889780737
+    },
+    {
+        "forecast_date": "2023-06-09",
+        "actual_sales": 160,
+        "forecasted_sales": 152.27250394229355,
+        "mae": 7.727496057706446,
+        "mape": 4.829685036066529
+    },
+    {
+        "forecast_date": "2023-06-10",
+        "actual_sales": 165,
+        "forecasted_sales": 175.14080320978346,
+        "mae": 10.140803209783456,
+        "mape": 6.145941339262701
+    },
+    {
+        "forecast_date": "2023-06-11",
+        "actual_sales": 192,
+        "forecasted_sales": 166.97740668574966,
+        "mae": 25.022593314250344,
+        "mape": 13.032600684505388
+    },
+    {
+        "forecast_date": "2023-06-12",
+        "actual_sales": 167,
+        "forecasted_sales": 158.5814427285514,
+        "mae": 8.418557271448606,
+        "mape": 5.041052258352458
+    },
+    {
+        "forecast_date": "2023-06-13",
+        "actual_sales": 138,
+        "forecasted_sales": 149.56771092679392,
+        "mae": 11.567710926793922,
+        "mape": 8.382399222314437
+    },
+    {
+        "forecast_date": "2023-06-14",
+        "actual_sales": 164,
+        "forecasted_sales": 150.00661764769532,
+        "mae": 13.993382352304678,
+        "mape": 8.532550214819926
+    },
+    {
+        "forecast_date": "2023-06-15",
+        "actual_sales": 156,
+        "forecasted_sales": 144.99302169180353,
+        "mae": 11.006978308196466,
+        "mape": 7.055755325766966
+    },
+    {
+        "forecast_date": "2023-06-16",
+        "actual_sales": 162,
+        "forecasted_sales": 156.55104456272485,
+        "mae": 5.448955437275146,
+        "mape": 3.363552739058732
+    },
+    {
+        "forecast_date": "2023-06-17",
+        "actual_sales": 208,
+        "forecasted_sales": 179.9072841268393,
+        "mae": 28.0927158731607,
+        "mape": 13.506113400558029
+    },
+    {
+        "forecast_date": "2023-06-18",
+        "actual_sales": 176,
+        "forecasted_sales": 192.98007289081832,
+        "mae": 16.98007289081832,
+        "mape": 9.647768687964954
+    },
+    {
+        "forecast_date": "2023-06-19",
+        "actual_sales": 169,
+        "forecasted_sales": 191.02372802453115,
+        "mae": 22.023728024531152,
+        "mape": 13.031791730491808
+    },
+    {
+        "forecast_date": "2023-06-20",
+        "actual_sales": 137,
+        "forecasted_sales": 156.04565291865612,
+        "mae": 19.045652918656117,
+        "mape": 13.901936436975268
+    },
+    {
+        "forecast_date": "2023-06-21",
+        "actual_sales": 138,
+        "forecasted_sales": 153.7858868259058,
+        "mae": 15.785886825905806,
+        "mape": 11.439048424569425
+    },
+    {
+        "forecast_date": "2023-06-22",
+        "actual_sales": 149,
+        "forecasted_sales": 143.19840144941924,
+        "mae": 5.8015985505807635,
+        "mape": 3.8936903024031975
+    },
+    {
+        "forecast_date": "2023-06-23",
+        "actual_sales": 155,
+        "forecasted_sales": 151.58742573405448,
+        "mae": 3.4125742659455227,
+        "mape": 2.201660816739047
+    },
+    {
+        "forecast_date": "2023-06-24",
+        "actual_sales": 179,
+        "forecasted_sales": 172.70120675523194,
+        "mae": 6.2987932447680635,
+        "mape": 3.5188789076916556
+    },
+    {
+        "forecast_date": "2023-06-25",
+        "actual_sales": 192,
+        "forecasted_sales": 177.45213249502407,
+        "mae": 14.547867504975926,
+        "mape": 7.577014325508295
+    },
+    {
+        "forecast_date": "2023-06-26",
+        "actual_sales": 150,
+        "forecasted_sales": 165.5465149725995,
+        "mae": 15.54651497259951,
+        "mape": 10.36434331506634
+    },
+    {
+        "forecast_date": "2023-06-27",
+        "actual_sales": 172,
+        "forecasted_sales": 148.89648121213096,
+        "mae": 23.103518787869035,
+        "mape": 13.432278365040137
+    },
+    {
+        "forecast_date": "2023-06-28",
+        "actual_sales": 146,
+        "forecasted_sales": 160.79311966512728,
+        "mae": 14.793119665127278,
+        "mape": 10.132273743237862
+    },
+    {
+        "forecast_date": "2023-06-29",
+        "actual_sales": 191,
+        "forecasted_sales": 151.00376121599342,
+        "mae": 39.99623878400658,
+        "mape": 20.940439153930146
+    },
+    {
+        "forecast_date": "2023-06-30",
+        "actual_sales": 159,
+        "forecasted_sales": 175.7646304886848,
+        "mae": 16.764630488684787,
+        "mape": 10.543792760179112
+    },
+    {
+        "forecast_date": "2023-07-01",
+        "actual_sales": 167,
+        "forecasted_sales": 190.42932190790765,
+        "mae": 23.42932190790765,
+        "mape": 14.029534076591407
+    },
+    {
+        "forecast_date": "2023-07-02",
+        "actual_sales": 164,
+        "forecasted_sales": 182.63131411686842,
+        "mae": 18.631314116868424,
+        "mape": 11.360557388334405
+    },
+    {
+        "forecast_date": "2023-07-03",
+        "actual_sales": 157,
+        "forecasted_sales": 161.32466964300343,
+        "mae": 4.324669643003432,
+        "mape": 2.7545666515945424
+    },
+    {
+        "forecast_date": "2023-07-04",
+        "actual_sales": 177,
+        "forecasted_sales": 170.5703370439394,
+        "mae": 6.429662956060611,
+        "mape": 3.632577941277181
+    },
+    {
+        "forecast_date": "2023-07-05",
+        "actual_sales": 161,
+        "forecasted_sales": 157.70874757716302,
+        "mae": 3.291252422836976,
+        "mape": 2.04425616325278
+    },
+    {
+        "forecast_date": "2023-07-06",
+        "actual_sales": 157,
+        "forecasted_sales": 153.38675255360627,
+        "mae": 3.6132474463937285,
+        "mape": 2.3014314945182983
+    },
+    {
+        "forecast_date": "2023-07-07",
+        "actual_sales": 149,
+        "forecasted_sales": 159.9570813466784,
+        "mae": 10.957081346678393,
+        "mape": 7.353745870253955
+    },
+    {
+        "forecast_date": "2023-07-08",
+        "actual_sales": 167,
+        "forecasted_sales": 177.53213212435773,
+        "mae": 10.53213212435773,
+        "mape": 6.30666594272918
+    },
+    {
+        "forecast_date": "2023-07-09",
+        "actual_sales": 157,
+        "forecasted_sales": 170.34336240933922,
+        "mae": 13.343362409339221,
+        "mape": 8.498956948623707
+    },
+    {
+        "forecast_date": "2023-07-10",
+        "actual_sales": 143,
+        "forecasted_sales": 149.72619320898352,
+        "mae": 6.726193208983517,
+        "mape": 4.703631614673788
+    },
+    {
+        "forecast_date": "2023-07-11",
+        "actual_sales": 163,
+        "forecasted_sales": 137.43661936717646,
+        "mae": 25.563380632823538,
+        "mape": 15.683055602959225
+    },
+    {
+        "forecast_date": "2023-07-12",
+        "actual_sales": 153,
+        "forecasted_sales": 144.5008149058037,
+        "mae": 8.499185094196292,
+        "mape": 5.555022937383198
+    },
+    {
+        "forecast_date": "2023-07-13",
+        "actual_sales": 131,
+        "forecasted_sales": 139.29996769814193,
+        "mae": 8.299967698141927,
+        "mape": 6.335853204688494
+    },
+    {
+        "forecast_date": "2023-07-14",
+        "actual_sales": 153,
+        "forecasted_sales": 140.8618685577257,
+        "mae": 12.1381314422743,
+        "mape": 7.9334192433165365
+    },
+    {
+        "forecast_date": "2023-07-15",
+        "actual_sales": 186,
+        "forecasted_sales": 163.3240858885054,
+        "mae": 22.675914111494592,
+        "mape": 12.191351672846555
+    },
+    {
+        "forecast_date": "2023-07-16",
+        "actual_sales": 167,
+        "forecasted_sales": 168.9563494332152,
+        "mae": 1.9563494332151947,
+        "mape": 1.1714667264761645
+    },
+    {
+        "forecast_date": "2023-07-17",
+        "actual_sales": 152,
+        "forecasted_sales": 148.64727234013228,
+        "mae": 3.3527276598677247,
+        "mape": 2.205741881491924
+    },
+    {
+        "forecast_date": "2023-07-18",
+        "actual_sales": 151,
+        "forecasted_sales": 137.96703362346332,
+        "mae": 13.032966376536677,
+        "mape": 8.631103560620316
+    },
+    {
+        "forecast_date": "2023-07-19",
+        "actual_sales": 133,
+        "forecasted_sales": 144.04961090332225,
+        "mae": 11.049610903322247,
+        "mape": 8.307978122798682
+    },
+    {
+        "forecast_date": "2023-07-20",
+        "actual_sales": 155,
+        "forecasted_sales": 134.3763877765613,
+        "mae": 20.6236122234387,
+        "mape": 13.305556273186255
+    },
+    {
+        "forecast_date": "2023-07-21",
+        "actual_sales": 158,
+        "forecasted_sales": 147.75324802073416,
+        "mae": 10.246751979265838,
+        "mape": 6.48528606282648
+    },
+    {
+        "forecast_date": "2023-07-22",
+        "actual_sales": 196,
+        "forecasted_sales": 168.6460960247688,
+        "mae": 27.35390397523119,
+        "mape": 13.956073456750605
+    },
+    {
+        "forecast_date": "2023-07-23",
+        "actual_sales": 196,
+        "forecasted_sales": 179.305068908187,
+        "mae": 16.694931091813004,
+        "mape": 8.51782198561888
+    },
+    {
+        "forecast_date": "2023-07-24",
+        "actual_sales": 129,
+        "forecasted_sales": 167.8570763279918,
+        "mae": 38.85707632799179,
+        "mape": 30.121764595342476
+    },
+    {
+        "forecast_date": "2023-07-25",
+        "actual_sales": 136,
+        "forecasted_sales": 150.47267157060767,
+        "mae": 14.472671570607673,
+        "mape": 10.641670272505642
+    },
+    {
+        "forecast_date": "2023-07-26",
+        "actual_sales": 158,
+        "forecasted_sales": 151.0383827746522,
+        "mae": 6.961617225347794,
+        "mape": 4.406086851485946
+    },
+    {
+        "forecast_date": "2023-07-27",
+        "actual_sales": 158,
+        "forecasted_sales": 148.63257888823802,
+        "mae": 9.367421111761985,
+        "mape": 5.928747539089864
+    },
+    {
+        "forecast_date": "2023-07-28",
+        "actual_sales": 158,
+        "forecasted_sales": 157.94564526054518,
+        "mae": 0.05435473945482272,
+        "mape": 0.03440173383216628
+    },
+    {
+        "forecast_date": "2023-07-29",
+        "actual_sales": 238,
+        "forecasted_sales": 180.39186796599418,
+        "mae": 57.60813203400582,
+        "mape": 24.205097493279755
+    },
+    {
+        "forecast_date": "2023-07-30",
+        "actual_sales": 189,
+        "forecasted_sales": 204.73282494248602,
+        "mae": 15.732824942486019,
+        "mape": 8.324246001315354
+    },
+    {
+        "forecast_date": "2023-07-31",
+        "actual_sales": 167,
+        "forecasted_sales": 179.67554177607258,
+        "mae": 12.675541776072578,
+        "mape": 7.590144776091363
+    },
+    {
+        "forecast_date": "2023-08-01",
+        "actual_sales": 164,
+        "forecasted_sales": 171.32045330347705,
+        "mae": 7.320453303477052,
+        "mape": 4.4636910387055195
+    },
+    {
+        "forecast_date": "2023-08-02",
+        "actual_sales": 160,
+        "forecasted_sales": 175.209608036748,
+        "mae": 15.209608036747994,
+        "mape": 9.506005022967496
+    },
+    {
+        "forecast_date": "2023-08-03",
+        "actual_sales": 145,
+        "forecasted_sales": 168.67303420913956,
+        "mae": 23.67303420913956,
+        "mape": 16.326230489061764
+    },
+    {
+        "forecast_date": "2023-08-04",
+        "actual_sales": 161,
+        "forecasted_sales": 169.5209845464023,
+        "mae": 8.520984546402303,
+        "mape": 5.2925369853430455
+    },
+    {
+        "forecast_date": "2023-08-05",
+        "actual_sales": 168,
+        "forecasted_sales": 190.6705711875558,
+        "mae": 22.670571187555794,
+        "mape": 13.494387611640354
+    },
+    {
+        "forecast_date": "2023-08-06",
+        "actual_sales": 176,
+        "forecasted_sales": 180.0506549338118,
+        "mae": 4.050654933811813,
+        "mape": 2.3015084851203484
+    },
+    {
+        "forecast_date": "2023-08-07",
+        "actual_sales": 143,
+        "forecasted_sales": 159.62201078199516,
+        "mae": 16.622010781995158,
+        "mape": 11.623783763632979
+    },
+    {
+        "forecast_date": "2023-08-08",
+        "actual_sales": 151,
+        "forecasted_sales": 147.8031805484861,
+        "mae": 3.1968194515139032,
+        "mape": 2.117098974512519
+    },
+    {
+        "forecast_date": "2023-08-09",
+        "actual_sales": 185,
+        "forecasted_sales": 148.462535680479,
+        "mae": 36.53746431952101,
+        "mape": 19.749980713254597
+    },
+    {
+        "forecast_date": "2023-08-10",
+        "actual_sales": 122,
+        "forecasted_sales": 153.58562731744215,
+        "mae": 31.585627317442146,
+        "mape": 25.88985845691979
+    },
+    {
+        "forecast_date": "2023-08-11",
+        "actual_sales": 160,
+        "forecasted_sales": 147.43600831217145,
+        "mae": 12.563991687828548,
+        "mape": 7.852494804892843
+    },
+    {
+        "forecast_date": "2023-08-12",
+        "actual_sales": 156,
+        "forecasted_sales": 171.29406969324444,
+        "mae": 15.294069693244438,
+        "mape": 9.803890829002846
+    },
+    {
+        "forecast_date": "2023-08-13",
+        "actual_sales": 173,
+        "forecasted_sales": 158.72948763271938,
+        "mae": 14.270512367280617,
+        "mape": 8.248851079352958
+    },
+    {
+        "forecast_date": "2023-08-14",
+        "actual_sales": 166,
+        "forecasted_sales": 142.8296837677674,
+        "mae": 23.170316232232608,
+        "mape": 13.95802182664615
+    },
+    {
+        "forecast_date": "2023-08-15",
+        "actual_sales": 151,
+        "forecasted_sales": 138.45016953994596,
+        "mae": 12.54983046005404,
+        "mape": 8.311146000035787
+    },
+    {
+        "forecast_date": "2023-08-16",
+        "actual_sales": 134,
+        "forecasted_sales": 141.93411778748683,
+        "mae": 7.9341177874868265,
+        "mape": 5.920983423497632
+    },
+    {
+        "forecast_date": "2023-08-17",
+        "actual_sales": 139,
+        "forecasted_sales": 133.15183177310084,
+        "mae": 5.848168226899162,
+        "mape": 4.207315271150476
+    },
+    {
+        "forecast_date": "2023-08-18",
+        "actual_sales": 160,
+        "forecasted_sales": 139.116107290842,
+        "mae": 20.883892709158005,
+        "mape": 13.052432943223751
+    },
+    {
+        "forecast_date": "2023-08-19",
+        "actual_sales": 169,
+        "forecasted_sales": 163.3472879660799,
+        "mae": 5.652712033920096,
+        "mape": 3.344800020071063
+    },
+    {
+        "forecast_date": "2023-08-20",
+        "actual_sales": 183,
+        "forecasted_sales": 159.19298650500707,
+        "mae": 23.80701349499293,
+        "mape": 13.009296991799415
+    },
+    {
+        "forecast_date": "2023-08-21",
+        "actual_sales": 151,
+        "forecasted_sales": 150.99064909372973,
+        "mae": 0.009350906270270798,
+        "mape": 0.006192653159119733
+    },
+    {
+        "forecast_date": "2023-08-22",
+        "actual_sales": 140,
+        "forecasted_sales": 141.69233551389698,
+        "mae": 1.6923355138969782,
+        "mape": 1.2088110813549844
+    },
+    {
+        "forecast_date": "2023-08-23",
+        "actual_sales": 182,
+        "forecasted_sales": 144.7667313889699,
+        "mae": 37.2332686110301,
+        "mape": 20.457839896170384
+    },
+    {
+        "forecast_date": "2023-08-24",
+        "actual_sales": 160,
+        "forecasted_sales": 155.88868574600733,
+        "mae": 4.111314253992674,
+        "mape": 2.5695714087454213
+    },
+    {
+        "forecast_date": "2023-08-25",
+        "actual_sales": 120,
+        "forecasted_sales": 166.0326974888882,
+        "mae": 46.0326974888882,
+        "mape": 38.360581240740174
+    },
+    {
+        "forecast_date": "2023-08-26",
+        "actual_sales": 183,
+        "forecasted_sales": 173.2065951643116,
+        "mae": 9.793404835688392,
+        "mape": 5.3515873419062245
+    },
+    {
+        "forecast_date": "2023-08-27",
+        "actual_sales": 170,
+        "forecasted_sales": 177.50731743698614,
+        "mae": 7.507317436986142,
+        "mape": 4.416069080580084
+    },
+    {
+        "forecast_date": "2023-08-28",
+        "actual_sales": 163,
+        "forecasted_sales": 155.16822616827864,
+        "mae": 7.831773831721364,
+        "mape": 4.804769221914947
+    },
+    {
+        "forecast_date": "2023-08-29",
+        "actual_sales": 138,
+        "forecasted_sales": 152.4385909583203,
+        "mae": 14.438590958320304,
+        "mape": 10.462747071246598
+    },
+    {
+        "forecast_date": "2023-08-30",
+        "actual_sales": 148,
+        "forecasted_sales": 154.7984377182166,
+        "mae": 6.798437718216604,
+        "mape": 4.593538998795003
+    },
+    {
+        "forecast_date": "2023-08-31",
+        "actual_sales": 158,
+        "forecasted_sales": 148.82138728888913,
+        "mae": 9.178612711110873,
+        "mape": 5.809248551335995
+    },
+    {
+        "forecast_date": "2023-09-01",
+        "actual_sales": 163,
+        "forecasted_sales": 157.9965069329976,
+        "mae": 5.00349306700241,
+        "mape": 3.069627648467736
+    },
+    {
+        "forecast_date": "2023-09-02",
+        "actual_sales": 162,
+        "forecasted_sales": 182.5972841257427,
+        "mae": 20.597284125742704,
+        "mape": 12.714372917125125
+    },
+    {
+        "forecast_date": "2023-09-03",
+        "actual_sales": 175,
+        "forecasted_sales": 173.99008433048553,
+        "mae": 1.00991566951447,
+        "mape": 0.5770946682939828
+    },
+    {
+        "forecast_date": "2023-09-04",
+        "actual_sales": 173,
+        "forecasted_sales": 178.6195094950052,
+        "mae": 5.61950949500519,
+        "mape": 3.2482713843960633
+    },
+    {
+        "forecast_date": "2023-09-05",
+        "actual_sales": 140,
+        "forecasted_sales": 152.01379405770462,
+        "mae": 12.013794057704615,
+        "mape": 8.58128146978901
+    },
+    {
+        "forecast_date": "2023-09-06",
+        "actual_sales": 176,
+        "forecasted_sales": 152.1796748819758,
+        "mae": 23.820325118024186,
+        "mape": 13.534275635241015
+    },
+    {
+        "forecast_date": "2023-09-07",
+        "actual_sales": 156,
+        "forecasted_sales": 154.30416964037954,
+        "mae": 1.6958303596204587,
+        "mape": 1.0870707433464477
+    },
+    {
+        "forecast_date": "2023-09-08",
+        "actual_sales": 131,
+        "forecasted_sales": 159.9569912402768,
+        "mae": 28.956991240276807,
+        "mape": 22.10457346586016
+    },
+    {
+        "forecast_date": "2023-09-09",
+        "actual_sales": 194,
+        "forecasted_sales": 169.7188085186942,
+        "mae": 24.281191481305797,
+        "mape": 12.516078083147317
+    },
+    {
+        "forecast_date": "2023-09-10",
+        "actual_sales": 212,
+        "forecasted_sales": 178.29302957428783,
+        "mae": 33.70697042571217,
+        "mape": 15.899514351751023
+    },
+    {
+        "forecast_date": "2023-09-11",
+        "actual_sales": 165,
+        "forecasted_sales": 168.40610889065616,
+        "mae": 3.4061088906561565,
+        "mape": 2.064308418579489
+    },
+    {
+        "forecast_date": "2023-09-12",
+        "actual_sales": 127,
+        "forecasted_sales": 158.9801178212828,
+        "mae": 31.98011782128279,
+        "mape": 25.18119513486834
+    },
+    {
+        "forecast_date": "2023-09-13",
+        "actual_sales": 143,
+        "forecasted_sales": 154.34764378279522,
+        "mae": 11.347643782795217,
+        "mape": 7.935415232723927
+    },
+    {
+        "forecast_date": "2023-09-14",
+        "actual_sales": 169,
+        "forecasted_sales": 144.74592528304743,
+        "mae": 24.254074716952573,
+        "mape": 14.35152350115537
+    },
+    {
+        "forecast_date": "2023-09-15",
+        "actual_sales": 139,
+        "forecasted_sales": 155.1968311466971,
+        "mae": 16.196831146697093,
+        "mape": 11.652396508415174
+    },
+    {
+        "forecast_date": "2023-09-16",
+        "actual_sales": 187,
+        "forecasted_sales": 169.00933679441303,
+        "mae": 17.99066320558697,
+        "mape": 9.620675511009075
+    },
+    {
+        "forecast_date": "2023-09-17",
+        "actual_sales": 192,
+        "forecasted_sales": 173.30422856176432,
+        "mae": 18.69577143823568,
+        "mape": 9.737380957414416
+    },
+    {
+        "forecast_date": "2023-09-18",
+        "actual_sales": 136,
+        "forecasted_sales": 157.7270583165085,
+        "mae": 21.727058316508504,
+        "mape": 15.975778173903313
+    },
+    {
+        "forecast_date": "2023-09-19",
+        "actual_sales": 149,
+        "forecasted_sales": 143.38370467025064,
+        "mae": 5.616295329749363,
+        "mape": 3.769325724664002
+    },
+    {
+        "forecast_date": "2023-09-20",
+        "actual_sales": 101,
+        "forecasted_sales": 146.9289515228405,
+        "mae": 45.92895152284049,
+        "mape": 45.47420942855494
+    },
+    {
+        "forecast_date": "2023-09-21",
+        "actual_sales": 135,
+        "forecasted_sales": 129.0680457240722,
+        "mae": 5.931954275927808,
+        "mape": 4.3940402043909685
+    },
+    {
+        "forecast_date": "2023-09-22",
+        "actual_sales": 146,
+        "forecasted_sales": 132.5011482173532,
+        "mae": 13.498851782646796,
+        "mape": 9.245788892223834
+    },
+    {
+        "forecast_date": "2023-09-23",
+        "actual_sales": 161,
+        "forecasted_sales": 153.83758081247123,
+        "mae": 7.162419187528769,
+        "mape": 4.448707569893646
+    },
+    {
+        "forecast_date": "2023-09-24",
+        "actual_sales": 204,
+        "forecasted_sales": 150.7020504271938,
+        "mae": 53.2979495728062,
+        "mape": 26.126445869022646
+    },
+    {
+        "forecast_date": "2023-09-25",
+        "actual_sales": 129,
+        "forecasted_sales": 146.15089507056942,
+        "mae": 17.15089507056942,
+        "mape": 13.29526749656544
+    },
+    {
+        "forecast_date": "2023-09-26",
+        "actual_sales": 143,
+        "forecasted_sales": 138.8805253915382,
+        "mae": 4.119474608461786,
+        "mape": 2.8807514744488016
+    },
+    {
+        "forecast_date": "2023-09-27",
+        "actual_sales": 152,
+        "forecasted_sales": 148.17695941467423,
+        "mae": 3.8230405853257707,
+        "mape": 2.5151582798195857
+    },
+    {
+        "forecast_date": "2023-09-28",
+        "actual_sales": 172,
+        "forecasted_sales": 141.95440289716552,
+        "mae": 30.045597102834478,
+        "mape": 17.468370408624697
+    },
+    {
+        "forecast_date": "2023-09-29",
+        "actual_sales": 128,
+        "forecasted_sales": 155.52765474562682,
+        "mae": 27.52765474562682,
+        "mape": 21.505980270020952
+    },
+    {
+        "forecast_date": "2023-09-30",
+        "actual_sales": 197,
+        "forecasted_sales": 168.340032005207,
+        "mae": 28.659967994792993,
+        "mape": 14.548207103955836
+    },
+    {
+        "forecast_date": "2023-10-01",
+        "actual_sales": 180,
+        "forecasted_sales": 181.89276043132963,
+        "mae": 1.8927604313296342,
+        "mape": 1.0515335729609079
+    },
+    {
+        "forecast_date": "2023-10-02",
+        "actual_sales": 135,
+        "forecasted_sales": 162.167424575092,
+        "mae": 27.167424575092014,
+        "mape": 20.12401820377186
+    },
+    {
+        "forecast_date": "2023-10-03",
+        "actual_sales": 157,
+        "forecasted_sales": 151.72302138778633,
+        "mae": 5.276978612213668,
+        "mape": 3.361132874021445
+    },
+    {
+        "forecast_date": "2023-10-04",
+        "actual_sales": 153,
+        "forecasted_sales": 159.720122698329,
+        "mae": 6.720122698328993,
+        "mape": 4.392237057731368
+    },
+    {
+        "forecast_date": "2023-10-05",
+        "actual_sales": 141,
+        "forecasted_sales": 156.09251428836768,
+        "mae": 15.092514288367681,
+        "mape": 10.70391084281396
+    },
+    {
+        "forecast_date": "2023-10-06",
+        "actual_sales": 151,
+        "forecasted_sales": 160.60579161398013,
+        "mae": 9.60579161398013,
+        "mape": 6.3614513999868425
+    },
+    {
+        "forecast_date": "2023-10-07",
+        "actual_sales": 174,
+        "forecasted_sales": 179.71560972999123,
+        "mae": 5.715609729991229,
+        "mape": 3.2848331781558784
+    },
+    {
+        "forecast_date": "2023-10-08",
+        "actual_sales": 182,
+        "forecasted_sales": 179.7351938429857,
+        "mae": 2.2648061570143057,
+        "mape": 1.2443989873704975
+    },
+    {
+        "forecast_date": "2023-10-09",
+        "actual_sales": 190,
+        "forecasted_sales": 182.91875584419026,
+        "mae": 7.081244155809742,
+        "mape": 3.726970608320917
+    },
+    {
+        "forecast_date": "2023-10-10",
+        "actual_sales": 174,
+        "forecasted_sales": 158.7183356277728,
+        "mae": 15.281664372227198,
+        "mape": 8.782565731165057
+    },
+    {
+        "forecast_date": "2023-10-11",
+        "actual_sales": 131,
+        "forecasted_sales": 169.13505876602903,
+        "mae": 38.13505876602903,
+        "mape": 29.11073188246491
+    },
+    {
+        "forecast_date": "2023-10-12",
+        "actual_sales": 182,
+        "forecasted_sales": 154.88575164807543,
+        "mae": 27.114248351924573,
+        "mape": 14.897938654903612
+    },
+    {
+        "forecast_date": "2023-10-13",
+        "actual_sales": 121,
+        "forecasted_sales": 168.07283183954294,
+        "mae": 47.07283183954294,
+        "mape": 38.90316680953963
+    },
+    {
+        "forecast_date": "2023-10-14",
+        "actual_sales": 178,
+        "forecasted_sales": 174.59019520739005,
+        "mae": 3.409804792609947,
+        "mape": 1.915620670005588
+    },
+    {
+        "forecast_date": "2023-10-15",
+        "actual_sales": 189,
+        "forecasted_sales": 176.50685580812848,
+        "mae": 12.493144191871522,
+        "mape": 6.610129202048425
+    },
+    {
+        "forecast_date": "2023-10-16",
+        "actual_sales": 154,
+        "forecasted_sales": 158.60395506390054,
+        "mae": 4.603955063900543,
+        "mape": 2.989581210325028
+    },
+    {
+        "forecast_date": "2023-10-17",
+        "actual_sales": 141,
+        "forecasted_sales": 150.8129001919739,
+        "mae": 9.81290019197391,
+        "mape": 6.959503682251
+    },
+    {
+        "forecast_date": "2023-10-18",
+        "actual_sales": 147,
+        "forecasted_sales": 150.2889158920731,
+        "mae": 3.2889158920731063,
+        "mape": 2.237357749709596
+    },
+    {
+        "forecast_date": "2023-10-19",
+        "actual_sales": 143,
+        "forecasted_sales": 143.42331396995698,
+        "mae": 0.423313969956979,
+        "mape": 0.29602375521467067
+    },
+    {
+        "forecast_date": "2023-10-20",
+        "actual_sales": 141,
+        "forecasted_sales": 144.235015246539,
+        "mae": 3.2350152465390067,
+        "mape": 2.2943370542829835
+    },
+    {
+        "forecast_date": "2023-10-21",
+        "actual_sales": 193,
+        "forecasted_sales": 167.03874823670313,
+        "mae": 25.961251763296872,
+        "mape": 13.451425784091645
+    },
+    {
+        "forecast_date": "2023-10-22",
+        "actual_sales": 185,
+        "forecasted_sales": 169.21686532978336,
+        "mae": 15.78313467021664,
+        "mape": 8.531424146063049
+    },
+    {
+        "forecast_date": "2023-10-23",
+        "actual_sales": 140,
+        "forecasted_sales": 150.1303773732951,
+        "mae": 10.13037737329509,
+        "mape": 7.235983838067922
+    },
+    {
+        "forecast_date": "2023-10-24",
+        "actual_sales": 163,
+        "forecasted_sales": 143.74467376356995,
+        "mae": 19.25532623643005,
+        "mape": 11.813083580631933
+    },
+    {
+        "forecast_date": "2023-10-25",
+        "actual_sales": 155,
+        "forecasted_sales": 147.7502547740363,
+        "mae": 7.249745225963693,
+        "mape": 4.677254984492705
+    },
+    {
+        "forecast_date": "2023-10-26",
+        "actual_sales": 162,
+        "forecasted_sales": 156.15122076585646,
+        "mae": 5.848779234143535,
+        "mape": 3.610357551940454
+    },
+    {
+        "forecast_date": "2023-10-27",
+        "actual_sales": 159,
+        "forecasted_sales": 164.1017466067717,
+        "mae": 5.101746606771712,
+        "mape": 3.208645664636297
+    },
+    {
+        "forecast_date": "2023-10-28",
+        "actual_sales": 168,
+        "forecasted_sales": 180.05044747981688,
+        "mae": 12.050447479816881,
+        "mape": 7.172885404652905
+    },
+    {
+        "forecast_date": "2023-10-29",
+        "actual_sales": 172,
+        "forecasted_sales": 175.3445165275537,
+        "mae": 3.344516527553708,
+        "mape": 1.9444863532289
+    },
+    {
+        "forecast_date": "2023-10-30",
+        "actual_sales": 161,
+        "forecasted_sales": 155.1977496131849,
+        "mae": 5.802250386815103,
+        "mape": 3.603882227835468
+    },
+    {
+        "forecast_date": "2023-10-31",
+        "actual_sales": 159,
+        "forecasted_sales": 152.0934364370807,
+        "mae": 6.9065635629193025,
+        "mape": 4.343750668502706
+    },
+    {
+        "forecast_date": "2023-11-01",
+        "actual_sales": 150,
+        "forecasted_sales": 159.7765619766066,
+        "mae": 9.776561976606587,
+        "mape": 6.5177079844043915
+    },
+    {
+        "forecast_date": "2023-11-02",
+        "actual_sales": 152,
+        "forecasted_sales": 154.49393058741015,
+        "mae": 2.493930587410148,
+        "mape": 1.6407438075066763
+    },
+    {
+        "forecast_date": "2023-11-03",
+        "actual_sales": 169,
+        "forecasted_sales": 156.7808671601262,
+        "mae": 12.219132839873794,
+        "mape": 7.230256118268517
+    },
+    {
+        "forecast_date": "2023-11-04",
+        "actual_sales": 171,
+        "forecasted_sales": 185.7844995832832,
+        "mae": 14.784499583283207,
+        "mape": 8.645906189054507
+    },
+    {
+        "forecast_date": "2023-11-05",
+        "actual_sales": 188,
+        "forecasted_sales": 178.86046522239525,
+        "mae": 9.139534777604752,
+        "mape": 4.861454668938698
+    },
+    {
+        "forecast_date": "2023-11-06",
+        "actual_sales": 147,
+        "forecasted_sales": 163.74488096249019,
+        "mae": 16.744880962490186,
+        "mape": 11.391075484687201
+    },
+    {
+        "forecast_date": "2023-11-07",
+        "actual_sales": 147,
+        "forecasted_sales": 154.97775888744764,
+        "mae": 7.977758887447635,
+        "mape": 5.427046862209275
+    },
+    {
+        "forecast_date": "2023-11-08",
+        "actual_sales": 166,
+        "forecasted_sales": 157.19971822626343,
+        "mae": 8.800281773736572,
+        "mape": 5.30137456249191
+    },
+    {
+        "forecast_date": "2023-11-09",
+        "actual_sales": 162,
+        "forecasted_sales": 158.4956655835045,
+        "mae": 3.50433441649551,
+        "mape": 2.163169392898463
+    },
+    {
+        "forecast_date": "2023-11-10",
+        "actual_sales": 192,
+        "forecasted_sales": 185.68534401102406,
+        "mae": 6.314655988975943,
+        "mape": 3.288883327591637
+    },
+    {
+        "forecast_date": "2023-11-11",
+        "actual_sales": 200,
+        "forecasted_sales": 192.0717127860877,
+        "mae": 7.928287213912313,
+        "mape": 3.964143606956157
+    },
+    {
+        "forecast_date": "2023-11-12",
+        "actual_sales": 180,
+        "forecasted_sales": 194.2216603445023,
+        "mae": 14.221660344502311,
+        "mape": 7.900922413612395
+    },
+    {
+        "forecast_date": "2023-11-13",
+        "actual_sales": 160,
+        "forecasted_sales": 170.0506007989089,
+        "mae": 10.050600798908903,
+        "mape": 6.281625499318063
+    },
+    {
+        "forecast_date": "2023-11-14",
+        "actual_sales": 145,
+        "forecasted_sales": 164.096522139828,
+        "mae": 19.09652213982801,
+        "mape": 13.170015268846905
+    },
+    {
+        "forecast_date": "2023-11-15",
+        "actual_sales": 155,
+        "forecasted_sales": 162.66561591452924,
+        "mae": 7.665615914529241,
+        "mape": 4.945558654534994
+    },
+    {
+        "forecast_date": "2023-11-16",
+        "actual_sales": 148,
+        "forecasted_sales": 159.4340883775626,
+        "mae": 11.434088377562603,
+        "mape": 7.725735390245002
+    },
+    {
+        "forecast_date": "2023-11-17",
+        "actual_sales": 151,
+        "forecasted_sales": 150.31271090991763,
+        "mae": 0.6872890900823734,
+        "mape": 0.4551583378028963
+    },
+    {
+        "forecast_date": "2023-11-18",
+        "actual_sales": 189,
+        "forecasted_sales": 179.20067301463888,
+        "mae": 9.79932698536112,
+        "mape": 5.184829092783661
+    },
+    {
+        "forecast_date": "2023-11-19",
+        "actual_sales": 168,
+        "forecasted_sales": 180.5333090034168,
+        "mae": 12.533309003416804,
+        "mape": 7.460302978224289
+    },
+    {
+        "forecast_date": "2023-11-20",
+        "actual_sales": 181,
+        "forecasted_sales": 155.2171002230631,
+        "mae": 25.782899776936887,
+        "mape": 14.244696009357396
+    },
+    {
+        "forecast_date": "2023-11-21",
+        "actual_sales": 135,
+        "forecasted_sales": 155.72510115377517,
+        "mae": 20.72510115377517,
+        "mape": 15.351926780574201
+    },
+    {
+        "forecast_date": "2023-11-22",
+        "actual_sales": 132,
+        "forecasted_sales": 151.4625481490414,
+        "mae": 19.462548149041396,
+        "mape": 14.744354658364694
+    },
+    {
+        "forecast_date": "2023-11-23",
+        "actual_sales": 197,
+        "forecasted_sales": 162.40727700650842,
+        "mae": 34.59272299349158,
+        "mape": 17.559757864716534
+    },
+    {
+        "forecast_date": "2023-11-24",
+        "actual_sales": 243,
+        "forecasted_sales": 151.46470809300888,
+        "mae": 91.53529190699112,
+        "mape": 37.668844406169185
+    },
+    {
+        "forecast_date": "2023-11-25",
+        "actual_sales": 189,
+        "forecasted_sales": 205.3397328436984,
+        "mae": 16.339732843698414,
+        "mape": 8.645361292962123
+    },
+    {
+        "forecast_date": "2023-11-26",
+        "actual_sales": 189,
+        "forecasted_sales": 195.7835721506856,
+        "mae": 6.783572150685586,
+        "mape": 3.589191614119358
+    },
+    {
+        "forecast_date": "2023-11-27",
+        "actual_sales": 150,
+        "forecasted_sales": 173.5559083119197,
+        "mae": 23.555908311919694,
+        "mape": 15.70393887461313
+    },
+    {
+        "forecast_date": "2023-11-28",
+        "actual_sales": 137,
+        "forecasted_sales": 162.1135320302682,
+        "mae": 25.113532030268203,
+        "mape": 18.33104527756803
+    },
+    {
+        "forecast_date": "2023-11-29",
+        "actual_sales": 151,
+        "forecasted_sales": 156.63364723696463,
+        "mae": 5.633647236964634,
+        "mape": 3.730892209910354
+    },
+    {
+        "forecast_date": "2023-11-30",
+        "actual_sales": 140,
+        "forecasted_sales": 155.4416388378302,
+        "mae": 15.441638837830197,
+        "mape": 11.02974202702157
+    },
+    {
+        "forecast_date": "2023-12-01",
+        "actual_sales": 180,
+        "forecasted_sales": 152.04452217741533,
+        "mae": 27.95547782258467,
+        "mape": 15.530821012547039
+    },
+    {
+        "forecast_date": "2023-12-02",
+        "actual_sales": 196,
+        "forecasted_sales": 180.63430396447976,
+        "mae": 15.365696035520244,
+        "mape": 7.839640834449105
+    },
+    {
+        "forecast_date": "2023-12-03",
+        "actual_sales": 186,
+        "forecasted_sales": 181.97801419856333,
+        "mae": 4.021985801436671,
+        "mape": 2.162357957761651
+    },
+    {
+        "forecast_date": "2023-12-04",
+        "actual_sales": 160,
+        "forecasted_sales": 161.90416080216545,
+        "mae": 1.9041608021654497,
+        "mape": 1.190100501353406
+    },
+    {
+        "forecast_date": "2023-12-05",
+        "actual_sales": 171,
+        "forecasted_sales": 154.09086861016397,
+        "mae": 16.909131389836034,
+        "mape": 9.888380929728676
+    },
+    {
+        "forecast_date": "2023-12-06",
+        "actual_sales": 157,
+        "forecasted_sales": 161.19541766061096,
+        "mae": 4.195417660610957,
+        "mape": 2.6722405481598455
+    },
+    {
+        "forecast_date": "2023-12-07",
+        "actual_sales": 153,
+        "forecasted_sales": 158.18505231618516,
+        "mae": 5.185052316185164,
+        "mape": 3.388923082473964
+    },
+    {
+        "forecast_date": "2023-12-08",
+        "actual_sales": 169,
+        "forecasted_sales": 158.4868156138403,
+        "mae": 10.513184386159708,
+        "mape": 6.220819163408111
+    },
+    {
+        "forecast_date": "2023-12-09",
+        "actual_sales": 202,
+        "forecasted_sales": 183.5952605280049,
+        "mae": 18.4047394719951,
+        "mape": 9.11125716435401
+    },
+    {
+        "forecast_date": "2023-12-10",
+        "actual_sales": 190,
+        "forecasted_sales": 185.81337910387117,
+        "mae": 4.186620896128829,
+        "mape": 2.203484682173068
+    },
+    {
+        "forecast_date": "2023-12-11",
+        "actual_sales": 158,
+        "forecasted_sales": 163.97711659005887,
+        "mae": 5.97711659005887,
+        "mape": 3.782985183581563
+    },
+    {
+        "forecast_date": "2023-12-12",
+        "actual_sales": 168,
+        "forecasted_sales": 160.9229057829639,
+        "mae": 7.077094217036091,
+        "mape": 4.212556081569102
+    },
+    {
+        "forecast_date": "2023-12-13",
+        "actual_sales": 143,
+        "forecasted_sales": 168.1776589622801,
+        "mae": 25.177658962280105,
+        "mape": 17.606754519076997
+    },
+    {
+        "forecast_date": "2023-12-14",
+        "actual_sales": 144,
+        "forecasted_sales": 158.81808516634956,
+        "mae": 14.818085166349562,
+        "mape": 10.290336921076085
+    },
+    {
+        "forecast_date": "2023-12-15",
+        "actual_sales": 154,
+        "forecasted_sales": 162.30727826699797,
+        "mae": 8.307278266997969,
+        "mape": 5.394336537011668
+    },
+    {
+        "forecast_date": "2023-12-16",
+        "actual_sales": 195,
+        "forecasted_sales": 188.10533767486586,
+        "mae": 6.894662325134135,
+        "mape": 3.535724269299556
+    },
+    {
+        "forecast_date": "2023-12-17",
+        "actual_sales": 203,
+        "forecasted_sales": 178.94563484535846,
+        "mae": 24.054365154641545,
+        "mape": 11.849440962877608
+    },
+    {
+        "forecast_date": "2023-12-18",
+        "actual_sales": 187,
+        "forecasted_sales": 159.8991429585529,
+        "mae": 27.100857041447114,
+        "mape": 14.492436920559953
+    },
+    {
+        "forecast_date": "2023-12-19",
+        "actual_sales": 178,
+        "forecasted_sales": 162.77776091163528,
+        "mae": 15.222239088364717,
+        "mape": 8.551819712564447
+    },
+    {
+        "forecast_date": "2023-12-20",
+        "actual_sales": 163,
+        "forecasted_sales": 169.75757585426726,
+        "mae": 6.757575854267259,
+        "mape": 4.145752057832674
+    },
+    {
+        "forecast_date": "2023-12-21",
+        "actual_sales": 165,
+        "forecasted_sales": 170.95012512030127,
+        "mae": 5.950125120301266,
+        "mape": 3.6061364365462216
+    },
+    {
+        "forecast_date": "2023-12-22",
+        "actual_sales": 150,
+        "forecasted_sales": 177.28629793959325,
+        "mae": 27.286297939593254,
+        "mape": 18.19086529306217
+    },
+    {
+        "forecast_date": "2023-12-23",
+        "actual_sales": 198,
+        "forecasted_sales": 195.34918268342972,
+        "mae": 2.650817316570283,
+        "mape": 1.338796624530446
+    },
+    {
+        "forecast_date": "2023-12-24",
+        "actual_sales": 194,
+        "forecasted_sales": 191.5822204157467,
+        "mae": 2.41777958425331,
+        "mape": 1.2462781362130464
+    },
+    {
+        "forecast_date": "2023-12-25",
+        "actual_sales": 203,
+        "forecasted_sales": 199.58608104946495,
+        "mae": 3.4139189505350487,
+        "mape": 1.6817334731699747
+    },
+    {
+        "forecast_date": "2023-12-26",
+        "actual_sales": 153,
+        "forecasted_sales": 163.545655026736,
+        "mae": 10.545655026736,
+        "mape": 6.892584984794771
+    },
+    {
+        "forecast_date": "2023-12-27",
+        "actual_sales": 173,
+        "forecasted_sales": 163.85894350084985,
+        "mae": 9.141056499150153,
+        "mape": 5.283847687370031
+    },
+    {
+        "forecast_date": "2023-12-28",
+        "actual_sales": 188,
+        "forecasted_sales": 164.09857259990065,
+        "mae": 23.90142740009935,
+        "mape": 12.713525212818805
+    },
+    {
+        "forecast_date": "2023-12-29",
+        "actual_sales": 163,
+        "forecasted_sales": 172.4842955758625,
+        "mae": 9.48429557586249,
+        "mape": 5.818586242860423
+    },
+    {
+        "forecast_date": "2023-12-30",
+        "actual_sales": 204,
+        "forecasted_sales": 199.87975353714688,
+        "mae": 4.1202464628531175,
+        "mape": 2.019728658261332
+    },
+    {
+        "forecast_date": "2023-12-31",
+        "actual_sales": 208,
+        "forecasted_sales": 197.4296731047959,
+        "mae": 10.57032689520409,
+        "mape": 5.081887930386582
+    }
+]
