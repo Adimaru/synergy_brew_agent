@@ -6,6 +6,11 @@ from datetime import datetime
 # and BASE_DIR should point to synergy_brew_agent/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+# --- Custom Configuration Files ---
+CUSTOM_PRODUCTS_FILE = os.path.join(BASE_DIR, 'config', 'custom_products.json')
+CUSTOM_STORES_FILE = os.path.join(BASE_DIR, 'config', 'custom_stores.json')
+
 # --- Data Directories ---
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 SALES_HISTORY_DIR = os.path.join(DATA_DIR, 'sales_history')

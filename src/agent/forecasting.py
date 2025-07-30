@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from prophet import Prophet
 from prophet.diagnostics import cross_validation, performance_metrics
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
-import numpy as np # <--- NEW: Import numpy for np.sqrt, etc if not already present
+import numpy as np # Already present, good.
 
 from config.settings import HOLIDAYS, DEFAULT_FORECAST_HORIZON_DAYS, START_DATE, END_DATE
 
@@ -78,11 +78,13 @@ def load_enriched_sales_data(file_path: str) -> pd.DataFrame:
 def train_and_forecast_model(
     sales_history_df: pd.DataFrame,
     periods_to_forecast: int = DEFAULT_FORECAST_HORIZON_DAYS,
+    forecasting_model_type: str = "Prophet", # <--- NEW: Parameter for model type
+    moving_average_window: int = 7,         # <--- NEW: Parameter for MA window
     debug_mode: bool = False
 ) -> tuple[Prophet, pd.DataFrame]:
     """
-    Trains a Prophet model on the provided sales history and generates a forecast.
-    Includes holidays as a regressor.
+    Trains a Prophet model or calculates a Moving Average forecast based on selection,
+    and generates a forecast.
     """
     if sales_history_df.empty:
         logging.warning("Sales history is empty. Cannot train model or forecast.")
@@ -93,61 +95,70 @@ def train_and_forecast_model(
     sales_history_df['y'] = pd.to_numeric(sales_history_df['y'])
 
     # Filter out future dates that might have crept into history for training
-    # Only train on historical data where 'y' is known
     train_df = sales_history_df[['ds', 'y']].copy()
     
-    # Add holiday regressors to the training data if not already present
-    # This is important if `load_enriched_sales_data` didn't add it for all dates or if
-    # the sales_history_df is a slice that excludes some holiday calculations.
-    holiday_dates_dt = [pd.to_datetime(d) for d in HOLIDAYS]
-    train_df['is_holiday'] = train_df['ds'].isin(holiday_dates_dt).astype(int)
+    # Generate future dataframe for the forecast horizon
+    # 'future_dates' will be the dates for which we need a forecast
+    last_history_date = train_df['ds'].max()
+    future_dates = pd.date_range(start=last_history_date + timedelta(days=1),
+                                 periods=periods_to_forecast,
+                                 freq='D')
+    future_df = pd.DataFrame({'ds': future_dates})
 
-    # Initialize Prophet model
-    model = Prophet(
-        seasonality_mode='multiplicative',
-        yearly_seasonality=True,
-        weekly_seasonality=True,
-        daily_seasonality=False, # Assuming daily sales might not have strong fixed patterns by hour
-        holidays=pd.DataFrame({'ds': holiday_dates_dt, 'holiday': 'holiday'}) if holiday_dates_dt else None
-    )
+    model = None # Initialize model as None
 
-    # Add 'is_holiday' as an extra regressor IF it exists and model isn't configured for holidays directly
-    # Prophet's `holidays` argument is preferred. If we're using the holidays argument,
-    # adding `is_holiday` as an extra regressor might be redundant or problematic if the holiday effect is double-counted.
-    # Let's rely on the `holidays` argument for now, it's more standard.
-    # If custom regressors are needed, they would be added via `model.add_regressor`.
-    # For now, remove the `add_regressor` line if you're using `holidays` param in Prophet init.
-    # If the `holidays` argument wasn't sufficient, and `is_holiday` represents other events, keep it.
-    # For this project, the `holidays` argument in Prophet constructor is usually enough.
-    # Let's remove the explicit `add_regressor` for `is_holiday` here to avoid confusion and rely on the `holidays` parameter in the model init.
-    # If your original design intent was for 'is_holiday' to be a generic regressor *beyond* predefined Prophet holidays,
-    # then you'd keep this. But typically, if you have a `holidays` list, you use Prophet's built-in holiday functionality.
+    if forecasting_model_type == "Moving Average":
+        if len(train_df) < moving_average_window:
+            logging.warning(f"Not enough data ({len(train_df)} days) for Moving Average window of {moving_average_window}. Using mean of available history.")
+            ma_value = train_df['y'].mean() if not train_df.empty else 0.0
+        else:
+            ma_value = train_df['y'].tail(moving_average_window).mean()
+        
+        # Populate 'yhat' in future_df with the calculated moving average
+        future_df['yhat'] = ma_value
+        
+        if debug_mode:
+            logging.info(f"Generated Moving Average ({moving_average_window}d) forecast: {ma_value:.2f} for {periods_to_forecast} periods.")
+            logging.debug(future_df.head())
+        
+        forecast = future_df[['ds', 'yhat']] # Ensure only 'ds' and 'yhat' are returned
+        return model, forecast # Model is None for MA
+    
+    elif forecasting_model_type == "Prophet":
+        # Add holiday regressors to the training data if not already present
+        holiday_dates_dt = [pd.to_datetime(d) for d in HOLIDAYS]
+        train_df['is_holiday'] = train_df['ds'].isin(holiday_dates_dt).astype(int)
 
-    # We are already passing `holidays=pd.DataFrame(...)` to Prophet constructor.
-    # This should be sufficient. No need to `add_regressor('is_holiday')` unless 'is_holiday' means something else.
+        # Initialize Prophet model
+        model = Prophet(
+            seasonality_mode='multiplicative',
+            yearly_seasonality=True,
+            weekly_seasonality=True,
+            daily_seasonality=False,
+            holidays=pd.DataFrame({'ds': holiday_dates_dt, 'holiday': 'holiday'}) if holiday_dates_dt else None
+        )
 
-    try:
-        model.fit(train_df)
-    except Exception as e:
-        logging.error(f"Error fitting Prophet model: {e}. Check training data for issues like NaNs in 'y'.")
+        try:
+            model.fit(train_df)
+        except Exception as e:
+            logging.error(f"Error fitting Prophet model: {e}. Check training data for issues like NaNs in 'y'.")
+            return None, pd.DataFrame()
+
+        # Add 'is_holiday' regressor to future dataframe for Prophet
+        future_df['is_holiday'] = future_df['ds'].isin(holiday_dates_dt).astype(int)
+
+        # Predict with Prophet
+        forecast = model.predict(future_df)
+        if debug_mode:
+            logging.info(f"Generated Prophet forecast for {periods_to_forecast} periods.")
+            logging.debug(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
+        
+        return model, forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']] # Return full Prophet forecast for plotting
+    
+    else:
+        logging.error(f"Unknown forecasting model type: {forecasting_model_type}")
         return None, pd.DataFrame()
 
-    # Create future dataframe for forecasting
-    future = model.make_future_dataframe(periods=periods_to_forecast, include_history=False)
-    
-    # Add 'is_holiday' regressor to future dataframe
-    future['is_holiday'] = future['ds'].isin(holiday_dates_dt).astype(int)
-
-    # Ensure all regressor columns present in training data are also in future data
-    # (Prophet automatically handles regressors if passed in fit and predict)
-
-    # Predict
-    forecast = model.predict(future)
-    if debug_mode:
-        logging.info(f"Generated forecast for {periods_to_forecast} periods.")
-        logging.debug(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
-
-    return model, forecast
 
 def calculate_cv_metrics(
     df: pd.DataFrame,
@@ -158,9 +169,10 @@ def calculate_cv_metrics(
 ) -> pd.DataFrame:
     """
     Performs cross-validation for Prophet model and calculates performance metrics.
+    Note: Cross-validation is only applicable to Prophet, not Moving Average.
     """
     if df.empty or len(df) < pd.to_timedelta(initial_train_days).days + pd.to_timedelta(horizon_forecast_days).days:
-        logging.warning("Not enough data for cross-validation.")
+        logging.warning("Not enough data for Prophet cross-validation.")
         return pd.DataFrame()
     
     # Ensure 'ds' is datetime
@@ -178,16 +190,16 @@ def calculate_cv_metrics(
         daily_seasonality=False,
         holidays=pd.DataFrame({'ds': holiday_dates_dt, 'holiday': 'holiday'}) if holiday_dates_dt else None
     )
-    # model_cv.add_regressor('is_holiday') # Only add if it's not covered by holidays param
+    # No need to add_regressor('is_holiday') here if holidays param is used above.
 
     try:
         df_cv = cross_validation(
-            model_cv,
-            df,
-            initial=initial_train_days,
-            period=period_between_cv,
-            horizon=horizon_forecast_days
-        )
+    model_cv, # Pass model as a positional argument
+    df,       # Pass dataframe as a positional argument
+    initial=initial_train_days,
+    period=period_between_cv,
+    horizon=horizon_forecast_days
+)
         if debug_mode:
             logging.info("Prophet cross-validation completed.")
             logging.debug(df_cv.head())

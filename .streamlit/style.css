@@ -1,0 +1,205 @@
+/* .streamlit/style.css */
+
+/* Global Font and Body Styling */
+html, body {
+    /* Attempting to use the specified font name.
+       Note: "__sodoSans_9e00da" is not a standard web font.
+       It's likely an internal Streamlit font reference.
+       This might not work unless Streamlit exposes it for CSS use.
+       A generic sans-serif is provided as a fallback.
+       For a custom font, consider using Google Fonts or @font-face with font files. */
+    font-family: "__sodoSans_9e00da", 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: white !important; /* Ensure full white background for site */
+}
+
+/* Main Streamlit App Container - ensure it's also white */
+[data-testid="stAppViewContainer"] {
+    background-color: white !important;
+}
+
+/* Main Content Area Adjustments */
+/* This specific class is often the main content wrapper. */
+/* Targeting by emotion cache class is volatile, but explicitly requested. */
+.st-emotion-cache-zy6yx3 {
+    padding-left: 2rem !important; /* Specific padding as requested */
+    padding-right: 5rem !important; /* Specific padding as requested */
+    /* Keeping previous padding-top and padding-bottom */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    max-width: initial;
+    min-width: auto;
+}
+
+h1 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Sidebar Styling (complementing config.toml) */
+[data-testid="stSidebar"] {
+    background-color: white !important; /* Set sidebar background to white */
+    color: black !important; /* Ensure text is black on white background */
+    border-right: 1px solid #E0E0E0; /* Subtle border */
+    padding-top: 10px; /* This padding applies to the entire sidebar content area, keep this if you want some space at the very top of the sidebar overall */
+    position: relative; /* Ensure normal flow, not absolute positioning here */
+}
+
+/* --- NEW: Target the immediate wrapper of the logo to remove top margin/padding --- */
+/* This should remove the whitespace directly above the logo image */
+[data-testid="stSidebarContent"] > div:first-child {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Logo Positioning and Size */
+/* Targeting the image element directly within the sidebar */
+[data-testid="stSidebarContent"] img {
+    /* Make the logo 25% smaller again. If it was 50%, now it's 50% * 0.75 = 37.5% */
+    max-width: 37.5% !important; /* Ensures it's no larger than 37.5% of its container */
+    height: auto !important; /* Maintain aspect ratio */
+    display: block; /* Ensure it takes its own line for proper sizing */
+    margin-left: auto; /* Center the image if it doesn't take full width */
+    margin-right: auto;
+    margin-top: 0 !important; /* Ensure image itself has no top margin */
+    padding-top: 0 !important; /* Also try padding-top for the image itself */
+}
+
+/* Hide the fullscreen button for images */
+/* This targets the button that appears on hover over Streamlit images to view fullscreen */
+[data-testid="stImage"] button[title="View fullscreen"] {
+    display: none !important;
+}
+
+/* Sidebar Headers (subheaders in app.py are h2 or h3) */
+/* Targeting specific elements by data-testid or general tag within sidebar */
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 { /* Target h2 and h3 which st.sidebar.subheader often renders as */
+    text-transform: uppercase !important; /* Full caps */
+    color: black !important; /* Black lettering */
+    margin-top: 20px; /* Add some top spacing */
+    margin-bottom: 10px; /* Add some bottom spacing */
+    border-bottom: 1px solid #E0E0E0; /* Subtle separator */
+    padding-bottom: 5px;
+}
+
+/* Sidebar Button Styling */
+[data-testid="stSidebar"] .stButton > button {
+    background-color: #FF4B4B; /* Streamlit red for sidebar buttons */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: #E03A3A; /* Darker red on hover */
+}
+
+/* Make selectboxes and number inputs in sidebar slightly wider/nicer */
+[data-testid="stSidebar"] .stSelectbox,
+[data-testid="stSidebar"] .stNumberInput,
+[data-testid="stSidebar"] .stSlider {
+    margin-bottom: 10px; /* Add some spacing between controls */
+}
+
+/* General Button Styling (for main content buttons) */
+.stButton > button {
+    border-radius: 8px; /* Slightly more rounded corners */
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    transition: transform 0.1s ease-in-out; /* Subtle press effect */
+}
+
+.stButton > button:active {
+    transform: translateY(1px); /* Push button down slightly on click */
+}
+
+/* Tabs Styling (now on top of the screen) */
+[data-testid="stTabs"] {
+    position: sticky; /* Make tabs stick to the top */
+    top: 0;
+    background-color: white; /* Ensure tabs background is white when sticky */
+    z-index: 999; /* Ensure tabs are on top of other content */
+    border-bottom: 1px solid #E0E0E0; /* Add a bottom border to separate from content */
+    margin-bottom: 20px; /* Add space below tabs */
+}
+
+[data-testid="stTabs"] button {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    border-radius: 5px 5px 0 0; /* Rounded top corners for tabs */
+    color: #6C757D; /* Default tab text color */
+    background-color: #F8F8F8; /* Light background for inactive tabs */
+    border: 1px solid #E0E0E0;
+    border-bottom: none; /* No bottom border for inactive tabs */
+    transition: background-color 0.2s, color 0.2s, border-top 0.2s;
+}
+
+/* Active Tab styling */
+[data-testid="stTabs"] button[aria-selected="true"] {
+    color: #26272E; /* Darker text for active tab */
+    background-color: white; /* White for active tab */
+    border-top: 2px solid #FF4B4B; /* Red indicator for active tab */
+    border-left: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    transform: translateY(1px); /* Little lift effect */
+}
+
+/* Expander Styling */
+.streamlit-expanderHeader {
+    background-color: #F8F8F8; /* Very light grey for expander headers */
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+    color: #26272E; /* Dark text */
+    border: 1px solid #E0E0E0;
+    cursor: pointer; /* Indicate it's clickable */
+}
+.streamlit-expanderContent {
+    border: 1px solid #E0E0E0;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    padding: 15px;
+    background-color: white; /* Ensure content area is white */
+}
+
+/* Info, Success, Warning, Error messages */
+.stAlert {
+    border-radius: 5px;
+    padding: 15px;
+}
+
+/* Metrics styling */
+[data-testid="stMetricValue"] {
+    font-size: 1.8em !important;
+    font-weight: bold !important;
+    color: #26272E !important; /* Dark text for metric values */
+}
+[data-testid="stMetricLabel"] {
+    font-size: 0.9em !important;
+    color: #6C757D !important; /* Lighter grey for labels */
+}
+
+/* Chart specific styling - if you want to override plotly's defaults */
+.js-plotly-plot .plotly .modebar {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* Lighter background for Plotly modebar */
+    border-radius: 5px;
+}
+
+/* Remove the default Streamlit "App running locally..." footer if it appears */
+footer {
+    visibility: hidden;
+    height: 0; /* Remove space */
+}
+footer:after {
+    content: 'Synergy Brew Inventory Assistant'; /* Optional: Add custom footer text */
+    visibility: visible;
+    display: block;
+    position: relative;
+    padding: 5px;
+    color: #6C757D;
+    font-size: 0.8em;
+    text-align: center;
+}

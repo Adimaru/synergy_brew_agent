@@ -1,17 +1,17 @@
 [
     {
         "forecast_date": "2024-01-01",
-        "actual_sales": 79,
+        "actual_sales": 100,
         "forecasted_sales": 0,
-        "mae": 79,
+        "mae": 100,
         "mape": 100.0
     },
     {
         "forecast_date": "2024-01-02",
-        "actual_sales": 21,
+        "actual_sales": 0,
         "forecasted_sales": 0,
-        "mae": 21,
-        "mape": 100.0
+        "mae": 0,
+        "mape": 0
     },
     {
         "forecast_date": "2024-01-03",
@@ -212,2346 +212,491 @@
     {
         "forecast_date": "2024-01-31",
         "actual_sales": 0,
-        "forecasted_sales": 59.12422829436713,
-        "mae": 59.12422829436713,
+        "forecasted_sales": 116.07384757615026,
+        "mae": 116.07384757615026,
         "mape": 0
     },
     {
         "forecast_date": "2024-02-01",
         "actual_sales": 0,
-        "forecasted_sales": 59.20012251059799,
-        "mae": 59.20012251059799,
+        "forecasted_sales": 104.62756524013683,
+        "mae": 104.62756524013683,
         "mape": 0
     },
     {
         "forecast_date": "2024-02-02",
-        "actual_sales": 63,
-        "forecasted_sales": 69.40985956251212,
-        "mae": 6.409859562512125,
-        "mape": 10.174380257955754
+        "actual_sales": 120,
+        "forecasted_sales": 180.12208303162814,
+        "mae": 60.12208303162814,
+        "mape": 50.10173585969011
     },
     {
         "forecast_date": "2024-02-03",
-        "actual_sales": 63,
-        "forecasted_sales": 76.22420545250806,
-        "mae": 13.224205452508059,
-        "mape": 20.990802305568348
+        "actual_sales": 143,
+        "forecasted_sales": 162.42878863440367,
+        "mae": 19.428788634403674,
+        "mape": 13.586565478603967
     },
     {
         "forecast_date": "2024-02-04",
-        "actual_sales": 74,
-        "forecasted_sales": 62.75183584451024,
-        "mae": 11.24816415548976,
-        "mape": 15.200221831742919
+        "actual_sales": 166,
+        "forecasted_sales": 106.63923745995113,
+        "mae": 59.36076254004887,
+        "mape": 35.75949550605353
     },
     {
         "forecast_date": "2024-02-05",
-        "actual_sales": 56,
-        "forecasted_sales": 64.44226862649707,
-        "mae": 8.442268626497068,
-        "mape": 15.075479690173335
+        "actual_sales": 105,
+        "forecasted_sales": 124.43721389608203,
+        "mae": 19.437213896082028,
+        "mape": 18.511632281982884
     },
     {
         "forecast_date": "2024-02-06",
-        "actual_sales": 64,
-        "forecasted_sales": 57.0638642366969,
-        "mae": 6.936135763303099,
-        "mape": 10.837712130161092
+        "actual_sales": 123,
+        "forecasted_sales": 101.18009307079976,
+        "mae": 21.819906929200243,
+        "mape": 17.739761731057108
     },
     {
         "forecast_date": "2024-02-07",
-        "actual_sales": 51,
-        "forecasted_sales": 60.54760088189856,
-        "mae": 9.54760088189856,
-        "mape": 18.720786042938354
+        "actual_sales": 96,
+        "forecasted_sales": 124.96771189366768,
+        "mae": 28.967711893667683,
+        "mape": 30.17469988923717
     },
     {
         "forecast_date": "2024-02-08",
-        "actual_sales": 55,
-        "forecasted_sales": 55.02001310309288,
-        "mae": 0.020013103092878737,
-        "mape": 0.036387460168870435
+        "actual_sales": 104,
+        "forecasted_sales": 88.54906531672987,
+        "mae": 15.450934683270134,
+        "mape": 14.85666796468282
     },
     {
         "forecast_date": "2024-02-09",
-        "actual_sales": 64,
-        "forecasted_sales": 47.97710878340008,
-        "mae": 16.022891216599923,
-        "mape": 25.03576752593738
+        "actual_sales": 122,
+        "forecasted_sales": 113.220814497256,
+        "mae": 8.779185502744,
+        "mape": 7.19605369077377
     },
     {
         "forecast_date": "2024-02-10",
-        "actual_sales": 74,
-        "forecasted_sales": 64.9706523905911,
-        "mae": 9.029347609408902,
-        "mape": 12.201821093795813
+        "actual_sales": 165,
+        "forecasted_sales": 137.29065558175512,
+        "mae": 27.709344418244882,
+        "mape": 16.793542071663563
     },
     {
         "forecast_date": "2024-02-11",
-        "actual_sales": 70,
-        "forecasted_sales": 75.6346257055264,
-        "mae": 5.634625705526403,
-        "mape": 8.049465293609149
+        "actual_sales": 158,
+        "forecasted_sales": 138.54729233027953,
+        "mae": 19.452707669720468,
+        "mape": 12.311840297291434
     },
     {
         "forecast_date": "2024-02-12",
-        "actual_sales": 62,
-        "forecasted_sales": 65.9636540825463,
-        "mae": 3.9636540825462987,
-        "mape": 6.392990455719836
+        "actual_sales": 119,
+        "forecasted_sales": 143.8588985858608,
+        "mae": 24.8588985858608,
+        "mape": 20.88983074442084
     },
     {
         "forecast_date": "2024-02-13",
-        "actual_sales": 61,
-        "forecasted_sales": 67.72823842267822,
-        "mae": 6.728238422678217,
-        "mape": 11.029899053570848
+        "actual_sales": 116,
+        "forecasted_sales": 140.92452532856683,
+        "mae": 24.92452532856683,
+        "mape": 21.48665976600589
     },
     {
         "forecast_date": "2024-02-14",
-        "actual_sales": 54,
-        "forecasted_sales": 64.44747230800019,
-        "mae": 10.447472308000187,
-        "mape": 19.347170940741087
+        "actual_sales": 102,
+        "forecasted_sales": 141.19909183635846,
+        "mae": 39.19909183635846,
+        "mape": 38.4304821925083
     },
     {
         "forecast_date": "2024-02-15",
-        "actual_sales": 59,
-        "forecasted_sales": 63.25677242463762,
-        "mae": 4.256772424637617,
-        "mape": 7.214868516334945
+        "actual_sales": 111,
+        "forecasted_sales": 116.19244214059073,
+        "mae": 5.192442140590728,
+        "mape": 4.67787580233399
     },
     {
         "forecast_date": "2024-02-16",
-        "actual_sales": 60,
-        "forecasted_sales": 55.536753608515205,
-        "mae": 4.463246391484795,
-        "mape": 7.438743985807991
+        "actual_sales": 114,
+        "forecasted_sales": 142.07596742543956,
+        "mae": 28.075967425439558,
+        "mape": 24.62804160126277
     },
     {
         "forecast_date": "2024-02-17",
-        "actual_sales": 76,
-        "forecasted_sales": 67.69806771200557,
-        "mae": 8.301932287994433,
-        "mape": 10.923595115782147
+        "actual_sales": 169,
+        "forecasted_sales": 144.07376949281402,
+        "mae": 24.926230507185977,
+        "mape": 14.749248820820105
     },
     {
         "forecast_date": "2024-02-18",
-        "actual_sales": 71,
-        "forecasted_sales": 73.90386615883409,
-        "mae": 2.9038661588340915,
-        "mape": 4.089952336386045
+        "actual_sales": 160,
+        "forecasted_sales": 122.0140123577103,
+        "mae": 37.9859876422897,
+        "mape": 23.741242276431063
     },
     {
         "forecast_date": "2024-02-19",
-        "actual_sales": 52,
-        "forecasted_sales": 60.09074178568234,
-        "mae": 8.09074178568234,
-        "mape": 15.559118818619885
+        "actual_sales": 99,
+        "forecasted_sales": 124.55828760666176,
+        "mae": 25.558287606661764,
+        "mape": 25.816452127941176
     },
     {
         "forecast_date": "2024-02-20",
-        "actual_sales": 65,
-        "forecasted_sales": 52.26707117218261,
-        "mae": 12.732928827817389,
-        "mape": 19.589121273565212
+        "actual_sales": 124,
+        "forecasted_sales": 88.38673276199205,
+        "mae": 35.61326723800795,
+        "mape": 28.72037680484512
     },
     {
         "forecast_date": "2024-02-21",
-        "actual_sales": 61,
-        "forecasted_sales": 56.38940882712621,
-        "mae": 4.610591172873789,
-        "mape": 7.558346185038999
+        "actual_sales": 115,
+        "forecasted_sales": 119.03340198178574,
+        "mae": 4.033401981785744,
+        "mape": 3.5073060711180384
     },
     {
         "forecast_date": "2024-02-22",
-        "actual_sales": 59,
-        "forecasted_sales": 66.49794872901256,
-        "mae": 7.497948729012563,
-        "mape": 12.70838767629248
+        "actual_sales": 112,
+        "forecasted_sales": 119.72399166850508,
+        "mae": 7.723991668505079,
+        "mape": 6.8964211325938205
     },
     {
         "forecast_date": "2024-02-23",
-        "actual_sales": 67,
-        "forecasted_sales": 58.391075299305705,
-        "mae": 8.608924700694295,
-        "mape": 12.849141344319845
+        "actual_sales": 127,
+        "forecasted_sales": 149.69661178015605,
+        "mae": 22.696611780156047,
+        "mape": 17.87134785839059
     },
     {
         "forecast_date": "2024-02-24",
-        "actual_sales": 75,
-        "forecasted_sales": 76.91713775436291,
-        "mae": 1.917137754362912,
-        "mape": 2.5561836724838827
+        "actual_sales": 168,
+        "forecasted_sales": 165.90635822132361,
+        "mae": 2.0936417786763855,
+        "mape": 1.2462153444502295
     },
     {
         "forecast_date": "2024-02-25",
-        "actual_sales": 75,
-        "forecasted_sales": 75.07436877628692,
-        "mae": 0.07436877628691718,
-        "mape": 0.09915836838255625
+        "actual_sales": 167,
+        "forecasted_sales": 117.30149815418683,
+        "mae": 49.69850184581317,
+        "mape": 29.7595819436007
     },
     {
         "forecast_date": "2024-02-26",
-        "actual_sales": 58,
-        "forecasted_sales": 61.71723391133318,
-        "mae": 3.7172339113331816,
-        "mape": 6.4090239850572095
+        "actual_sales": 110,
+        "forecasted_sales": 124.97493201209461,
+        "mae": 14.974932012094612,
+        "mape": 13.613574556449649
     },
     {
         "forecast_date": "2024-02-27",
-        "actual_sales": 92,
-        "forecasted_sales": 61.90070747914622,
-        "mae": 30.09929252085378,
-        "mape": 32.71662230527585
+        "actual_sales": 174,
+        "forecasted_sales": 108.04757575422987,
+        "mae": 65.95242424577013,
+        "mape": 37.903692095270195
     },
     {
         "forecast_date": "2024-02-28",
-        "actual_sales": 65,
-        "forecasted_sales": 92.5135306156952,
-        "mae": 27.513530615695203,
-        "mape": 42.32850863953108
+        "actual_sales": 124,
+        "forecasted_sales": 213.71230244943322,
+        "mae": 89.71230244943322,
+        "mape": 72.34863100760744
     },
     {
         "forecast_date": "2024-02-29",
-        "actual_sales": 69,
-        "forecasted_sales": 84.27506994548263,
-        "mae": 15.275069945482628,
-        "mape": 22.13778252968497
+        "actual_sales": 132,
+        "forecasted_sales": 162.72100933668108,
+        "mae": 30.721009336681078,
+        "mape": 23.27349192172809
     },
     {
         "forecast_date": "2024-03-01",
-        "actual_sales": 57,
-        "forecasted_sales": 75.66732118251893,
-        "mae": 18.667321182518933,
-        "mape": 32.74968628512093
+        "actual_sales": 114,
+        "forecasted_sales": 191.0761622072326,
+        "mae": 77.07616220723261,
+        "mape": 67.61066860283562
     },
     {
         "forecast_date": "2024-03-02",
-        "actual_sales": 65,
-        "forecasted_sales": 71.63179161820881,
-        "mae": 6.631791618208808,
-        "mape": 10.202756335705859
+        "actual_sales": 154,
+        "forecasted_sales": 147.2016000980057,
+        "mae": 6.798399901994287,
+        "mape": 4.414545390905381
     },
     {
         "forecast_date": "2024-03-03",
-        "actual_sales": 59,
-        "forecasted_sales": 51.609837919423946,
-        "mae": 7.390162080576054,
-        "mape": 12.52569844165433
+        "actual_sales": 143,
+        "forecasted_sales": 78.45486228691539,
+        "mae": 64.54513771308461,
+        "mape": 45.13645993922001
     },
     {
         "forecast_date": "2024-03-04",
-        "actual_sales": 53,
-        "forecasted_sales": 26.460068488803785,
-        "mae": 26.539931511196215,
-        "mape": 50.07534247395512
+        "actual_sales": 106,
+        "forecasted_sales": 67.9398386655171,
+        "mae": 38.0601613344829,
+        "mape": 35.90581257970085
     },
     {
         "forecast_date": "2024-03-05",
-        "actual_sales": 65,
-        "forecasted_sales": 44.59661658972799,
-        "mae": 20.403383410272014,
-        "mape": 31.389820631187714
+        "actual_sales": 130,
+        "forecasted_sales": 72.62123666956757,
+        "mae": 57.378763330432434,
+        "mape": 44.1375102541788
     },
     {
         "forecast_date": "2024-03-06",
-        "actual_sales": 68,
-        "forecasted_sales": 47.65567380765839,
-        "mae": 20.34432619234161,
-        "mape": 29.91812675344355
+        "actual_sales": 136,
+        "forecasted_sales": 104.2972623444203,
+        "mae": 31.702737655579696,
+        "mape": 23.31083651145566
     },
     {
         "forecast_date": "2024-03-07",
-        "actual_sales": 57,
-        "forecasted_sales": 81.72956240478031,
-        "mae": 24.72956240478031,
-        "mape": 43.38519720136896
+        "actual_sales": 119,
+        "forecasted_sales": 148.18681962021893,
+        "mae": 29.186819620218927,
+        "mape": 24.526739176654562
     },
     {
         "forecast_date": "2024-03-08",
-        "actual_sales": 66,
-        "forecasted_sales": 65.47922123028161,
-        "mae": 0.5207787697183903,
-        "mape": 0.7890587419975611
+        "actual_sales": 132,
+        "forecasted_sales": 174.09499839293943,
+        "mae": 42.09499839293943,
+        "mape": 31.890150297681387
     },
     {
         "forecast_date": "2024-03-09",
-        "actual_sales": 68,
-        "forecasted_sales": 80.80454034382403,
-        "mae": 12.80454034382403,
-        "mape": 18.830206387976514
+        "actual_sales": 160,
+        "forecasted_sales": 181.69712847993887,
+        "mae": 21.69712847993887,
+        "mape": 13.560705299961793
     },
     {
         "forecast_date": "2024-03-10",
-        "actual_sales": 62,
-        "forecasted_sales": 74.07409384400384,
-        "mae": 12.07409384400384,
-        "mape": 19.474344909683612
+        "actual_sales": 148,
+        "forecasted_sales": 139.01879194414224,
+        "mae": 8.981208055857763,
+        "mape": 6.068383821525516
     },
     {
         "forecast_date": "2024-03-11",
-        "actual_sales": 62,
-        "forecasted_sales": 60.007942780086125,
-        "mae": 1.9920572199138746,
-        "mape": 3.2129955159901207
+        "actual_sales": 124,
+        "forecasted_sales": 136.3938095916893,
+        "mae": 12.39380959168929,
+        "mape": 9.9950077352333
     },
     {
         "forecast_date": "2024-03-12",
-        "actual_sales": 69,
-        "forecasted_sales": 67.11289851331864,
-        "mae": 1.8871014866813596,
-        "mape": 2.73492969084255
+        "actual_sales": 138,
+        "forecasted_sales": 137.05690637531873,
+        "mae": 0.9430936246812678,
+        "mape": 0.6834011773052665
     },
     {
         "forecast_date": "2024-03-13",
-        "actual_sales": 60,
-        "forecasted_sales": 69.1918239881181,
-        "mae": 9.191823988118102,
-        "mape": 15.319706646863503
+        "actual_sales": 120,
+        "forecasted_sales": 150.408534859307,
+        "mae": 30.408534859306997,
+        "mape": 25.340445716089167
     },
     {
         "forecast_date": "2024-03-14",
-        "actual_sales": 69,
-        "forecasted_sales": 68.47762266940941,
-        "mae": 0.5223773305905866,
-        "mape": 0.7570685950588211
+        "actual_sales": 139,
+        "forecasted_sales": 133.7758754409025,
+        "mae": 5.224124559097504,
+        "mape": 3.758362992156478
     },
     {
         "forecast_date": "2024-03-15",
-        "actual_sales": 44,
-        "forecasted_sales": 70.81062246503569,
-        "mae": 26.810622465035692,
-        "mape": 60.933232875081124
+        "actual_sales": 89,
+        "forecasted_sales": 179.19981033433757,
+        "mae": 90.19981033433757,
+        "mape": 101.3481014992557
     },
     {
         "forecast_date": "2024-03-16",
-        "actual_sales": 71,
-        "forecasted_sales": 55.27254600130851,
-        "mae": 15.727453998691487,
-        "mape": 22.151343660128855
+        "actual_sales": 166,
+        "forecasted_sales": 104.78762632257138,
+        "mae": 61.212373677428616,
+        "mape": 36.87492390206543
     },
     {
         "forecast_date": "2024-03-17",
-        "actual_sales": 67,
-        "forecasted_sales": 60.78806906368156,
-        "mae": 6.2119309363184385,
-        "mape": 9.271538710923043
+        "actual_sales": 157,
+        "forecasted_sales": 102.0063653181555,
+        "mae": 54.9936346818445,
+        "mape": 35.02779279098376
     },
     {
         "forecast_date": "2024-03-18",
-        "actual_sales": 58,
-        "forecasted_sales": 53.17848208394683,
-        "mae": 4.821517916053168,
-        "mape": 8.3129619242296
+        "actual_sales": 116,
+        "forecasted_sales": 117.27731904741015,
+        "mae": 1.2773190474101455,
+        "mape": 1.1011371098363323
     },
     {
         "forecast_date": "2024-03-19",
-        "actual_sales": 61,
-        "forecasted_sales": 59.60999137941469,
-        "mae": 1.3900086205853128,
-        "mape": 2.2787026566972344
+        "actual_sales": 121,
+        "forecasted_sales": 110.21970334130056,
+        "mae": 10.780296658699442,
+        "mape": 8.909336081569787
     },
     {
         "forecast_date": "2024-03-20",
-        "actual_sales": 48,
-        "forecasted_sales": 54.334091001697495,
-        "mae": 6.3340910016974945,
-        "mape": 13.196022920203113
+        "actual_sales": 96,
+        "forecasted_sales": 108.10628735879764,
+        "mae": 12.106287358797644,
+        "mape": 12.610715998747546
     },
     {
         "forecast_date": "2024-03-21",
-        "actual_sales": 59,
-        "forecasted_sales": 48.860333220709364,
-        "mae": 10.139666779290636,
-        "mape": 17.185875897102772
+        "actual_sales": 117,
+        "forecasted_sales": 81.0616872437882,
+        "mae": 35.9383127562118,
+        "mape": 30.716506629240854
     },
     {
         "forecast_date": "2024-03-22",
-        "actual_sales": 62,
-        "forecasted_sales": 48.647996796877315,
-        "mae": 13.352003203122685,
-        "mape": 21.535489037294653
+        "actual_sales": 124,
+        "forecasted_sales": 128.3747041551829,
+        "mae": 4.374704155182911,
+        "mape": 3.527987221921703
     },
     {
         "forecast_date": "2024-03-23",
-        "actual_sales": 75,
-        "forecasted_sales": 64.89447248311227,
-        "mae": 10.105527516887733,
-        "mape": 13.474036689183643
+        "actual_sales": 174,
+        "forecasted_sales": 145.87167313383137,
+        "mae": 28.128326866168635,
+        "mape": 16.165705095499217
     },
     {
         "forecast_date": "2024-03-24",
-        "actual_sales": 63,
-        "forecasted_sales": 72.321001665245,
-        "mae": 9.321001665245007,
-        "mape": 14.795240738484136
+        "actual_sales": 150,
+        "forecasted_sales": 131.0916883800964,
+        "mae": 18.9083116199036,
+        "mape": 12.605541079935733
     },
     {
         "forecast_date": "2024-03-25",
-        "actual_sales": 55,
-        "forecasted_sales": 56.96591724114621,
-        "mae": 1.965917241146208,
-        "mape": 3.574394983902197
+        "actual_sales": 110,
+        "forecasted_sales": 133.12376178365977,
+        "mae": 23.123761783659774,
+        "mape": 21.021601621508886
     },
     {
         "forecast_date": "2024-03-26",
-        "actual_sales": 57,
-        "forecasted_sales": 62.641899239627755,
-        "mae": 5.6418992396277545,
-        "mape": 9.8980688414522
+        "actual_sales": 114,
+        "forecasted_sales": 115.88302226477526,
+        "mae": 1.8830222647752635,
+        "mape": 1.6517739164695293
     },
     {
         "forecast_date": "2024-03-27",
-        "actual_sales": 65,
-        "forecasted_sales": 52.69124855448955,
-        "mae": 12.308751445510453,
-        "mape": 18.936540685400697
+        "actual_sales": 131,
+        "forecasted_sales": 110.7642538126612,
+        "mae": 20.235746187338805,
+        "mape": 15.44713449415176
     },
     {
         "forecast_date": "2024-03-28",
-        "actual_sales": 62,
-        "forecasted_sales": 65.61406168582812,
-        "mae": 3.614061685828119,
-        "mape": 5.829131751335677
+        "actual_sales": 124,
+        "forecasted_sales": 128.31352469099912,
+        "mae": 4.313524690999117,
+        "mape": 3.478648944354126
     },
     {
         "forecast_date": "2024-03-29",
-        "actual_sales": 57,
-        "forecasted_sales": 62.490850943427915,
-        "mae": 5.490850943427915,
-        "mape": 9.63307183057529
+        "actual_sales": 114,
+        "forecasted_sales": 173.59803122557545,
+        "mae": 59.598031225575454,
+        "mape": 52.27897475927672
     },
     {
         "forecast_date": "2024-03-30",
-        "actual_sales": 69,
-        "forecasted_sales": 70.87378551672,
-        "mae": 1.8737855167200053,
-        "mape": 2.7156311836521816
+        "actual_sales": 162,
+        "forecasted_sales": 155.6733355869837,
+        "mae": 6.326664413016289,
+        "mape": 3.9053484030964745
     },
     {
         "forecast_date": "2024-03-31",
-        "actual_sales": 67,
-        "forecasted_sales": 67.52947053463166,
-        "mae": 0.5294705346316562,
-        "mape": 0.7902545293009794
+        "actual_sales": 157,
+        "forecasted_sales": 117.55972058497444,
+        "mae": 39.44027941502556,
+        "mape": 25.12119707963411
     },
     {
         "forecast_date": "2024-04-01",
-        "actual_sales": 66,
-        "forecasted_sales": 59.05993945101746,
-        "mae": 6.940060548982537,
-        "mape": 10.515243256034147
+        "actual_sales": 132,
+        "forecasted_sales": 130.52041054197923,
+        "mae": 1.4795894580207687,
+        "mape": 1.1209011045611883
     },
     {
         "forecast_date": "2024-04-02",
-        "actual_sales": 56,
-        "forecasted_sales": 70.55560350746498,
-        "mae": 14.55560350746498,
-        "mape": 25.99214912047318
+        "actual_sales": 112,
+        "forecasted_sales": 139.78809071352723,
+        "mae": 27.788090713527225,
+        "mape": 24.81079527993502
     },
     {
         "forecast_date": "2024-04-03",
-        "actual_sales": 58,
-        "forecasted_sales": 58.48479526901677,
-        "mae": 0.4847952690167716,
-        "mape": 0.8358539120978821
+        "actual_sales": 116,
+        "forecasted_sales": 119.7049077357807,
+        "mae": 3.7049077357806937,
+        "mape": 3.1938859791212875
     },
     {
         "forecast_date": "2024-04-04",
-        "actual_sales": 58,
-        "forecasted_sales": 60.46186528805202,
-        "mae": 2.4618652880520173,
-        "mape": 4.244595324227616
+        "actual_sales": 115,
+        "forecasted_sales": 113.14433584908232,
+        "mae": 1.8556641509176757,
+        "mape": 1.6136210007979788
     },
     {
         "forecast_date": "2024-04-05",
-        "actual_sales": 51,
-        "forecasted_sales": 55.45415973078549,
-        "mae": 4.454159730785491,
-        "mape": 8.733646530951944
+        "actual_sales": 102,
+        "forecasted_sales": 145.09270427617253,
+        "mae": 43.092704276172526,
+        "mape": 42.24774929036522
     },
     {
         "forecast_date": "2024-04-06",
-        "actual_sales": 68,
-        "forecasted_sales": 58.42784378384662,
-        "mae": 9.572156216153381,
-        "mape": 14.07670031787262
+        "actual_sales": 160,
+        "forecasted_sales": 123.76960962471944,
+        "mae": 36.230390375280564,
+        "mape": 22.643993984550352
     },
     {
         "forecast_date": "2024-04-07",
-        "actual_sales": 68,
-        "forecasted_sales": 61.16927044267001,
-        "mae": 6.830729557329988,
-        "mape": 10.045190525485276
+        "actual_sales": 159,
+        "forecasted_sales": 101.61870011761908,
+        "mae": 57.381299882380915,
+        "mape": 36.08886785055404
     },
     {
         "forecast_date": "2024-04-08",
-        "actual_sales": 60,
-        "forecasted_sales": 56.937935799456845,
-        "mae": 3.062064200543155,
-        "mape": 5.1034403342385914
+        "actual_sales": 120,
+        "forecasted_sales": 125.13533155668608,
+        "mae": 5.135331556686083,
+        "mape": 4.279442963905069
     },
     {
         "forecast_date": "2024-04-09",
-        "actual_sales": 59,
-        "forecasted_sales": 64.49880151394056,
-        "mae": 5.498801513940563,
-        "mape": 9.320002566000955
-    },
-    {
-        "forecast_date": "2024-04-10",
-        "actual_sales": 52,
-        "forecasted_sales": 56.1441814573404,
-        "mae": 4.144181457340402,
-        "mape": 7.969579725654619
-    },
-    {
-        "forecast_date": "2024-04-11",
-        "actual_sales": 57,
-        "forecasted_sales": 57.027538445671944,
-        "mae": 0.027538445671943634,
-        "mape": 0.04831306258235725
-    },
-    {
-        "forecast_date": "2024-04-12",
-        "actual_sales": 58,
-        "forecasted_sales": 53.58745843951193,
-        "mae": 4.412541560488073,
-        "mape": 7.607830276703574
-    },
-    {
-        "forecast_date": "2024-04-13",
-        "actual_sales": 61,
-        "forecasted_sales": 64.49281133270352,
-        "mae": 3.492811332703525,
-        "mape": 5.725920217546762
-    },
-    {
-        "forecast_date": "2024-04-14",
-        "actual_sales": 65,
-        "forecasted_sales": 61.60777857776902,
-        "mae": 3.392221422230982,
-        "mape": 5.218802188047665
-    },
-    {
-        "forecast_date": "2024-04-15",
-        "actual_sales": 62,
-        "forecasted_sales": 53.809057449033226,
-        "mae": 8.190942550966774,
-        "mape": 13.211197662849635
-    },
-    {
-        "forecast_date": "2024-04-16",
-        "actual_sales": 71,
-        "forecasted_sales": 57.67907775665009,
-        "mae": 13.320922243349912,
-        "mape": 18.76186231457734
-    },
-    {
-        "forecast_date": "2024-04-17",
-        "actual_sales": 61,
-        "forecasted_sales": 58.47190559135622,
-        "mae": 2.5280944086437813,
-        "mape": 4.144417063350462
-    },
-    {
-        "forecast_date": "2024-04-18",
-        "actual_sales": 62,
-        "forecasted_sales": 64.86161848353315,
-        "mae": 2.8616184835331495,
-        "mape": 4.6155136831179835
-    },
-    {
-        "forecast_date": "2024-04-19",
-        "actual_sales": 60,
-        "forecasted_sales": 61.907773213889875,
-        "mae": 1.9077732138898753,
-        "mape": 3.1796220231497925
-    },
-    {
-        "forecast_date": "2024-04-20",
-        "actual_sales": 54,
-        "forecasted_sales": 72.22162862009141,
-        "mae": 18.22162862009141,
-        "mape": 33.74375670387298
-    },
-    {
-        "forecast_date": "2024-04-21",
-        "actual_sales": 66,
-        "forecasted_sales": 64.37102521523543,
-        "mae": 1.6289747847645657,
-        "mape": 2.468143613279645
-    },
-    {
-        "forecast_date": "2024-04-22",
-        "actual_sales": 60,
-        "forecasted_sales": 58.13466610939286,
-        "mae": 1.8653338906071397,
-        "mape": 3.108889817678566
-    },
-    {
-        "forecast_date": "2024-04-23",
-        "actual_sales": 75,
-        "forecasted_sales": 61.8605976785702,
-        "mae": 13.139402321429799,
-        "mape": 17.51920309523973
-    },
-    {
-        "forecast_date": "2024-04-24",
-        "actual_sales": 59,
-        "forecasted_sales": 62.66795909143917,
-        "mae": 3.6679590914391724,
-        "mape": 6.216879815998597
-    },
-    {
-        "forecast_date": "2024-04-25",
-        "actual_sales": 62,
-        "forecasted_sales": 65.678255365349,
-        "mae": 3.6782553653490027,
-        "mape": 5.932669944111295
-    },
-    {
-        "forecast_date": "2024-04-26",
-        "actual_sales": 60,
-        "forecasted_sales": 63.50828951744338,
-        "mae": 3.50828951744338,
-        "mape": 5.847149195738967
-    },
-    {
-        "forecast_date": "2024-04-27",
-        "actual_sales": 59,
-        "forecasted_sales": 71.55546050291373,
-        "mae": 12.555460502913732,
-        "mape": 21.280441530362257
-    },
-    {
-        "forecast_date": "2024-04-28",
-        "actual_sales": 73,
-        "forecasted_sales": 64.52359960354924,
-        "mae": 8.476400396450757,
-        "mape": 11.611507392398297
-    },
-    {
-        "forecast_date": "2024-04-29",
-        "actual_sales": 65,
-        "forecasted_sales": 60.18425561672372,
-        "mae": 4.815744383276282,
-        "mape": 7.408837512732743
-    },
-    {
-        "forecast_date": "2024-04-30",
-        "actual_sales": 65,
-        "forecasted_sales": 67.35683739995996,
-        "mae": 2.3568373999599572,
-        "mape": 3.625903692246088
-    },
-    {
-        "forecast_date": "2024-05-01",
-        "actual_sales": 55,
-        "forecasted_sales": 60.13571144560389,
-        "mae": 5.135711445603889,
-        "mape": 9.337657173825251
-    },
-    {
-        "forecast_date": "2024-05-02",
-        "actual_sales": 68,
-        "forecasted_sales": 61.63757751361833,
-        "mae": 6.362422486381668,
-        "mape": 9.35650365644363
-    },
-    {
-        "forecast_date": "2024-05-03",
-        "actual_sales": 52,
-        "forecasted_sales": 61.648506571116265,
-        "mae": 9.648506571116265,
-        "mape": 18.55482032906974
-    },
-    {
-        "forecast_date": "2024-05-04",
-        "actual_sales": 70,
-        "forecasted_sales": 65.37179786018153,
-        "mae": 4.62820213981847,
-        "mape": 6.611717342597815
-    },
-    {
-        "forecast_date": "2024-05-05",
-        "actual_sales": 79,
-        "forecasted_sales": 66.12820779341664,
-        "mae": 12.871792206583365,
-        "mape": 16.293407856434637
-    },
-    {
-        "forecast_date": "2024-05-06",
-        "actual_sales": 54,
-        "forecasted_sales": 63.776819809503955,
-        "mae": 9.776819809503955,
-        "mape": 18.105221869451768
-    },
-    {
-        "forecast_date": "2024-05-07",
-        "actual_sales": 57,
-        "forecasted_sales": 61.71714167592145,
-        "mae": 4.717141675921447,
-        "mape": 8.27568715073938
-    },
-    {
-        "forecast_date": "2024-05-08",
-        "actual_sales": 61,
-        "forecasted_sales": 56.34420345828304,
-        "mae": 4.65579654171696,
-        "mape": 7.632453347076982
-    },
-    {
-        "forecast_date": "2024-05-09",
-        "actual_sales": 57,
-        "forecasted_sales": 58.55471018589469,
-        "mae": 1.5547101858946917,
-        "mape": 2.72756172963981
-    },
-    {
-        "forecast_date": "2024-05-10",
-        "actual_sales": 51,
-        "forecasted_sales": 55.147758418024246,
-        "mae": 4.147758418024246,
-        "mape": 8.132859643184796
-    },
-    {
-        "forecast_date": "2024-05-11",
-        "actual_sales": 66,
-        "forecasted_sales": 60.24185415372543,
-        "mae": 5.758145846274573,
-        "mape": 8.724463403446322
-    },
-    {
-        "forecast_date": "2024-05-12",
-        "actual_sales": 60,
-        "forecasted_sales": 62.05769974129257,
-        "mae": 2.0576997412925735,
-        "mape": 3.429499568820956
-    },
-    {
-        "forecast_date": "2024-05-13",
-        "actual_sales": 63,
-        "forecasted_sales": 51.71886131486504,
-        "mae": 11.281138685134962,
-        "mape": 17.906569341484065
-    },
-    {
-        "forecast_date": "2024-05-14",
-        "actual_sales": 54,
-        "forecasted_sales": 56.377595960669986,
-        "mae": 2.3775959606699857,
-        "mape": 4.402955482722196
-    },
-    {
-        "forecast_date": "2024-05-15",
-        "actual_sales": 69,
-        "forecasted_sales": 50.89322391520101,
-        "mae": 18.106776084798987,
-        "mape": 26.24170447072317
-    },
-    {
-        "forecast_date": "2024-05-16",
-        "actual_sales": 55,
-        "forecasted_sales": 60.309937483550904,
-        "mae": 5.309937483550904,
-        "mape": 9.65443178827437
-    },
-    {
-        "forecast_date": "2024-05-17",
-        "actual_sales": 58,
-        "forecasted_sales": 55.3985103955422,
-        "mae": 2.6014896044577966,
-        "mape": 4.4853269042375805
-    },
-    {
-        "forecast_date": "2024-05-18",
-        "actual_sales": 71,
-        "forecasted_sales": 62.89837364554208,
-        "mae": 8.10162635445792,
-        "mape": 11.41074134430693
-    },
-    {
-        "forecast_date": "2024-05-19",
-        "actual_sales": 59,
-        "forecasted_sales": 65.60535178442409,
-        "mae": 6.605351784424087,
-        "mape": 11.195511499023876
-    },
-    {
-        "forecast_date": "2024-05-20",
-        "actual_sales": 61,
-        "forecasted_sales": 55.19731961033704,
-        "mae": 5.80268038966296,
-        "mape": 9.512590802726164
-    },
-    {
-        "forecast_date": "2024-05-21",
-        "actual_sales": 68,
-        "forecasted_sales": 63.2978359231636,
-        "mae": 4.702164076836397,
-        "mape": 6.9149471718182305
-    },
-    {
-        "forecast_date": "2024-05-22",
-        "actual_sales": 50,
-        "forecasted_sales": 61.9841304695388,
-        "mae": 11.984130469538798,
-        "mape": 23.968260939077595
-    },
-    {
-        "forecast_date": "2024-05-23",
-        "actual_sales": 61,
-        "forecasted_sales": 60.80560250640336,
-        "mae": 0.1943974935966395,
-        "mape": 0.31868441573219586
-    },
-    {
-        "forecast_date": "2024-05-24",
-        "actual_sales": 62,
-        "forecasted_sales": 59.6772492221913,
-        "mae": 2.3227507778087,
-        "mape": 3.746372222272097
-    },
-    {
-        "forecast_date": "2024-05-25",
-        "actual_sales": 71,
-        "forecasted_sales": 69.78037004051231,
-        "mae": 1.2196299594876905,
-        "mape": 1.7177886753347753
-    },
-    {
-        "forecast_date": "2024-05-26",
-        "actual_sales": 59,
-        "forecasted_sales": 72.11438964454332,
-        "mae": 13.114389644543323,
-        "mape": 22.227779058548006
-    },
-    {
-        "forecast_date": "2024-05-27",
-        "actual_sales": 52,
-        "forecasted_sales": 60.467527197351984,
-        "mae": 8.467527197351984,
-        "mape": 16.283706148753815
-    },
-    {
-        "forecast_date": "2024-05-28",
-        "actual_sales": 63,
-        "forecasted_sales": 62.04036466189095,
-        "mae": 0.9596353381090523,
-        "mape": 1.523230695411194
-    },
-    {
-        "forecast_date": "2024-05-29",
-        "actual_sales": 62,
-        "forecasted_sales": 56.90943271585711,
-        "mae": 5.090567284142892,
-        "mape": 8.210592393778859
-    },
-    {
-        "forecast_date": "2024-05-30",
-        "actual_sales": 62,
-        "forecasted_sales": 63.24782724909034,
-        "mae": 1.2478272490903421,
-        "mape": 2.0126245953070034
-    },
-    {
-        "forecast_date": "2024-05-31",
-        "actual_sales": 62,
-        "forecasted_sales": 59.061952706621476,
-        "mae": 2.938047293378524,
-        "mape": 4.738785957062136
-    },
-    {
-        "forecast_date": "2024-06-01",
-        "actual_sales": 59,
-        "forecasted_sales": 67.66187840013124,
-        "mae": 8.661878400131243,
-        "mape": 14.681149830730922
-    },
-    {
-        "forecast_date": "2024-06-02",
-        "actual_sales": 64,
-        "forecasted_sales": 64.04341427000122,
-        "mae": 0.043414270001221666,
-        "mape": 0.06783479687690885
-    },
-    {
-        "forecast_date": "2024-06-03",
-        "actual_sales": 59,
-        "forecasted_sales": 55.07715977703784,
-        "mae": 3.922840222962158,
-        "mape": 6.648881733834166
-    },
-    {
-        "forecast_date": "2024-06-04",
-        "actual_sales": 53,
-        "forecasted_sales": 60.03607500920812,
-        "mae": 7.036075009208119,
-        "mape": 13.27561322492098
-    },
-    {
-        "forecast_date": "2024-06-05",
-        "actual_sales": 68,
-        "forecasted_sales": 52.58792741512492,
-        "mae": 15.412072584875077,
-        "mape": 22.66481262481629
-    },
-    {
-        "forecast_date": "2024-06-06",
-        "actual_sales": 60,
-        "forecasted_sales": 59.206052678701695,
-        "mae": 0.7939473212983046,
-        "mape": 1.3232455354971744
-    },
-    {
-        "forecast_date": "2024-06-07",
-        "actual_sales": 50,
-        "forecasted_sales": 55.75823767698493,
-        "mae": 5.758237676984933,
-        "mape": 11.516475353969867
-    },
-    {
-        "forecast_date": "2024-06-08",
-        "actual_sales": 67,
-        "forecasted_sales": 60.70103944663929,
-        "mae": 6.298960553360708,
-        "mape": 9.4014336617324
-    },
-    {
-        "forecast_date": "2024-06-09",
-        "actual_sales": 57,
-        "forecasted_sales": 61.5284923388325,
-        "mae": 4.5284923388325,
-        "mape": 7.944723401460525
-    },
-    {
-        "forecast_date": "2024-06-10",
-        "actual_sales": 62,
-        "forecasted_sales": 52.317642270023434,
-        "mae": 9.682357729976566,
-        "mape": 15.616706016091236
-    },
-    {
-        "forecast_date": "2024-06-11",
-        "actual_sales": 64,
-        "forecasted_sales": 56.706265797819825,
-        "mae": 7.293734202180175,
-        "mape": 11.396459690906525
-    },
-    {
-        "forecast_date": "2024-06-12",
-        "actual_sales": 52,
-        "forecasted_sales": 56.419618833867936,
-        "mae": 4.419618833867936,
-        "mape": 8.49926698820757
-    },
-    {
-        "forecast_date": "2024-06-13",
-        "actual_sales": 63,
-        "forecasted_sales": 56.66722973892347,
-        "mae": 6.332770261076533,
-        "mape": 10.052016287423069
-    },
-    {
-        "forecast_date": "2024-06-14",
-        "actual_sales": 59,
-        "forecasted_sales": 55.89586881964246,
-        "mae": 3.104131180357541,
-        "mape": 5.261239288741596
-    },
-    {
-        "forecast_date": "2024-06-15",
-        "actual_sales": 68,
-        "forecasted_sales": 63.19382751746425,
-        "mae": 4.80617248253575,
-        "mape": 7.067900709611397
-    },
-    {
-        "forecast_date": "2024-06-16",
-        "actual_sales": 74,
-        "forecasted_sales": 63.57310966709713,
-        "mae": 10.426890332902872,
-        "mape": 14.090392341760637
-    },
-    {
-        "forecast_date": "2024-06-17",
-        "actual_sales": 56,
-        "forecasted_sales": 62.951621391364746,
-        "mae": 6.951621391364746,
-        "mape": 12.413609627437047
-    },
-    {
-        "forecast_date": "2024-06-18",
-        "actual_sales": 52,
-        "forecasted_sales": 63.99945077119716,
-        "mae": 11.99945077119716,
-        "mape": 23.075866867686848
-    },
-    {
-        "forecast_date": "2024-06-19",
-        "actual_sales": 52,
-        "forecasted_sales": 57.36404293363828,
-        "mae": 5.364042933638281,
-        "mape": 10.315467180073618
-    },
-    {
-        "forecast_date": "2024-06-20",
-        "actual_sales": 52,
-        "forecasted_sales": 56.20277227352145,
-        "mae": 4.202772273521447,
-        "mape": 8.08225437215663
-    },
-    {
-        "forecast_date": "2024-06-21",
-        "actual_sales": 57,
-        "forecasted_sales": 53.497280336328494,
-        "mae": 3.502719663671506,
-        "mape": 6.145122216967555
-    },
-    {
-        "forecast_date": "2024-06-22",
-        "actual_sales": 65,
-        "forecasted_sales": 61.33678754049189,
-        "mae": 3.6632124595081095,
-        "mape": 5.635711476166323
-    },
-    {
-        "forecast_date": "2024-06-23",
-        "actual_sales": 64,
-        "forecasted_sales": 61.723672294335096,
-        "mae": 2.2763277056649045,
-        "mape": 3.5567620401014133
-    },
-    {
-        "forecast_date": "2024-06-24",
-        "actual_sales": 62,
-        "forecasted_sales": 54.464724729499835,
-        "mae": 7.535275270500165,
-        "mape": 12.153669791129298
-    },
-    {
-        "forecast_date": "2024-06-25",
-        "actual_sales": 57,
-        "forecasted_sales": 61.566420306034736,
-        "mae": 4.566420306034736,
-        "mape": 8.011263694797782
-    },
-    {
-        "forecast_date": "2024-06-26",
-        "actual_sales": 66,
-        "forecasted_sales": 56.73908938867682,
-        "mae": 9.260910611323183,
-        "mape": 14.031682744429066
-    },
-    {
-        "forecast_date": "2024-06-27",
-        "actual_sales": 55,
-        "forecasted_sales": 63.134208745877544,
-        "mae": 8.134208745877544,
-        "mape": 14.789470447050078
-    },
-    {
-        "forecast_date": "2024-06-28",
-        "actual_sales": 73,
-        "forecasted_sales": 58.8047764991928,
-        "mae": 14.195223500807202,
-        "mape": 19.445511644941373
-    },
-    {
-        "forecast_date": "2024-06-29",
-        "actual_sales": 66,
-        "forecasted_sales": 71.97182673111115,
-        "mae": 5.97182673111115,
-        "mape": 9.04822231986538
-    },
-    {
-        "forecast_date": "2024-06-30",
-        "actual_sales": 58,
-        "forecasted_sales": 70.87183646174958,
-        "mae": 12.87183646174958,
-        "mape": 22.192821485775138
-    },
-    {
-        "forecast_date": "2024-07-01",
-        "actual_sales": 51,
-        "forecasted_sales": 60.046792483506806,
-        "mae": 9.046792483506806,
-        "mape": 17.73880879118982
-    },
-    {
-        "forecast_date": "2024-07-02",
-        "actual_sales": 60,
-        "forecasted_sales": 58.69535409365195,
-        "mae": 1.3046459063480498,
-        "mape": 2.1744098439134163
-    },
-    {
-        "forecast_date": "2024-07-03",
-        "actual_sales": 56,
-        "forecasted_sales": 55.63186571168801,
-        "mae": 0.36813428831199246,
-        "mape": 0.6573826576999865
-    },
-    {
-        "forecast_date": "2024-07-04",
-        "actual_sales": 61,
-        "forecasted_sales": 57.32158646529555,
-        "mae": 3.678413534704447,
-        "mape": 6.030186122466306
-    },
-    {
-        "forecast_date": "2024-07-05",
-        "actual_sales": 60,
-        "forecasted_sales": 57.422495573850725,
-        "mae": 2.577504426149275,
-        "mape": 4.295840710248791
-    },
-    {
-        "forecast_date": "2024-07-06",
-        "actual_sales": 62,
-        "forecasted_sales": 64.08091502374774,
-        "mae": 2.0809150237477354,
-        "mape": 3.3563145544318314
-    },
-    {
-        "forecast_date": "2024-07-07",
-        "actual_sales": 58,
-        "forecasted_sales": 61.576041052703516,
-        "mae": 3.5760410527035162,
-        "mape": 6.1655880219026145
-    },
-    {
-        "forecast_date": "2024-07-08",
-        "actual_sales": 48,
-        "forecasted_sales": 52.90195347223353,
-        "mae": 4.901953472233529,
-        "mape": 10.212403067153186
-    },
-    {
-        "forecast_date": "2024-07-09",
-        "actual_sales": 54,
-        "forecasted_sales": 53.53708134782352,
-        "mae": 0.46291865217647654,
-        "mape": 0.8572567632897713
-    },
-    {
-        "forecast_date": "2024-07-10",
-        "actual_sales": 62,
-        "forecasted_sales": 49.5173730760458,
-        "mae": 12.4826269239542,
-        "mape": 20.133269232184194
-    },
-    {
-        "forecast_date": "2024-07-11",
-        "actual_sales": 58,
-        "forecasted_sales": 54.111736634487904,
-        "mae": 3.8882633655120955,
-        "mape": 6.703902354331199
-    },
-    {
-        "forecast_date": "2024-07-12",
-        "actual_sales": 50,
-        "forecasted_sales": 51.59830297591544,
-        "mae": 1.5983029759154377,
-        "mape": 3.1966059518308754
-    },
-    {
-        "forecast_date": "2024-07-13",
-        "actual_sales": 64,
-        "forecasted_sales": 57.770926486538016,
-        "mae": 6.229073513461984,
-        "mape": 9.732927364784349
-    },
-    {
-        "forecast_date": "2024-07-14",
-        "actual_sales": 65,
-        "forecasted_sales": 57.27242462474511,
-        "mae": 7.727575375254887,
-        "mape": 11.888577500392133
-    },
-    {
-        "forecast_date": "2024-07-15",
-        "actual_sales": 52,
-        "forecasted_sales": 52.533297277877324,
-        "mae": 0.533297277877324,
-        "mape": 1.025571688225623
-    },
-    {
-        "forecast_date": "2024-07-16",
-        "actual_sales": 58,
-        "forecasted_sales": 55.10493028800893,
-        "mae": 2.89506971199107,
-        "mape": 4.9914995034328795
-    },
-    {
-        "forecast_date": "2024-07-17",
-        "actual_sales": 57,
-        "forecasted_sales": 51.828717203401226,
-        "mae": 5.171282796598774,
-        "mape": 9.072425958945217
-    },
-    {
-        "forecast_date": "2024-07-18",
-        "actual_sales": 50,
-        "forecasted_sales": 54.77810872604507,
-        "mae": 4.778108726045069,
-        "mape": 9.556217452090138
-    },
-    {
-        "forecast_date": "2024-07-19",
-        "actual_sales": 59,
-        "forecasted_sales": 51.01406845734217,
-        "mae": 7.985931542657831,
-        "mape": 13.535477190945475
-    },
-    {
-        "forecast_date": "2024-07-20",
-        "actual_sales": 66,
-        "forecasted_sales": 60.78849830264555,
-        "mae": 5.21150169735445,
-        "mape": 7.896214692961288
-    },
-    {
-        "forecast_date": "2024-07-21",
-        "actual_sales": 69,
-        "forecasted_sales": 62.12498131130471,
-        "mae": 6.875018688695292,
-        "mape": 9.963795201007668
-    },
-    {
-        "forecast_date": "2024-07-22",
-        "actual_sales": 63,
-        "forecasted_sales": 58.567339876826914,
-        "mae": 4.432660123173086,
-        "mape": 7.035968449481089
-    },
-    {
-        "forecast_date": "2024-07-23",
-        "actual_sales": 49,
-        "forecasted_sales": 65.71897423498515,
-        "mae": 16.718974234985154,
-        "mape": 34.120355581602354
-    },
-    {
-        "forecast_date": "2024-07-24",
-        "actual_sales": 51,
-        "forecasted_sales": 57.79083763423415,
-        "mae": 6.790837634234151,
-        "mape": 13.315367910263042
-    },
-    {
-        "forecast_date": "2024-07-25",
-        "actual_sales": 60,
-        "forecasted_sales": 57.26329728768148,
-        "mae": 2.736702712318518,
-        "mape": 4.56117118719753
-    },
-    {
-        "forecast_date": "2024-07-26",
-        "actual_sales": 60,
-        "forecasted_sales": 57.830777009585084,
-        "mae": 2.169222990414916,
-        "mape": 3.615371650691526
-    },
-    {
-        "forecast_date": "2024-07-27",
-        "actual_sales": 66,
-        "forecasted_sales": 67.09318070236856,
-        "mae": 1.0931807023685565,
-        "mape": 1.656334397528116
-    },
-    {
-        "forecast_date": "2024-07-28",
-        "actual_sales": 86,
-        "forecasted_sales": 66.26374723591553,
-        "mae": 19.73625276408447,
-        "mape": 22.94913112102845
-    },
-    {
-        "forecast_date": "2024-07-29",
-        "actual_sales": 60,
-        "forecasted_sales": 65.35049791203839,
-        "mae": 5.350497912038392,
-        "mape": 8.917496520063988
-    },
-    {
-        "forecast_date": "2024-07-30",
-        "actual_sales": 64,
-        "forecasted_sales": 68.96334409395716,
-        "mae": 4.963344093957161,
-        "mape": 7.755225146808065
-    },
-    {
-        "forecast_date": "2024-07-31",
-        "actual_sales": 63,
-        "forecasted_sales": 66.64521243993303,
-        "mae": 3.645212439933033,
-        "mape": 5.7860514919571955
-    },
-    {
-        "forecast_date": "2024-08-01",
-        "actual_sales": 61,
-        "forecasted_sales": 69.23914380542176,
-        "mae": 8.239143805421762,
-        "mape": 13.506793123642233
-    },
-    {
-        "forecast_date": "2024-08-02",
-        "actual_sales": 55,
-        "forecasted_sales": 65.11445809617145,
-        "mae": 10.114458096171447,
-        "mape": 18.38992381122081
-    },
-    {
-        "forecast_date": "2024-08-03",
-        "actual_sales": 67,
-        "forecasted_sales": 70.71428166867423,
-        "mae": 3.714281668674232,
-        "mape": 5.543703983095869
-    },
-    {
-        "forecast_date": "2024-08-04",
-        "actual_sales": 58,
-        "forecasted_sales": 69.44168860476567,
-        "mae": 11.441688604765673,
-        "mape": 19.727049318561505
-    },
-    {
-        "forecast_date": "2024-08-05",
-        "actual_sales": 56,
-        "forecasted_sales": 57.70201346462422,
-        "mae": 1.7020134646242226,
-        "mape": 3.0393097582575406
-    },
-    {
-        "forecast_date": "2024-08-06",
-        "actual_sales": 54,
-        "forecasted_sales": 59.60452727739207,
-        "mae": 5.604527277392073,
-        "mape": 10.378754217392727
-    },
-    {
-        "forecast_date": "2024-08-07",
-        "actual_sales": 57,
-        "forecasted_sales": 53.55571674327454,
-        "mae": 3.4442832567254626,
-        "mape": 6.042602204781514
-    },
-    {
-        "forecast_date": "2024-08-08",
-        "actual_sales": 71,
-        "forecasted_sales": 54.33268417165813,
-        "mae": 16.66731582834187,
-        "mape": 23.475092715974466
-    },
-    {
-        "forecast_date": "2024-08-09",
-        "actual_sales": 46,
-        "forecasted_sales": 56.282128960061875,
-        "mae": 10.282128960061875,
-        "mape": 22.352454261004077
-    },
-    {
-        "forecast_date": "2024-08-10",
-        "actual_sales": 67,
-        "forecasted_sales": 60.29440704570996,
-        "mae": 6.70559295429004,
-        "mape": 10.00834769297021
-    },
-    {
-        "forecast_date": "2024-08-11",
-        "actual_sales": 53,
-        "forecasted_sales": 59.5046516672436,
-        "mae": 6.5046516672436,
-        "mape": 12.272927674044528
-    },
-    {
-        "forecast_date": "2024-08-12",
-        "actual_sales": 54,
-        "forecasted_sales": 49.13356989023463,
-        "mae": 4.866430109765368,
-        "mape": 9.011907610676607
-    },
-    {
-        "forecast_date": "2024-08-13",
-        "actual_sales": 64,
-        "forecasted_sales": 51.68775907354816,
-        "mae": 12.312240926451842,
-        "mape": 19.237876447581005
-    },
-    {
-        "forecast_date": "2024-08-14",
-        "actual_sales": 57,
-        "forecasted_sales": 50.76003268783464,
-        "mae": 6.239967312165362,
-        "mape": 10.94731107397432
-    },
-    {
-        "forecast_date": "2024-08-15",
-        "actual_sales": 51,
-        "forecasted_sales": 54.37904353133339,
-        "mae": 3.3790435313333873,
-        "mape": 6.625575551634093
-    },
-    {
-        "forecast_date": "2024-08-16",
-        "actual_sales": 53,
-        "forecasted_sales": 49.73853272106659,
-        "mae": 3.2614672789334094,
-        "mape": 6.1537118470441685
-    },
-    {
-        "forecast_date": "2024-08-17",
-        "actual_sales": 67,
-        "forecasted_sales": 58.25479037825911,
-        "mae": 8.74520962174089,
-        "mape": 13.052551674240135
-    },
-    {
-        "forecast_date": "2024-08-18",
-        "actual_sales": 58,
-        "forecasted_sales": 58.256692732753734,
-        "mae": 0.2566927327537343,
-        "mape": 0.44257367716161083
-    },
-    {
-        "forecast_date": "2024-08-19",
-        "actual_sales": 58,
-        "forecasted_sales": 51.57848746327046,
-        "mae": 6.421512536729537,
-        "mape": 11.071573339188857
-    },
-    {
-        "forecast_date": "2024-08-20",
-        "actual_sales": 57,
-        "forecasted_sales": 54.99155341969496,
-        "mae": 2.0084465803050406,
-        "mape": 3.5235904917632297
-    },
-    {
-        "forecast_date": "2024-08-21",
-        "actual_sales": 53,
-        "forecasted_sales": 54.37633156222476,
-        "mae": 1.3763315622247632,
-        "mape": 2.5968520041976664
-    },
-    {
-        "forecast_date": "2024-08-22",
-        "actual_sales": 70,
-        "forecasted_sales": 57.16863116563597,
-        "mae": 12.831368834364028,
-        "mape": 18.330526906234326
-    },
-    {
-        "forecast_date": "2024-08-23",
-        "actual_sales": 61,
-        "forecasted_sales": 60.696634238443366,
-        "mae": 0.3033657615566341,
-        "mape": 0.49732092058464605
-    },
-    {
-        "forecast_date": "2024-08-24",
-        "actual_sales": 51,
-        "forecasted_sales": 69.74513488902411,
-        "mae": 18.745134889024115,
-        "mape": 36.75516644906689
-    },
-    {
-        "forecast_date": "2024-08-25",
-        "actual_sales": 64,
-        "forecasted_sales": 64.33531094770643,
-        "mae": 0.3353109477064322,
-        "mape": 0.5239233557913003
-    },
-    {
-        "forecast_date": "2024-08-26",
-        "actual_sales": 53,
-        "forecasted_sales": 58.43944747448612,
-        "mae": 5.439447474486123,
-        "mape": 10.263108442426647
-    },
-    {
-        "forecast_date": "2024-08-27",
-        "actual_sales": 62,
-        "forecasted_sales": 59.176006074572314,
-        "mae": 2.8239939254276862,
-        "mape": 4.554828911980139
-    },
-    {
-        "forecast_date": "2024-08-28",
-        "actual_sales": 52,
-        "forecasted_sales": 58.964155801242434,
-        "mae": 6.964155801242434,
-        "mape": 13.392607310081603
-    },
-    {
-        "forecast_date": "2024-08-29",
-        "actual_sales": 56,
-        "forecasted_sales": 58.93733132852156,
-        "mae": 2.9373313285215588,
-        "mape": 5.245234515217069
-    },
-    {
-        "forecast_date": "2024-08-30",
-        "actual_sales": 60,
-        "forecasted_sales": 56.674251026870074,
-        "mae": 3.325748973129926,
-        "mape": 5.542914955216543
-    },
-    {
-        "forecast_date": "2024-08-31",
-        "actual_sales": 68,
-        "forecasted_sales": 65.29597942785355,
-        "mae": 2.7040205721464474,
-        "mape": 3.976500841391834
-    },
-    {
-        "forecast_date": "2024-09-01",
-        "actual_sales": 59,
-        "forecasted_sales": 66.47776065498815,
-        "mae": 7.4777606549881455,
-        "mape": 12.674170601674822
-    },
-    {
-        "forecast_date": "2024-09-02",
-        "actual_sales": 58,
-        "forecasted_sales": 57.38073506331807,
-        "mae": 0.6192649366819296,
-        "mape": 1.0676981666929821
-    },
-    {
-        "forecast_date": "2024-09-03",
-        "actual_sales": 57,
-        "forecasted_sales": 60.167790733348895,
-        "mae": 3.1677907333488946,
-        "mape": 5.557527602366482
-    },
-    {
-        "forecast_date": "2024-09-04",
-        "actual_sales": 56,
-        "forecasted_sales": 56.515863605127244,
-        "mae": 0.5158636051272438,
-        "mape": 0.9211850091557925
-    },
-    {
-        "forecast_date": "2024-09-05",
-        "actual_sales": 71,
-        "forecasted_sales": 58.224040441249485,
-        "mae": 12.775959558750515,
-        "mape": 17.99430923767678
-    },
-    {
-        "forecast_date": "2024-09-06",
-        "actual_sales": 62,
-        "forecasted_sales": 61.34825865473761,
-        "mae": 0.651741345262387,
-        "mape": 1.0511957181651403
-    },
-    {
-        "forecast_date": "2024-09-07",
-        "actual_sales": 58,
-        "forecasted_sales": 70.10681234273757,
-        "mae": 12.10681234273757,
-        "mape": 20.873814384030293
-    },
-    {
-        "forecast_date": "2024-09-08",
-        "actual_sales": 72,
-        "forecasted_sales": 64.3399007224382,
-        "mae": 7.660099277561798,
-        "mape": 10.639026774391386
-    },
-    {
-        "forecast_date": "2024-09-09",
-        "actual_sales": 73,
-        "forecasted_sales": 60.42595676799196,
-        "mae": 12.574043232008037,
-        "mape": 17.224716756175393
-    },
-    {
-        "forecast_date": "2024-09-10",
-        "actual_sales": 66,
-        "forecasted_sales": 66.45912632417712,
-        "mae": 0.4591263241771202,
-        "mape": 0.6956459457229094
-    },
-    {
-        "forecast_date": "2024-09-11",
-        "actual_sales": 51,
-        "forecasted_sales": 63.62945767253414,
-        "mae": 12.629457672534137,
-        "mape": 24.763642495164977
-    },
-    {
-        "forecast_date": "2024-09-12",
-        "actual_sales": 57,
-        "forecasted_sales": 63.51852110604881,
-        "mae": 6.518521106048809,
-        "mape": 11.436001940436507
-    },
-    {
-        "forecast_date": "2024-09-13",
-        "actual_sales": 68,
-        "forecasted_sales": 57.95619222475283,
-        "mae": 10.043807775247167,
-        "mape": 14.77030555183407
-    },
-    {
-        "forecast_date": "2024-09-14",
-        "actual_sales": 62,
-        "forecasted_sales": 69.1102848422906,
-        "mae": 7.110284842290596,
-        "mape": 11.46820135853322
-    },
-    {
-        "forecast_date": "2024-09-15",
-        "actual_sales": 69,
-        "forecasted_sales": 64.7846655373687,
-        "mae": 4.215334462631304,
-        "mape": 6.109180380625078
-    },
-    {
-        "forecast_date": "2024-09-16",
-        "actual_sales": 65,
-        "forecasted_sales": 60.29343628254657,
-        "mae": 4.706563717453427,
-        "mape": 7.240867257620658
-    },
-    {
-        "forecast_date": "2024-09-17",
-        "actual_sales": 54,
-        "forecasted_sales": 61.71357611736452,
-        "mae": 7.713576117364518,
-        "mape": 14.2844002173417
-    },
-    {
-        "forecast_date": "2024-09-18",
-        "actual_sales": 60,
-        "forecasted_sales": 55.62971941623163,
-        "mae": 4.37028058376837,
-        "mape": 7.283800972947282
-    },
-    {
-        "forecast_date": "2024-09-19",
-        "actual_sales": 41,
-        "forecasted_sales": 58.51954999640395,
-        "mae": 17.519549996403953,
-        "mape": 42.73060974732672
-    },
-    {
-        "forecast_date": "2024-09-20",
-        "actual_sales": 54,
-        "forecasted_sales": 51.18870116169084,
-        "mae": 2.8112988383091633,
-        "mape": 5.206108959831783
-    },
-    {
-        "forecast_date": "2024-09-21",
-        "actual_sales": 64,
-        "forecasted_sales": 55.42913588722002,
-        "mae": 8.57086411277998,
-        "mape": 13.391975176218718
-    },
-    {
-        "forecast_date": "2024-09-22",
-        "actual_sales": 59,
-        "forecasted_sales": 56.03849124334496,
-        "mae": 2.961508756655043,
-        "mape": 5.019506367211937
-    },
-    {
-        "forecast_date": "2024-09-23",
-        "actual_sales": 70,
-        "forecasted_sales": 49.30123627241636,
-        "mae": 20.69876372758364,
-        "mape": 29.569662467976627
-    },
-    {
-        "forecast_date": "2024-09-24",
-        "actual_sales": 51,
-        "forecasted_sales": 57.709595999426234,
-        "mae": 6.709595999426234,
-        "mape": 13.156070587110264
-    },
-    {
-        "forecast_date": "2024-09-25",
-        "actual_sales": 57,
-        "forecasted_sales": 52.48085985262934,
-        "mae": 4.519140147370663,
-        "mape": 7.928316048018708
-    },
-    {
-        "forecast_date": "2024-09-26",
-        "actual_sales": 61,
-        "forecasted_sales": 54.32809367443999,
-        "mae": 6.671906325560009,
-        "mape": 10.937551353377065
-    },
-    {
-        "forecast_date": "2024-09-27",
-        "actual_sales": 69,
-        "forecasted_sales": 55.164222942077956,
-        "mae": 13.835777057922044,
-        "mape": 20.05185080858267
-    },
-    {
-        "forecast_date": "2024-09-28",
-        "actual_sales": 57,
-        "forecasted_sales": 68.77485770904619,
-        "mae": 11.774857709046188,
-        "mape": 20.657645103589804
-    },
-    {
-        "forecast_date": "2024-09-29",
-        "actual_sales": 73,
-        "forecasted_sales": 64.81066826676053,
-        "mae": 8.18933173323947,
-        "mape": 11.218262648273248
-    },
-    {
-        "forecast_date": "2024-09-30",
-        "actual_sales": 60,
-        "forecasted_sales": 62.7188587729907,
-        "mae": 2.7188587729907,
-        "mape": 4.531431288317833
-    },
-    {
-        "forecast_date": "2024-10-01",
-        "actual_sales": 54,
-        "forecasted_sales": 63.635047311798694,
-        "mae": 9.635047311798694,
-        "mape": 17.84268020703462
-    },
-    {
-        "forecast_date": "2024-10-02",
-        "actual_sales": 63,
-        "forecasted_sales": 59.79901589321196,
-        "mae": 3.2009841067880416,
-        "mape": 5.080927153631812
-    },
-    {
-        "forecast_date": "2024-10-03",
-        "actual_sales": 61,
-        "forecasted_sales": 63.671222837803235,
-        "mae": 2.671222837803235,
-        "mape": 4.37905383246432
-    },
-    {
-        "forecast_date": "2024-10-04",
-        "actual_sales": 56,
-        "forecasted_sales": 62.59802836229636,
-        "mae": 6.598028362296361,
-        "mape": 11.782193504100645
-    },
-    {
-        "forecast_date": "2024-10-05",
-        "actual_sales": 66,
-        "forecasted_sales": 65.30882928122395,
-        "mae": 0.6911707187760499,
-        "mape": 1.0472283617818938
-    },
-    {
-        "forecast_date": "2024-10-06",
-        "actual_sales": 64,
-        "forecasted_sales": 67.56350105973263,
-        "mae": 3.56350105973263,
-        "mape": 5.567970405832234
-    },
-    {
-        "forecast_date": "2024-10-07",
-        "actual_sales": 61,
-        "forecasted_sales": 61.27795735796703,
-        "mae": 0.2779573579670327,
-        "mape": 0.4556677999459553
-    },
-    {
-        "forecast_date": "2024-10-08",
-        "actual_sales": 64,
-        "forecasted_sales": 64.14562240007305,
-        "mae": 0.1456224000730515,
-        "mape": 0.22753500011414296
-    },
-    {
-        "forecast_date": "2024-10-09",
-        "actual_sales": 70,
-        "forecasted_sales": 60.80443062778202,
-        "mae": 9.195569372217982,
-        "mape": 13.136527674597117
-    },
-    {
-        "forecast_date": "2024-10-10",
-        "actual_sales": 53,
-        "forecasted_sales": 67.2266629064237,
-        "mae": 14.226662906423698,
-        "mape": 26.842760200799432
-    },
-    {
-        "forecast_date": "2024-10-11",
-        "actual_sales": 73,
-        "forecasted_sales": 62.247053761526786,
-        "mae": 10.752946238473214,
-        "mape": 14.730063340374267
-    },
-    {
-        "forecast_date": "2024-10-12",
-        "actual_sales": 54,
-        "forecasted_sales": 71.30358693675045,
-        "mae": 17.30358693675045,
-        "mape": 32.04367951250083
-    },
-    {
-        "forecast_date": "2024-10-13",
-        "actual_sales": 65,
-        "forecasted_sales": 65.80237730679147,
-        "mae": 0.8023773067914703,
-        "mape": 1.2344266258330314
-    },
-    {
-        "forecast_date": "2024-10-14",
-        "actual_sales": 64,
-        "forecasted_sales": 58.354202178177026,
-        "mae": 5.645797821822974,
-        "mape": 8.821559096598397
-    },
-    {
-        "forecast_date": "2024-10-15",
-        "actual_sales": 62,
-        "forecasted_sales": 61.24289761384698,
-        "mae": 0.7571023861530222,
-        "mape": 1.2211328808919713
-    },
-    {
-        "forecast_date": "2024-10-16",
-        "actual_sales": 56,
-        "forecasted_sales": 59.20518315108614,
-        "mae": 3.205183151086139,
-        "mape": 5.723541341225248
-    },
-    {
-        "forecast_date": "2024-10-17",
-        "actual_sales": 59,
-        "forecasted_sales": 58.93739604536773,
-        "mae": 0.06260395463227297,
-        "mape": 0.1061083976818186
-    },
-    {
-        "forecast_date": "2024-10-18",
-        "actual_sales": 57,
-        "forecasted_sales": 56.39065477997649,
-        "mae": 0.6093452200235134,
-        "mape": 1.0690267017956376
-    },
-    {
-        "forecast_date": "2024-10-19",
-        "actual_sales": 62,
-        "forecasted_sales": 61.0549379618005,
-        "mae": 0.9450620381995023,
-        "mape": 1.5242936099991973
-    },
-    {
-        "forecast_date": "2024-10-20",
-        "actual_sales": 71,
-        "forecasted_sales": 59.70018404471028,
-        "mae": 11.299815955289723,
-        "mape": 15.91523373984468
-    },
-    {
-        "forecast_date": "2024-10-21",
-        "actual_sales": 62,
-        "forecasted_sales": 55.00671229926394,
-        "mae": 6.993287700736062,
-        "mape": 11.279496291509778
-    },
-    {
-        "forecast_date": "2024-10-22",
-        "actual_sales": 56,
-        "forecasted_sales": 59.551355248815625,
-        "mae": 3.551355248815625,
-        "mape": 6.341705801456474
-    },
-    {
-        "forecast_date": "2024-10-23",
-        "actual_sales": 65,
-        "forecasted_sales": 54.786351214856005,
-        "mae": 10.213648785143995,
-        "mape": 15.713305823298453
-    },
-    {
-        "forecast_date": "2024-10-24",
-        "actual_sales": 62,
-        "forecasted_sales": 58.453443422229064,
-        "mae": 3.546556577770936,
-        "mape": 5.7202525447918315
-    },
-    {
-        "forecast_date": "2024-10-25",
-        "actual_sales": 65,
-        "forecasted_sales": 57.20336215025045,
-        "mae": 7.796637849749551,
-        "mape": 11.994827461153156
-    },
-    {
-        "forecast_date": "2024-10-26",
-        "actual_sales": 70,
-        "forecasted_sales": 65.87521909024946,
-        "mae": 4.124780909750541,
-        "mape": 5.892544156786487
-    },
-    {
-        "forecast_date": "2024-10-27",
-        "actual_sales": 61,
-        "forecasted_sales": 67.0993975282857,
-        "mae": 6.0993975282857065,
-        "mape": 9.999012341451978
-    },
-    {
-        "forecast_date": "2024-10-28",
-        "actual_sales": 57,
-        "forecasted_sales": 59.233464517654504,
-        "mae": 2.233464517654504,
-        "mape": 3.918358802902638
-    },
-    {
-        "forecast_date": "2024-10-29",
-        "actual_sales": 64,
-        "forecasted_sales": 59.20549706333339,
-        "mae": 4.7945029366666105,
-        "mape": 7.491410838541579
-    },
-    {
-        "forecast_date": "2024-10-30",
-        "actual_sales": 64,
-        "forecasted_sales": 58.93195263801917,
-        "mae": 5.068047361980831,
-        "mape": 7.9188240030950485
-    },
-    {
-        "forecast_date": "2024-10-31",
-        "actual_sales": 60,
-        "forecasted_sales": 62.679661838613846,
-        "mae": 2.679661838613846,
-        "mape": 4.46610306435641
-    },
-    {
-        "forecast_date": "2024-11-01",
-        "actual_sales": 61,
-        "forecasted_sales": 60.779489784968,
-        "mae": 0.2205102150320002,
-        "mape": 0.36149215579016425
-    },
-    {
-        "forecast_date": "2024-11-02",
-        "actual_sales": 74,
-        "forecasted_sales": 68.26959108909766,
-        "mae": 5.730408910902341,
-        "mape": 7.743795825543703
-    },
-    {
-        "forecast_date": "2024-11-03",
-        "actual_sales": 62,
-        "forecasted_sales": 69.93607991199545,
-        "mae": 7.936079911995449,
-        "mape": 12.800128890315241
-    },
-    {
-        "forecast_date": "2024-11-04",
-        "actual_sales": 63,
-        "forecasted_sales": 63.26953016860653,
-        "mae": 0.26953016860652923,
-        "mape": 0.4278256644548083
-    },
-    {
-        "forecast_date": "2024-11-05",
-        "actual_sales": 59,
-        "forecasted_sales": 64.13308024650229,
-        "mae": 5.1330802465022884,
-        "mape": 8.700136011020827
-    },
-    {
-        "forecast_date": "2024-11-06",
-        "actual_sales": 59,
-        "forecasted_sales": 61.502269643168354,
-        "mae": 2.502269643168354,
-        "mape": 4.2411349884209395
-    },
-    {
-        "forecast_date": "2024-11-07",
-        "actual_sales": 67,
-        "forecasted_sales": 63.77005331732228,
-        "mae": 3.2299466826777206,
-        "mape": 4.820815944295105
-    },
-    {
-        "forecast_date": "2024-11-08",
-        "actual_sales": 65,
-        "forecasted_sales": 62.8013967589464,
-        "mae": 2.198603241053597,
-        "mape": 3.3824665246978416
-    },
-    {
-        "forecast_date": "2024-11-09",
-        "actual_sales": 71,
-        "forecasted_sales": 68.76974631898048,
-        "mae": 2.2302536810195193,
-        "mape": 3.141202367633126
-    },
-    {
-        "forecast_date": "2024-11-10",
-        "actual_sales": 74,
-        "forecasted_sales": 69.8240056886395,
-        "mae": 4.175994311360498,
-        "mape": 5.643235555892565
-    },
-    {
-        "forecast_date": "2024-11-11",
-        "actual_sales": 60,
-        "forecasted_sales": 66.94326505844451,
-        "mae": 6.94326505844451,
-        "mape": 11.572108430740851
-    },
-    {
-        "forecast_date": "2024-11-12",
-        "actual_sales": 64,
-        "forecasted_sales": 65.78023276160616,
-        "mae": 1.7802327616061575,
-        "mape": 2.781613690009621
-    },
-    {
-        "forecast_date": "2024-11-13",
-        "actual_sales": 58,
-        "forecasted_sales": 63.77521719700873,
-        "mae": 5.775217197008729,
-        "mape": 9.957271029325394
-    },
-    {
-        "forecast_date": "2024-11-14",
-        "actual_sales": 62,
-        "forecasted_sales": 65.0109564899863,
-        "mae": 3.010956489986299,
-        "mape": 4.856381435461772
-    },
-    {
-        "forecast_date": "2024-11-15",
-        "actual_sales": 59,
-        "forecasted_sales": 62.61785567399613,
-        "mae": 3.6178556739961323,
-        "mape": 6.13195876948497
-    },
-    {
-        "forecast_date": "2024-11-16",
-        "actual_sales": 67,
-        "forecasted_sales": 66.7516340547631,
-        "mae": 0.24836594523689826,
-        "mape": 0.370695440652087
-    },
-    {
-        "forecast_date": "2024-11-17",
-        "actual_sales": 70,
-        "forecasted_sales": 66.03159409767298,
-        "mae": 3.968405902327021,
-        "mape": 5.669151289038601
-    },
-    {
-        "forecast_date": "2024-11-18",
-        "actual_sales": 55,
-        "forecasted_sales": 60.69956292230662,
-        "mae": 5.699562922306619,
-        "mape": 10.362841676921125
-    },
-    {
-        "forecast_date": "2024-11-19",
-        "actual_sales": 73,
-        "forecasted_sales": 59.66558584008731,
-        "mae": 13.33441415991269,
-        "mape": 18.266320767003684
-    },
-    {
-        "forecast_date": "2024-11-20",
-        "actual_sales": 54,
-        "forecasted_sales": 62.288511912633396,
-        "mae": 8.288511912633396,
-        "mape": 15.34909613450629
-    },
-    {
-        "forecast_date": "2024-11-21",
-        "actual_sales": 53,
-        "forecasted_sales": 60.488844603773195,
-        "mae": 7.488844603773195,
-        "mape": 14.12989547881735
-    },
-    {
-        "forecast_date": "2024-11-22",
-        "actual_sales": 67,
-        "forecasted_sales": 57.04417583696474,
-        "mae": 9.95582416303526,
-        "mape": 14.859439049306358
-    },
-    {
-        "forecast_date": "2024-11-23",
-        "actual_sales": 106,
-        "forecasted_sales": 66.01115400879618,
-        "mae": 39.98884599120382,
-        "mape": 37.72532640679606
-    },
-    {
-        "forecast_date": "2024-11-24",
-        "actual_sales": 70,
-        "forecasted_sales": 77.82185581309729,
-        "mae": 7.821855813097287,
-        "mape": 11.174079732996125
-    },
-    {
-        "forecast_date": "2024-11-25",
-        "actual_sales": 64,
-        "forecasted_sales": 68.29680879880975,
-        "mae": 4.296808798809749,
-        "mape": 6.7137637481402335
-    },
-    {
-        "forecast_date": "2024-11-26",
-        "actual_sales": 60,
-        "forecasted_sales": 69.37006198928736,
-        "mae": 9.370061989287365,
-        "mape": 15.616769982145609
-    },
-    {
-        "forecast_date": "2024-11-27",
-        "actual_sales": 55,
-        "forecasted_sales": 64.84556609230307,
-        "mae": 9.845566092303073,
-        "mape": 17.901029258732862
-    },
-    {
-        "forecast_date": "2024-11-28",
-        "actual_sales": 60,
-        "forecasted_sales": 63.72382591948011,
-        "mae": 3.723825919480113,
-        "mape": 6.206376532466855
-    },
-    {
-        "forecast_date": "2024-11-29",
-        "actual_sales": 56,
-        "forecasted_sales": 61.75536042997334,
-        "mae": 5.7553604299733365,
-        "mape": 10.2774293392381
-    },
-    {
-        "forecast_date": "2024-11-30",
-        "actual_sales": 72,
-        "forecasted_sales": 66.62215018028344,
-        "mae": 5.377849819716559,
-        "mape": 7.469235860717443
-    },
-    {
-        "forecast_date": "2024-12-01",
-        "actual_sales": 68,
-        "forecasted_sales": 66.72625670268717,
-        "mae": 1.2737432973128335,
-        "mape": 1.8731519078129903
-    },
-    {
-        "forecast_date": "2024-12-02",
-        "actual_sales": 58,
-        "forecasted_sales": 60.887404149321796,
-        "mae": 2.887404149321796,
-        "mape": 4.978283016072062
-    },
-    {
-        "forecast_date": "2024-12-03",
-        "actual_sales": 61,
-        "forecasted_sales": 60.08660235327065,
-        "mae": 0.9133976467293508,
-        "mape": 1.4973731913595916
-    },
-    {
-        "forecast_date": "2024-12-04",
-        "actual_sales": 65,
-        "forecasted_sales": 58.38146565487086,
-        "mae": 6.618534345129142,
-        "mape": 10.18236053096791
-    },
-    {
-        "forecast_date": "2024-12-05",
-        "actual_sales": 60,
-        "forecasted_sales": 60.514008270935356,
-        "mae": 0.5140082709353564,
-        "mape": 0.8566804515589274
-    },
-    {
-        "forecast_date": "2024-12-06",
-        "actual_sales": 58,
-        "forecasted_sales": 59.17895741011494,
-        "mae": 1.1789574101149398,
-        "mape": 2.0326851898533445
-    },
-    {
-        "forecast_date": "2024-12-07",
-        "actual_sales": 71,
-        "forecasted_sales": 65.78391578693045,
-        "mae": 5.21608421306955,
-        "mape": 7.346597483196549
-    },
-    {
-        "forecast_date": "2024-12-08",
-        "actual_sales": 71,
-        "forecasted_sales": 65.86185872466059,
-        "mae": 5.138141275339407,
-        "mape": 7.236818697661137
-    },
-    {
-        "forecast_date": "2024-12-09",
-        "actual_sales": 60,
-        "forecasted_sales": 61.10315016221043,
-        "mae": 1.103150162210433,
-        "mape": 1.838583603684055
-    },
-    {
-        "forecast_date": "2024-12-10",
-        "actual_sales": 60,
-        "forecasted_sales": 61.34748429647649,
-        "mae": 1.3474842964764875,
-        "mape": 2.2458071607941457
-    },
-    {
-        "forecast_date": "2024-12-11",
-        "actual_sales": 64,
-        "forecasted_sales": 58.84748262400453,
-        "mae": 5.1525173759954725,
-        "mape": 8.050808399992926
-    },
-    {
-        "forecast_date": "2024-12-12",
-        "actual_sales": 54,
-        "forecasted_sales": 61.34045435142025,
-        "mae": 7.340454351420249,
-        "mape": 13.593433984111572
-    },
-    {
-        "forecast_date": "2024-12-13",
-        "actual_sales": 55,
-        "forecasted_sales": 58.04270654211911,
-        "mae": 3.042706542119113,
-        "mape": 5.532193712943842
-    },
-    {
-        "forecast_date": "2024-12-14",
-        "actual_sales": 65,
-        "forecasted_sales": 64.26866415827598,
-        "mae": 0.7313358417240181,
-        "mape": 1.1251320641907971
-    },
-    {
-        "forecast_date": "2024-12-15",
-        "actual_sales": 68,
-        "forecasted_sales": 63.34456551573345,
-        "mae": 4.65543448426655,
-        "mape": 6.846227182744927
-    },
-    {
-        "forecast_date": "2024-12-16",
-        "actual_sales": 65,
-        "forecasted_sales": 59.16380199352485,
-        "mae": 5.836198006475151,
-        "mape": 8.978766163807924
-    },
-    {
-        "forecast_date": "2024-12-17",
-        "actual_sales": 72,
-        "forecasted_sales": 60.81112780551263,
-        "mae": 11.188872194487367,
-        "mape": 15.540100270121343
-    },
-    {
-        "forecast_date": "2024-12-18",
-        "actual_sales": 68,
-        "forecasted_sales": 60.48663122974172,
-        "mae": 7.513368770258282,
-        "mape": 11.049071720968062
-    },
-    {
-        "forecast_date": "2024-12-19",
-        "actual_sales": 62,
-        "forecasted_sales": 62.605978597852626,
-        "mae": 0.6059785978526264,
-        "mape": 0.9773848352461716
-    },
-    {
-        "forecast_date": "2024-12-20",
-        "actual_sales": 63,
-        "forecasted_sales": 60.71373590581211,
-        "mae": 2.2862640941878922,
-        "mape": 3.6289906256950673
-    },
-    {
-        "forecast_date": "2024-12-21",
-        "actual_sales": 63,
-        "forecasted_sales": 71.61213441095745,
-        "mae": 8.612134410957452,
-        "mape": 13.670054620567385
-    },
-    {
-        "forecast_date": "2024-12-22",
-        "actual_sales": 69,
-        "forecasted_sales": 66.58194156350025,
-        "mae": 2.4180584364997486,
-        "mape": 3.5044325166663026
-    },
-    {
-        "forecast_date": "2024-12-23",
-        "actual_sales": 61,
-        "forecasted_sales": 61.2956665922703,
-        "mae": 0.295666592270301,
-        "mape": 0.4846993315906574
-    },
-    {
-        "forecast_date": "2024-12-24",
-        "actual_sales": 65,
-        "forecasted_sales": 63.944437493447246,
-        "mae": 1.0555625065527536,
-        "mape": 1.623942317773467
-    },
-    {
-        "forecast_date": "2024-12-25",
-        "actual_sales": 71,
-        "forecasted_sales": 62.23761784439856,
-        "mae": 8.762382155601443,
-        "mape": 12.341383317748512
-    },
-    {
-        "forecast_date": "2024-12-26",
-        "actual_sales": 66,
-        "forecasted_sales": 62.52403753952462,
-        "mae": 3.4759624604753796,
-        "mape": 5.266609788599061
-    },
-    {
-        "forecast_date": "2024-12-27",
-        "actual_sales": 72,
-        "forecasted_sales": 61.90929364130164,
-        "mae": 10.090706358698363,
-        "mape": 14.014869942636615
-    },
-    {
-        "forecast_date": "2024-12-28",
-        "actual_sales": 69,
-        "forecasted_sales": 71.99012745204976,
-        "mae": 2.9901274520497623,
-        "mape": 4.333518046448931
-    },
-    {
-        "forecast_date": "2024-12-29",
-        "actual_sales": 72,
-        "forecasted_sales": 70.55397435441856,
-        "mae": 1.446025645581443,
-        "mape": 2.0083689521964487
-    },
-    {
-        "forecast_date": "2024-12-30",
-        "actual_sales": 67,
-        "forecasted_sales": 64.65463335006234,
-        "mae": 2.3453666499376595,
-        "mape": 3.5005472387129246
+        "actual_sales": 117,
+        "forecasted_sales": 126.63655219688609,
+        "mae": 9.636552196886086,
+        "mape": 8.236369399047936
     }
 ]

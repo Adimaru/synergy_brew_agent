@@ -13,7 +13,7 @@ from src.agent.inventory import generate_inventory_recommendation
 from config.settings import (
     PERFORMANCE_LOG_FILE, INVENTORY_LOG_FILE, START_DATE, END_DATE,
     DEFAULT_SERVICE_LEVEL,
-    HOLDING_COST_PER_UNIT_PER_DAY, ORDERING_COST_PER_ORDER, STOCKOUT_COST_PER_UNIT_LOST_SALE # <--- NEW: Import financial settings
+    HOLDING_COST_PER_UNIT_PER_DAY, ORDERING_COST_PER_ORDER, STOCKOUT_COST_PER_UNIT_LOST_SALE
 )
 
 # Setup basic logging
@@ -24,14 +24,14 @@ def _initialize_daily_run(
     initial_stock: int,
     agent_state: dict,
     debug_mode: bool
-) -> tuple[int, list, list, list, list]: # <--- NEW: Added list for financial_log
+) -> tuple[int, list, list, list, list]:
     """Initializes stock and logs for a new simulation or continues a previous one."""
     
     current_stock = agent_state.get('current_stock', initial_stock)
     performance_log = agent_state.get('performance_log', [])
     inventory_log = agent_state.get('inventory_log', [])
     forecast_errors = agent_state.get('forecast_errors', [])
-    financial_log = agent_state.get('financial_log', []) # <--- NEW: Initialize financial log
+    financial_log = agent_state.get('financial_log', [])
 
     # If starting a truly fresh simulation (not just resuming from a break in run)
     # or if the loaded state is older than the current simulation start date.
@@ -41,7 +41,7 @@ def _initialize_daily_run(
         performance_log = []
         inventory_log = []
         forecast_errors = []
-        financial_log = [] # <--- NEW: Reset financial log if starting fresh
+        financial_log = []
         if debug_mode:
             logging.info(f"Initialized new simulation run for {sim_date.strftime('%Y-%m-%d')} with initial stock {initial_stock}. Logs reset.")
     else:
@@ -49,26 +49,24 @@ def _initialize_daily_run(
         if debug_mode:
             logging.info(f"Resuming simulation from {agent_state['last_run_date']} for {sim_date.strftime('%Y-%m-%d')}.")
     
-    return current_stock, performance_log, inventory_log, forecast_errors, financial_log # <--- NEW: return financial_log
+    return current_stock, performance_log, inventory_log, forecast_errors, financial_log
 
 
 def _process_previous_day_data(
     current_day_data: pd.Series,
     current_stock: int,
-    deliveries_expected_today: int, # This is a legacy param; deliveries are handled before this now.
+    # deliveries_expected_today: int, # This param is now effectively handled before this function call
     debug_mode: bool
 ) -> tuple[int, int, int]:
     """Processes sales, updates stock, and handles deliveries for the current day."""
     
     actual_sales_today = current_day_data['y'] # 'y' is the actual sales for the day
     
-    # Add deliveries to stock before processing sales
-    # deliveries_expected_today is already handled in simulate_agent_for_n_days
-    stock_after_deliveries = current_stock # Current stock already includes deliveries processed earlier
+    # current_stock already includes deliveries processed earlier in simulate_agent_for_n_days
 
     # Process sales: ensure sales don't go below 0
-    actual_sales_processed = min(actual_sales_today, stock_after_deliveries)
-    ending_stock = stock_after_deliveries - actual_sales_processed
+    actual_sales_processed = min(actual_sales_today, current_stock) # Use current_stock directly after deliveries
+    ending_stock = current_stock - actual_sales_processed
     
     lost_sales = 0
     if actual_sales_processed < actual_sales_today:
@@ -77,8 +75,8 @@ def _process_previous_day_data(
             logging.warning(f"Stockout! Lost {lost_sales} sales on {current_day_data['ds'].strftime('%Y-%m-%d')}.")
 
     if debug_mode:
-        logging.info(f"  Sales for {current_day_data['ds'].strftime('%Y-%m-%d')}: Actual {actual_sales_today}, Processed {actual_sales_processed}")
-        logging.info(f"  Starting Stock (after deliveries): {stock_after_deliveries}, Ending Stock: {ending_stock}")
+        logging.info(f"  Sales for {current_day_data['ds'].strftime('%Y-%m-%d')}: Actual {actual_sales_today}, Processed {actual_sales_processed}")
+        logging.info(f"  Starting Stock (after deliveries, before sales): {current_stock + actual_sales_processed}, Ending Stock: {ending_stock}")
     
     return ending_stock, actual_sales_processed, lost_sales
 
@@ -92,53 +90,83 @@ def _generate_and_log_recommendation(
     min_order_quantity: int,
     performance_log: list,
     inventory_log: list,
-    financial_log: list, # <--- NEW: financial_log parameter
+    financial_log: list,
     forecast_errors_history: list,
     current_day_data_actual_sales: int,
     service_level: float,
     deliveries_received_today: int,
     lost_sales_today: int,
+    forecasting_model: str,        # <--- NEW: Forecasting model type
+    moving_average_window: int,    # <--- NEW: Moving average window
     debug_mode: bool
 ) -> int:
     """Generates an order recommendation and logs daily inventory status."""
 
-    # 1. Train model and forecast for next N days
-    forecast_model, forecast_df = train_and_forecast_model(
-        sales_history_df_for_forecast,
-        periods_to_forecast=lead_time_days + 14, # Forecast enough days to cover lead time + buffer
-        debug_mode=debug_mode
-    )
-
+    forecast_model = None
+    forecast_df = pd.DataFrame()
     forecasted_sales_today = 0
-    if not forecast_df.empty:
-        today_forecast = forecast_df[forecast_df['ds'] == sim_date]
-        if not today_forecast.empty:
-            forecasted_sales_today = today_forecast['yhat'].iloc[0]
+    demand_forecast_error_std_dev = 0 # Default to 0 for baseline/cold start
+
+    # --- Special Handling for "Actual Sales Data (Baseline)" ---
+    if forecasting_model == "Actual Sales Data (Baseline)":
+        if debug_mode:
+            logging.info("  Forecasting Model: Actual Sales Data (Baseline) - Simulating perfect knowledge.")
+        
+        forecasted_sales_today = current_day_data_actual_sales
+        
+        # Create a mock forecast_df for inventory recommendation, assuming perfect future knowledge
+        # The 'yhat' for the next 'lead_time_days' is exactly current day's actual sales
+        mock_future_dates = pd.date_range(start=sim_date + timedelta(days=1), periods=lead_time_days + 14, freq='D')
+        forecast_df = pd.DataFrame({
+            'ds': mock_future_dates,
+            'yhat': current_day_data_actual_sales # Assuming future demand is constant at today's actual
+        })
+        # With perfect knowledge, forecast error std dev is 0
+        demand_forecast_error_std_dev = 0 
+
+    else:
+        # --- Normal Forecasting (Prophet or Moving Average) ---
+        # 1. Train model and forecast for next N days
+        # Pass the new parameters to train_and_forecast_model
+        forecast_model, forecast_df = train_and_forecast_model(
+            sales_history_df_for_forecast,
+            periods_to_forecast=lead_time_days + 14, # Forecast enough days to cover lead time + buffer
+            forecasting_model_type=forecasting_model, # Pass model type
+            moving_average_window=moving_average_window, # Pass MA window
+            debug_mode=debug_mode
+        )
+
+        if not forecast_df.empty:
+            # Get today's forecast (or the closest available if sim_date isn't exactly in forecast_df)
+            today_forecast = forecast_df[forecast_df['ds'] == sim_date + timedelta(days=1)] # Forecast is for *next* day
+            if not today_forecast.empty:
+                forecasted_sales_today = today_forecast['yhat'].iloc[0]
+                if debug_mode:
+                    logging.info(f"  Forecasted sales for {sim_date.strftime('%Y-%m-%d')}: {forecasted_sales_today:.2f}")
+            else:
+                if debug_mode:
+                    logging.warning(f"  No forecast available in generated forecast_df for current simulation date {sim_date.strftime('%Y-%m-%d')}.")
+
+        # --- Calculate standard deviation of forecast errors for dynamic safety stock ---
+        if len(forecast_errors_history) > 5: # Need a minimum number of data points for meaningful std dev
+            demand_forecast_error_std_dev = np.std(forecast_errors_history)
             if debug_mode:
-                logging.info(f"  Forecasted sales for {sim_date.strftime('%Y-%m-%d')}: {forecasted_sales_today:.2f}")
+                logging.info(f"  Standard Deviation of Forecast Errors ({len(forecast_errors_history)} points): {demand_forecast_error_std_dev:.2f}")
         else:
             if debug_mode:
-                logging.warning(f"  No forecast available in generated forecast_df for current simulation date {sim_date.strftime('%Y-%m-%d')}.")
+                logging.warning(f"  Not enough forecast errors ({len(forecast_errors_history)}) to calculate reliable standard deviation. Using fixed safety stock factor as fallback.")
+            # If not enough history, demand_forecast_error_std_dev remains 0, which will trigger factor-based fallback in inventory.py
 
-    # --- Calculate standard deviation of forecast errors for dynamic safety stock ---
-    demand_forecast_error_std_dev = 0
-    if len(forecast_errors_history) > 5: # Need a minimum number of data points for meaningful std dev
-        demand_forecast_error_std_dev = np.std(forecast_errors_history)
-        if debug_mode:
-            logging.info(f"  Standard Deviation of Forecast Errors ({len(forecast_errors_history)} points): {demand_forecast_error_std_dev:.2f}")
-    else:
-        if debug_mode:
-            logging.warning(f"  Not enough forecast errors ({len(forecast_errors_history)}) to calculate reliable standard deviation. Using fixed safety stock factor.")
-            
     # 2. Generate inventory recommendation
+    # Pass the appropriate forecast_df and std dev
     recommendation = generate_inventory_recommendation(
         current_stock=ending_stock,
-        forecast_df=forecast_df,
+        forecast_df=forecast_df, # This will be the mock_forecast_df for baseline or actual forecast_df
         lead_time_days=lead_time_days,
         safety_stock_factor=safety_stock_factor,
         min_order_quantity=min_order_quantity,
         service_level=service_level,
-        demand_forecast_error_std_dev=demand_forecast_error_std_dev,
+        demand_forecast_error_std_dev=demand_forecast_error_std_dev, # This will be 0 for baseline
         debug_mode=debug_mode
     )
     order_qty = recommendation['order_quantity']
@@ -148,7 +176,7 @@ def _generate_and_log_recommendation(
         sim_date, current_day_data_actual_sales, forecasted_sales_today, performance_log, forecast_errors_history, debug_mode
     )
 
-    # --- NEW: Calculate and Log Financial Metrics ---
+    # --- Calculate and Log Financial Metrics ---
     holding_cost = ending_stock * HOLDING_COST_PER_UNIT_PER_DAY
     ordering_cost = ORDERING_COST_PER_ORDER if order_qty > 0 else 0
     stockout_cost = lost_sales_today * STOCKOUT_COST_PER_UNIT_LOST_SALE
@@ -162,13 +190,12 @@ def _generate_and_log_recommendation(
         'total_daily_cost': total_daily_cost
     })
     if debug_mode:
-        logging.info(f"  Daily Costs for {sim_date.strftime('%Y-%m-%d')}: Holding=${holding_cost:.2f}, Ordering=${ordering_cost:.2f}, Stockout=${stockout_cost:.2f}, Total=${total_daily_cost:.2f}")
-    # --- END NEW ---
+        logging.info(f"  Daily Costs for {sim_date.strftime('%Y-%m-%d')}: Holding=${holding_cost:.2f}, Ordering=${ordering_cost:.2f}, Stockout=${stockout_cost:.2f}, Total=${total_daily_cost:.2f}")
 
     # Log inventory status
     inventory_log.append({
         'date': sim_date.strftime('%Y-%m-%d'),
-        'starting_stock': ending_stock + deliveries_received_today,
+        'starting_stock': ending_stock + deliveries_received_today, # This should be stock before sales for the day
         'deliveries_today': deliveries_received_today,
         'actual_sales_today': current_day_data_actual_sales,
         'ending_stock': ending_stock,
@@ -190,7 +217,7 @@ def _update_and_save_agent_state(
     performance_log: list,
     inventory_log: list,
     forecast_errors: list,
-    financial_log: list, # <--- NEW: financial_log parameter for saving
+    financial_log: list,
     product_key: str,
     store_key: str,
     debug_mode: bool
@@ -203,7 +230,7 @@ def _update_and_save_agent_state(
         'performance_log': performance_log,
         'inventory_log': inventory_log,
         'forecast_errors': forecast_errors,
-        'financial_log': financial_log # <--- NEW: Save financial_log
+        'financial_log': financial_log
     }
     save_state(agent_state, product_key, store_key, debug_mode)
 
@@ -236,7 +263,7 @@ def calculate_and_log_performance(
         forecast_errors_list[:] = forecast_errors_list[-MAX_ERROR_HISTORY:] # In-place slice update
 
     if debug_mode:
-        logging.info(f"  Performance for {date.strftime('%Y-%m-%d')}: MAE={mae:.2f}, MAPE={mape:.2f}% (Error: {actual_sales - forecasted_sales:.2f})")
+        logging.info(f"  Performance for {date.strftime('%Y-%m-%d')}: MAE={mae:.2f}, MAPE={mape:.2f}% (Error: {actual_sales - forecasted_sales:.2f})")
 
 
 def simulate_agent_for_n_days(
@@ -249,12 +276,15 @@ def simulate_agent_for_n_days(
     lead_time_days: int = 2,
     safety_stock_factor: float = 0.15,
     min_order_quantity: int = 20,
-    service_level: float = DEFAULT_SERVICE_LEVEL
+    service_level: float = DEFAULT_SERVICE_LEVEL,
+    forecasting_model: str = "Prophet",        # <--- NEW: Forecasting model parameter
+    moving_average_window: int = 7             # <--- NEW: Moving average window parameter
 ):
     """
     Simulates the inventory agent's behavior over a specified number of days.
     """
     logging.info(f"Starting simulation for {product_key} at {store_key} for {num_days} days.")
+    logging.info(f"Simulation parameters: Lead Time={lead_time_days} days, Service Level={service_level*100:.1f}%, Min Order Qty={min_order_quantity}, Forecasting Model='{forecasting_model}', MA Window={moving_average_window}")
     
     # Load all enriched sales data
     full_sales_data = load_enriched_sales_data(data_file_path)
@@ -289,7 +319,7 @@ def simulate_agent_for_n_days(
         return
 
     agent_state = load_state(product_key, store_key, debug_mode_for_run)
-    current_stock, performance_log, inventory_log, forecast_errors, financial_log = _initialize_daily_run( # <--- NEW: Receive financial_log
+    current_stock, performance_log, inventory_log, forecast_errors, financial_log = _initialize_daily_run(
         sim_date=sim_data_for_loop['ds'].min(),
         initial_stock=initial_stock,
         agent_state=agent_state,
@@ -315,19 +345,20 @@ def simulate_agent_for_n_days(
         ending_stock_after_sales, actual_sales_processed, lost_sales = _process_previous_day_data(
             current_day_data=current_day_data,
             current_stock=current_stock,
-            deliveries_expected_today=0,
+            # deliveries_expected_today=0, # Removed as it's handled by current_stock param
             debug_mode=debug_mode_for_run
         )
         current_stock = ending_stock_after_sales
 
         # For forecasting and ordering, use sales history up to and including *yesterday's* actual sales data.
+        # This is the data the model has seen *before* making today's ordering decision.
         sales_history_for_forecast = full_sales_data[full_sales_data['ds'] < sim_date].copy()
         
         # If we need at least X days of history to forecast, handle cold start
-        MIN_HISTORY_FOR_FORECAST = 30
-        if len(sales_history_for_forecast) < MIN_HISTORY_FOR_FORECAST:
+        MIN_HISTORY_FOR_FORECAST = 30 # Maintain this threshold for Prophet or MA
+        if len(sales_history_for_forecast) < MIN_HISTORY_FOR_FORECAST and forecasting_model != "Actual Sales Data (Baseline)":
             if debug_mode_for_run:
-                logging.warning(f"  Insufficient sales history ({len(sales_history_for_forecast)} days) to forecast on {sim_date.strftime('%Y-%m-%d')}. Skipping order generation.")
+                logging.warning(f"  Insufficient sales history ({len(sales_history_for_forecast)} days) to forecast on {sim_date.strftime('%Y-%m-%d')} with {forecasting_model}. Skipping order generation.")
             order_qty = 0
             forecasted_sales_today_for_log = 0 
             # Log performance/inventory with default 0s if no forecast
@@ -335,7 +366,7 @@ def simulate_agent_for_n_days(
                 sim_date, actual_sales_processed, forecasted_sales_today_for_log, performance_log, forecast_errors, debug_mode_for_run
             )
             # Log financial costs for days with no forecast/order logic too
-            financial_log.append({ # <--- NEW: Log financial costs even with no forecast
+            financial_log.append({
                 'date': sim_date.strftime('%Y-%m-%d'),
                 'holding_cost': current_stock * HOLDING_COST_PER_UNIT_PER_DAY,
                 'ordering_cost': 0,
@@ -344,7 +375,7 @@ def simulate_agent_for_n_days(
             })
             inventory_log.append({
                 'date': sim_date.strftime('%Y-%m-%d'),
-                'starting_stock': current_stock + actual_sales_processed + deliveries_today,
+                'starting_stock': current_stock + actual_sales_processed + deliveries_today, # Recalculate stock before sales for logging
                 'deliveries_today': deliveries_today,
                 'actual_sales_today': actual_sales_processed,
                 'ending_stock': current_stock,
@@ -355,10 +386,9 @@ def simulate_agent_for_n_days(
                 'lost_sales_today': lost_sales,
                 'calculated_safety_stock': 0
             })
-            continue
+            continue # Skip to next day if not enough history and not baseline model
         
-        # Generate recommendation for *tomorrow* (or next `lead_time_days` days)
-        # based on data up to *yesterday* (`sales_history_for_forecast`)
+        # Generate recommendation (for tomorrow's decision, based on today's state and yesterday's data)
         order_qty = _generate_and_log_recommendation(
             sim_date=sim_date,
             ending_stock=current_stock,
@@ -368,12 +398,14 @@ def simulate_agent_for_n_days(
             min_order_quantity=min_order_quantity,
             performance_log=performance_log,
             inventory_log=inventory_log,
-            financial_log=financial_log, # <--- NEW: Pass financial_log
+            financial_log=financial_log,
             forecast_errors_history=forecast_errors,
             current_day_data_actual_sales=actual_sales_processed,
             service_level=service_level,
             deliveries_received_today=deliveries_today,
             lost_sales_today=lost_sales,
+            forecasting_model=forecasting_model,        # <--- NEW: Pass forecasting model
+            moving_average_window=moving_average_window,# <--- NEW: Pass MA window
             debug_mode=debug_mode_for_run
         )
 
@@ -382,7 +414,7 @@ def simulate_agent_for_n_days(
             delivery_date = sim_date + timedelta(days=lead_time_days)
             pending_deliveries[delivery_date.strftime('%Y-%m-%d')] = pending_deliveries.get(delivery_date.strftime('%Y-%m-%d'), 0) + order_qty
             if debug_mode_for_run:
-                logging.info(f"  Ordered {order_qty} units for delivery on {delivery_date.strftime('%Y-%m-%d')}.")
+                logging.info(f"  Ordered {order_qty} units for delivery on {delivery_date.strftime('%Y-%m-%d')}.")
         
         # At the end of each day's loop, save state. This ensures state is saved daily.
         _update_and_save_agent_state(
@@ -392,7 +424,7 @@ def simulate_agent_for_n_days(
             performance_log=performance_log,
             inventory_log=inventory_log,
             forecast_errors=forecast_errors,
-            financial_log=financial_log, # <--- NEW: Pass financial_log for saving
+            financial_log=financial_log,
             product_key=product_key,
             store_key=store_key,
             debug_mode=debug_mode_for_run
@@ -410,13 +442,11 @@ def simulate_agent_for_n_days(
         if debug_mode_for_run:
             logging.info(f"Inventory log saved to {INVENTORY_LOG_FILE}")
         
-        # --- NEW: Save Financial Log ---
         FINANCIAL_LOG_FILE = INVENTORY_LOG_FILE.replace('inventory_log.json', 'financial_log.json') # Define a path for financial log
         with open(FINANCIAL_LOG_FILE, 'w') as f:
             json.dump(financial_log, f, indent=4)
         if debug_mode_for_run:
             logging.info(f"Financial log saved to {FINANCIAL_LOG_FILE}")
-        # --- END NEW ---
 
     except Exception as e:
         logging.error(f"Error saving logs: {e}")
