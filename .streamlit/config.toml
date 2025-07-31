@@ -9,3 +9,5 @@ font="sans serif"
 
 [client]
 toolbarMode = "off" # To remove the deploy button
+[streamlit]
+toolbarMode = "off"

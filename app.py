@@ -1,10 +1,18 @@
 # app.py
+
 import streamlit as st
 import pandas as pd
 import json
 import os
 from datetime import datetime, timedelta
 import plotly.express as px
+import plotly.graph_objects as go
+import sys
+import logging
+import numpy as np
+
+# Ensure src directory is in the path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import settings (ensure BASE_DIR is available here)
 from config.settings import (
@@ -17,7 +25,8 @@ from config.settings import (
     START_DATE, END_DATE,
     BASE_DIR,
     CUSTOM_PRODUCTS_FILE, CUSTOM_STORES_FILE,
-    DEFAULT_FORECAST_HORIZON_DAYS # ADD THIS LINE
+    DEFAULT_FORECAST_HORIZON_DAYS,
+    HOLDING_COST_PER_UNIT_PER_DAY, ORDERING_COST_PER_ORDER, STOCKOUT_COST_PER_UNIT_LOST_SALE
 )
 # Streamlit Page Configuration must be the first Streamlit command
 st.set_page_config(layout="wide", page_title="Synergy Brew Smart Inventory Assistant")
@@ -40,7 +49,8 @@ load_css(css_file_path)
 from src.data_generation.creator import generate_predefined_data_file, generate_custom_product_data
 from src.agent.core import simulate_agent_for_n_days
 from src.agent.state_manager import clear_all_state_data 
-from src.agent.forecasting import calculate_cv_metrics # NEW: Import for Prophet CV
+from src.agent.forecasting import calculate_cv_metrics, tune_prophet_hyperparameters
+from src.data_manager.config_manager import load_custom_products, save_custom_products, load_custom_stores, save_custom_stores
 
 # Import new utility modules
 from src.utils.plot_generator import plot_inventory_levels, plot_sales_prediction, plot_daily_cost_breakdown
@@ -51,13 +61,9 @@ from src.utils.metrics_calculator import calculate_financial_metrics, calculate_
 os.makedirs(AGENT_STATE_DIR, exist_ok=True)
 os.makedirs(SIM_DATA_DIR, exist_ok=True)
 os.makedirs(os.path.dirname(PERFORMANCE_LOG_FILE), exist_ok=True)
-os.makedirs(os.path.dirname(CUSTOM_PRODUCTS_FILE), exist_ok=True) # Ensure config dir exists for custom files
+os.makedirs(os.path.dirname(CUSTOM_PRODUCTS_FILE), exist_ok=True)
 
 # --- Load Custom Configurations at Startup and Merge with Predefined ---
-# Moved load_custom_products and load_custom_stores to be functions inside config_manager.py
-# Assuming these functions are available:
-from src.data_manager.config_manager import load_custom_products, save_custom_products, load_custom_stores, save_custom_stores
-
 CUSTOM_PRODUCT_CATALOG = load_custom_products()
 CUSTOM_STORE_LOCATIONS = load_custom_stores()
 
@@ -70,13 +76,43 @@ STORE_LOCATIONS_ALL.update(CUSTOM_STORE_LOCATIONS)
 logo_path = os.path.join(BASE_DIR, 'images', 'synergy_brew_logo.png')
 
 if os.path.exists(logo_path):
-    # Display logo in sidebar
-    st.sidebar.image(logo_path, use_container_width=True) # Logo size controlled by CSS
+    st.sidebar.image(logo_path, use_container_width=True)
 else:
     st.sidebar.warning("Logo image not found. Please ensure 'synergy_brew_logo.png' is in the 'images' folder.")
 
+# --- NEW: Prophet Parameter Grid for Tuning ---
+PROPHET_PARAM_GRID = {
+    'changepoint_prior_scale': [0.001, 0.01, 0.05, 0.1],
+    'changepoint_range': [0.8, 0.9],
+    'seasonality_prior_scale': [1.0, 5.0, 10.0]
+}
+
+# --- NEW: Cached function for hyperparameter tuning ---
+@st.cache_data
+def get_tuned_prophet_params(df, initial, period, horizon, param_grid, debug_mode):
+    """
+    Wrapper function to cache the expensive hyperparameter tuning process.
+    """
+    st.info("Running Prophet hyperparameter tuning... This may take a moment.")
+    with st.spinner("Tuning Prophet parameters..."):
+        best_params, best_score = tune_prophet_hyperparameters(
+            df=df,
+            initial=initial,
+            period=period,
+            horizon=horizon,
+            param_grid=param_grid,
+            debug_mode=debug_mode
+        )
+    return best_params, best_score
+
+# --- Session State Management for Comparison Results ---
+if 'results_A' not in st.session_state:
+    st.session_state.results_A = None
+if 'results_B' not in st.session_state:
+    st.session_state.results_B = None
+
 # Product and Store Selection - KEEP THESE IN SIDEBAR as they are global selectors
-st.sidebar.subheader("PRODUCT & STORE") # Shorter title
+st.sidebar.subheader("PRODUCT & STORE")
 all_product_keys = list(PRODUCT_CATALOG_ALL.keys())
 all_store_keys = list(STORE_LOCATIONS_ALL.keys())
 
@@ -94,7 +130,7 @@ selected_store_key = st.sidebar.selectbox(
 )
 
 # Simulation Parameters - KEEP THESE IN SIDEBAR
-st.sidebar.subheader("SIMULATION & STOCK") # Shorter title
+st.sidebar.subheader("GLOBAL SIMULATION SETTINGS")
 num_days_to_simulate = st.sidebar.number_input(
     "How Many Days to Simulate?",
     min_value=30,
@@ -103,81 +139,8 @@ num_days_to_simulate = st.sidebar.number_input(
     help=f"Set how many days the inventory assistant should run, starting from {START_DATE.strftime('%Y-%m-%d')} up to {END_DATE.strftime('%Y-%m-%d')}."
 )
 
-initial_stock = st.sidebar.number_input(
-    "Starting Inventory Level",
-    min_value=0, value=100, step=50,
-    help="The amount of product you have on hand at the very beginning of the simulation."
-)
-
-# --- NEW: Demand Forecasting Parameters ---
+# Demand Forecasting Parameters (and tuning)
 st.sidebar.subheader("DEMAND FORECASTING")
-forecasting_model = st.sidebar.selectbox(
-    "Select Forecasting Model",
-    options=["Prophet", "Moving Average", "Actual Sales Data (Baseline)"], # UPDATED: Added Prophet
-    help="Choose the model used to predict future sales."
-)
-
-moving_average_window = 0 # Initialize outside of conditional scope
-if forecasting_model == "Moving Average":
-    moving_average_window = st.sidebar.number_input(
-        "Moving Average Window (Days)",
-        min_value=1, max_value=60, value=7, step=1,
-        help="Number of past days' sales to average for forecasting. Recommended: 7 or 30."
-    )
-st.sidebar.markdown("---") # Separator
-
-# Agent Policy Parameters - KEEP THESE IN SIDEBAR
-st.sidebar.subheader("ORDERING RULES") # Shorter title
-lead_time_days = st.sidebar.slider(
-    "Delivery Lead Time (Days)",
-    min_value=1, max_value=7, value=DEFAULT_LEAD_TIME, step=1,
-    help="The number of days it takes for a new order to arrive at the store after it's placed."
-)
-# We will derive safety stock from service level and demand variability
-# The safety_stock_factor can be removed or used for a fixed safety stock if service_level isn't preferred.
-# For now, let's keep it but indicate service_level is primary.
-safety_stock_factor = st.sidebar.slider(
-    "Safety Stock Buffer (Percentage)",
-    min_value=0.0, max_value=1.0, value=DEFAULT_SAFETY_STOCK_FACTOR, step=0.05, format="%.0f%%",
-    help="An extra buffer of stock (as a percentage of expected demand) to avoid running out during unexpected sales spikes or delays. *(This will be used if 'Desired Service Level' is not active for dynamic safety stock calculation, e.g., if error std dev is zero or insufficient history.)*"
-)
-service_level = st.sidebar.slider(
-    "Desired Service Level",
-    min_value=0.80, max_value=0.99, value=DEFAULT_SERVICE_LEVEL, step=0.01, format="%.1f%%",
-    help="The percentage of customer demand you aim to meet directly from stock. Higher levels reduce stockouts but increase holding costs. (e.g., 0.95 means you aim to fulfill 95% of demand instantly). This drives dynamic safety stock."
-)
-min_order_quantity = st.sidebar.number_input(
-    "Minimum Order Size",
-    min_value=0, value=DEFAULT_MIN_ORDER_QTY, step=5,
-    help="The smallest quantity of product the assistant will order at one time. The system will order at least this much."
-)
-# We might add Economic Order Quantity (EOQ) parameters here later if we go for more complex ROQ.
-
-# Demand Simulation Parameters - KEEP THESE IN SIDEBAR
-st.sidebar.subheader("SALES FLUCTUATIONS") # Shorter title
-spike_probability = st.sidebar.slider(
-    "Chance of a Sudden Sales Spike (Daily)",
-    min_value=0.0, max_value=0.2, value=0.01, step=0.005, format="%.1f%%",
-    help="The probability (chance) that a random, high-demand event occurs on any given day. E.g., a viral trend or local event."
-)
-spike_multiplier = st.sidebar.slider(
-    "Sales Increase During a Spike",
-    min_value=1.0, max_value=3.0, value=1.5, step=0.1,
-    help="How much sales increase during a sudden spike. A multiplier of 1.5 means sales are 1.5 times higher."
-)
-
-# Financial Parameters - KEEP THESE IN SIDEBAR
-st.sidebar.subheader("PROFIT CALCULATION") # Shorter title
-unit_cost = st.sidebar.number_input(
-    "Cost to Buy One Unit ($)",
-    min_value=0.01, value=1.50, step=0.10, format="%.2f",
-    help="The cost you pay to your supplier for each unit of product."
-)
-sales_price = st.sidebar.number_input(
-    "Selling Price Per Unit ($)",
-    min_value=0.01, value=4.50, step=0.10, format="%.2f",
-    help="The price at which you sell each unit of product to your customers."
-)
 
 # Debug Mode Toggle - KEEP THIS IN SIDEBAR
 debug_mode = st.sidebar.checkbox(
@@ -185,11 +148,23 @@ debug_mode = st.sidebar.checkbox(
     value=False,
     help="Enabling this will print more technical details to your terminal where Streamlit is running."
 )
-
 st.sidebar.markdown("---")
+
+with st.sidebar.expander("Ordering Rules", expanded=True):
+    unit_cost = st.number_input(
+        "Cost to Buy One Unit ($)",
+        min_value=0.01, value=1.50, step=0.10, format="%.2f",
+        help="The cost you pay to your supplier for each unit of product."
+    )
+    sales_price = st.number_input(
+        "Selling Price Per Unit ($)",
+        min_value=0.01, value=4.50, step=0.10, format="%.2f",
+        help="The price at which you sell each unit of product to your customers."
+    )
+    st.markdown("---")
+    
 if st.sidebar.button("Clear All Saved Data"):
     clear_all_state_data(debug_mode=debug_mode)
-    # Clear custom configs as well
     if os.path.exists(CUSTOM_PRODUCTS_FILE):
         os.remove(CUSTOM_PRODUCTS_FILE)
     if os.path.exists(CUSTOM_STORES_FILE):
@@ -213,132 +188,152 @@ def load_all_enriched_sales_data_for_cv(product_key, store_key):
         df['ds'] = df['ds'].dt.tz_localize(None) # Ensure timezone-naive for Prophet
     return df.sort_values('ds')
 
-# --- Helper function for Prophet CV display ---
-def display_prophet_cv_metrics(sales_data_for_cv_analysis, debug_mode):
-    st.subheader("Prophet Cross-Validation Metrics")
-
-    if sales_data_for_cv_analysis.empty:
-        st.info("No sales data loaded for CV.")
-        return
-    
-    # Debugging lines you might have added (can keep or remove)
-    st.write(f"Sales data for CV analysis has {len(sales_data_for_cv_analysis)} rows.")
-
-    if len(sales_data_for_cv_analysis) < 60:
-        st.info("Insufficient historical sales data (less than 60 days) to perform meaningful Prophet cross-validation.")
-        return
-    
-    # Dynamic calculation of CV parameters
-    # Ensuring minimums for robustness with small datasets
-    horizon_days_str = f"{DEFAULT_FORECAST_HORIZON_DAYS} days" 
-    initial_train_days_val = f"{max(30, int(len(sales_data_for_cv_analysis) * 0.7))} days" # Renamed to avoid confusion with parameter name
-    period_between_cv_val = f"{max(7, int(len(sales_data_for_cv_analysis) * 0.1))} days"   # Renamed to avoid confusion with parameter name
-
-    st.info(f"Running Prophet cross-validation with: Initial training = {initial_train_days_val}, Retrain period = {period_between_cv_val}, Horizon = {horizon_days_str}")
-    
-    # Debugging lines you might have added (can keep or remove)
-    st.write(f"CV Parameters: initial={initial_train_days_val}, period={period_between_cv_val}, horizon={horizon_days_str}")
-
-    try:
-        cv_metrics_df = calculate_cv_metrics(
-            df=sales_data_for_cv_analysis,
-            initial_train_days=initial_train_days_val,  # <--- CORRECTED PARAMETER NAME
-            period_between_cv=period_between_cv_val,    # <--- CORRECTED PARAMETER NAME
-            horizon_forecast_days=horizon_days_str,     # <--- CORRECTED PARAMETER NAME
-            debug_mode=debug_mode
-        )
-
-        if not cv_metrics_df.empty:
-            st.write("Cross-Validation Performance Metrics:")
-            st.dataframe(cv_metrics_df.head())
-
-            # Plotting MAE over the horizon
-            fig_mae = px.line(cv_metrics_df, x='horizon', y='mae', title='Mean Absolute Error (MAE) over Forecast Horizon')
-            fig_mae.update_layout(xaxis_title="Forecast Horizon (Days)", yaxis_title="MAE")
-            st.plotly_chart(fig_mae)
-
-            # Plotting MAPE over the horizon
-            fig_mape = px.line(cv_metrics_df, x='horizon', y='mape', title='Mean Absolute Percentage Error (MAPE) over Forecast Horizon')
-            fig_mape.update_layout(xaxis_title="Forecast Horizon (Days)", yaxis_title="MAPE")
-            st.plotly_chart(fig_mape)
-        else:
-            st.warning("No cross-validation metrics could be calculated. Please check the data and logs.")
-
-    except Exception as e:
-        st.error(f"An error occurred while displaying Prophet CV metrics: {e}")
-        if debug_mode:
-            st.exception(e)
-
-
 # --- Main Content Area with Tabs (now on top) ---
 tab1, tab2, tab3 = st.tabs(["Welcome & Setup", "Data Management & Customization", "Simulation Results"])
 
 with tab1:
-    st.header("Welcome to Synergy Brew Inventory") # CHANGED: Shorter title
-    st.markdown(
-        """
-        This powerful tool helps you simulate and analyze inventory management strategies for your coffee business.
-        Use the sidebar to configure your simulation parameters, and navigate through the tabs to manage your data,
-        run simulations, and view detailed performance reports.
-        """
-    )
+    st.header("Welcome to Synergy Brew Inventory")
+    st.markdown("Compare two different inventory strategies to find the one that provides the most value.")
     st.markdown("---")
-    st.subheader("Quick Start Guide:")
-    st.markdown(
-        """
-        1.  **Select Product & Store** in the sidebar.
-        2.  Go to the "**Data Management & Customization**" tab to generate or update sales data and manage custom products/stores.
-        3.  Adjust **Simulation Period & Stock**, and **Inventory Ordering Rules** in the sidebar.
-        4.  Come back to this tab and click "**Start Inventory Simulation**" below.
-        5.  View detailed **Simulation Results** in the dedicated tab!
-        """
-    )
+    
+    # --- UI for Scenario Configuration (Side-by-side) ---
+    scenario_A_col, scenario_B_col = st.columns(2)
+
+    def create_scenario_ui(col, scenario_name, scenario_key):
+        with col:
+            st.subheader(f"Strategy {scenario_name} Parameters")
+            
+            # Use st.session_state to persist values and get default values
+            initial_stock = st.number_input(
+                "Initial Stock",
+                min_value=0,
+                value=st.session_state.get(f'initial_stock_{scenario_key}', 100),
+                key=f'initial_stock_input_{scenario_key}'
+            )
+
+            forecasting_models = ["Prophet", "Moving Average", "Actual Sales Data (Baseline)"]
+            forecasting_model = st.selectbox(
+                "Forecasting Model",
+                forecasting_models,
+                index=forecasting_models.index(st.session_state.get(f'model_{scenario_key}', "Prophet")),
+                key=f'model_select_{scenario_key}'
+            )
+            
+            moving_average_window = 0
+            if forecasting_model == "Moving Average":
+                moving_average_window = st.slider(
+                    "Moving Average Window",
+                    min_value=1,
+                    max_value=30,
+                    value=st.session_state.get(f'ma_window_{scenario_key}', 7),
+                    key=f'ma_window_slider_{scenario_key}'
+                )
+            
+            enable_prophet_tuning = st.checkbox(
+                "Enable Hyperparameter Tuning",
+                value=False,
+                key=f'prophet_tuning_{scenario_key}',
+                disabled=(forecasting_model != "Prophet")
+            )
+            
+            lead_time_days = st.slider(
+                "Delivery Lead Time (Days)",
+                min_value=1, max_value=7,
+                value=st.session_state.get(f'lead_time_{scenario_key}', DEFAULT_LEAD_TIME),
+                step=1,
+                key=f'lead_time_slider_{scenario_key}'
+            )
+            
+            service_level = st.slider(
+                "Desired Service Level",
+                min_value=0.80, max_value=0.99,
+                value=st.session_state.get(f'service_level_{scenario_key}', DEFAULT_SERVICE_LEVEL),
+                step=0.01, format="%.1f%%",
+                key=f'service_level_slider_{scenario_key}'
+            )
+            
+            min_order_quantity = st.number_input(
+                "Minimum Order Size",
+                min_value=0,
+                value=st.session_state.get(f'min_order_qty_{scenario_key}', DEFAULT_MIN_ORDER_QTY),
+                step=5,
+                key=f'min_order_qty_input_{scenario_key}'
+            )
+            
+            # Save all scenario parameters to session state for later use
+            st.session_state[f'initial_stock_{scenario_key}'] = initial_stock
+            st.session_state[f'model_{scenario_key}'] = forecasting_model
+            st.session_state[f'ma_window_{scenario_key}'] = moving_average_window
+            st.session_state[f'enable_prophet_tuning_{scenario_key}'] = enable_prophet_tuning
+            st.session_state[f'lead_time_{scenario_key}'] = lead_time_days
+            st.session_state[f'service_level_{scenario_key}'] = service_level
+            st.session_state[f'min_order_qty_{scenario_key}'] = min_order_quantity
+    
+    create_scenario_ui(scenario_A_col, "A", "A")
+    create_scenario_ui(scenario_B_col, "B", "B")
+    
     st.markdown("---")
-    # This section remains here as the main simulation trigger for simplicity
-    st.subheader("Run the Inventory Simulation")
-    if st.button("Start Inventory Simulation", type="primary"):
+
+    if st.button("Run Simulation", type="primary"):
         data_file_name = f"{selected_store_key}_{selected_product_key}_enriched_sales_history.csv"
         data_file_path = os.path.join(SIM_DATA_DIR, data_file_name)
 
-        # Check if the data file exists BEFORE running simulation
         if not os.path.exists(data_file_path):
-            st.error(f"Sales history for {PRODUCT_CATALOG_ALL.get(selected_product_key, selected_product_key)} at {STORE_LOCATIONS_ALL[selected_store_key]} not found.")
-            st.warning("Please generate the data first using the 'Data Management & Customization' tab.")
-            st.stop() # Stop execution if data is missing
-                
-        with st.spinner("The Smart Inventory Assistant is simulating days... Please wait."):
-            simulate_agent_for_n_days(
+            st.error("Sales data not found. Please generate it in the 'Data Management & Customization' tab.")
+            st.stop()
+        
+        # --- NEW: Run Prophet Tuning if enabled for either scenario A or B ---
+        tuned_params_A = None
+        if st.session_state.enable_prophet_tuning_A and st.session_state.model_A == "Prophet":
+            tuning_df = load_all_enriched_sales_data_for_cv(selected_product_key, selected_store_key)
+            if not tuning_df.empty and len(tuning_df) > 60:
+                initial_train_days_val = f"{max(30, int(len(tuning_df) * 0.7))} days"
+                period_between_cv_val = f"{max(7, int(len(tuning_df) * 0.1))} days"
+                horizon_days_str = f"{DEFAULT_FORECAST_HORIZON_DAYS} days"
+                tuned_params_A, _ = get_tuned_prophet_params(tuning_df, initial_train_days_val, period_between_cv_val, horizon_days_str, PROPHET_PARAM_GRID, debug_mode)
+
+        tuned_params_B = None
+        if st.session_state.enable_prophet_tuning_B and st.session_state.model_B == "Prophet":
+            tuning_df = load_all_enriched_sales_data_for_cv(selected_product_key, selected_store_key)
+            if not tuning_df.empty and len(tuning_df) > 60:
+                initial_train_days_val = f"{max(30, int(len(tuning_df) * 0.7))} days"
+                period_between_cv_val = f"{max(7, int(len(tuning_df) * 0.1))} days"
+                horizon_days_str = f"{DEFAULT_FORECAST_HORIZON_DAYS} days"
+                tuned_params_B, _ = get_tuned_prophet_params(tuning_df, initial_train_days_val, period_between_cv_val, horizon_days_str, PROPHET_PARAM_GRID, debug_mode)
+
+        with st.spinner("Running simulations for both scenarios..."):
+            st.session_state.results_A = simulate_agent_for_n_days(
                 num_days=num_days_to_simulate,
                 product_key=selected_product_key,
                 store_key=selected_store_key,
                 data_file_path=data_file_path,
-                initial_stock=initial_stock,
-                debug_mode_for_run=debug_mode,
-                lead_time_days=lead_time_days,
-                safety_stock_factor=safety_stock_factor, # Keep for now, might be removed later
-                min_order_quantity=min_order_quantity,
-                service_level=service_level,
-                forecasting_model=forecasting_model,        # NEW: Pass forecasting model
-                moving_average_window=moving_average_window # NEW: Pass MA window
+                initial_stock=st.session_state.initial_stock_A,
+                lead_time_days=st.session_state.lead_time_A,
+                safety_stock_factor=0.0, # Not used when service level is specified
+                min_order_quantity=st.session_state.min_order_qty_A,
+                service_level=st.session_state.service_level_A,
+                forecasting_model=st.session_state.model_A,
+                moving_average_window=st.session_state.ma_window_A,
+                prophet_params=tuned_params_A,
+                debug_mode_for_run=debug_mode
             )
-        st.success("Simulation Complete! Navigate to the 'Simulation Results' tab to see the detailed breakdown.")
-
-        # After successful simulation, ensure logs are reloaded and stored in session_state
-        # These are reloaded directly from files to ensure the latest data is displayed
-        st.session_state.performance_logs = []
-        if os.path.exists(PERFORMANCE_LOG_FILE):
-            with open(PERFORMANCE_LOG_FILE, 'r') as f:
-                st.session_state.performance_logs = json.load(f)
-
-        st.session_state.inventory_logs = []
-        if os.path.exists(INVENTORY_LOG_FILE):
-            with open(INVENTORY_LOG_FILE, 'r') as f:
-                st.session_state.inventory_logs = json.load(f)
-
-        st.session_state.financial_logs = []
-        if os.path.exists(FINANCIAL_LOG_FILE):
-            with open(FINANCIAL_LOG_FILE, 'r') as f:
-                st.session_state.financial_logs = json.load(f)
+            
+            st.session_state.results_B = simulate_agent_for_n_days(
+                num_days=num_days_to_simulate,
+                product_key=selected_product_key,
+                store_key=selected_store_key,
+                data_file_path=data_file_path,
+                initial_stock=st.session_state.initial_stock_B,
+                lead_time_days=st.session_state.lead_time_B,
+                safety_stock_factor=0.0, # Not used when service level is specified
+                min_order_quantity=st.session_state.min_order_qty_B,
+                service_level=st.session_state.service_level_B,
+                forecasting_model=st.session_state.model_B,
+                moving_average_window=st.session_state.ma_window_B,
+                prophet_params=tuned_params_B,
+                debug_mode_for_run=debug_mode
+            )
+        st.success("Simulations complete! Head to the 'Simulation Results' tab to see the comparison.")
 
 
 with tab2: # Data Management & Customization Tab
@@ -349,26 +344,24 @@ with tab2: # Data Management & Customization Tab
     st.markdown("Generate or update sales history files for your standard products. This only needs to be done once, or when you want to reset the historical data based on current simulation parameters.")
 
     force_overwrite_data = st.checkbox("Force Overwrite All Existing Predefined Sales Data Files", value=False,
-                                        help="Check this to regenerate all predefined sales data files, even if they already exist. Useful for resetting or updating parameters.")
+                                         help="Check this to regenerate all predefined sales data files, even if they already exist. Useful for resetting or updating parameters.")
 
     if st.button("Generate All Predefined Sales Data", type="secondary"):
         with st.spinner("Generating sales data for all predefined products and stores... This may take a moment."):
             generated_count = 0
-            for product_key in PRODUCT_CATALOG.keys(): # Iterate over original predefined catalog
-                for store_key in STORE_LOCATIONS_ALL.keys(): # Iterate over all stores (predefined + custom)
-                    # Construct file path
+            for product_key in PRODUCT_CATALOG.keys():
+                for store_key in STORE_LOCATIONS_ALL.keys():
                     data_file_name = f"{store_key}_{product_key}_enriched_sales_history.csv"
                     data_file_path = os.path.join(SIM_DATA_DIR, data_file_name)
 
-                    # Only generate if forced overwrite or file doesn't exist
                     if force_overwrite_data or not os.path.exists(data_file_path):
                         try:
                             generate_predefined_data_file(
                                 product_key=product_key,
                                 store_key=store_key,
-                                spike_probability=spike_probability, # Use UI values for generation
-                                spike_multiplier=spike_multiplier,
-                                force_recreate=True # Always force recreate when this button is used
+                                spike_probability=0.01, # Use a fixed value for data generation
+                                spike_multiplier=1.5,
+                                force_recreate=True
                             )
                             generated_count += 1
                         except Exception as e:
@@ -400,9 +393,9 @@ with tab2: # Data Management & Customization Tab
         with col4:
             custom_winter_factor = st.slider("Winter Sales Change", min_value=0.5, max_value=2.0, value=1.1, step=0.1, help="How sales change during winter months (Dec-Feb). For example, 1.1 means 10% more sales.")
         with col5:
-            custom_store_key_for_gen = st.selectbox( # Renamed to avoid key clash
+            custom_store_key_for_gen = st.selectbox(
                 "Generate Data for Which Store?",
-                options=all_store_keys, # Use all_store_keys to include custom stores
+                options=all_store_keys,
                 format_func=lambda x: STORE_LOCATIONS_ALL[x],
                 key="custom_product_store_select",
                 help="Choose the store location for which this custom product's sales data will be generated."
@@ -417,14 +410,13 @@ with tab2: # Data Management & Customization Tab
                 with st.spinner(f"Creating sales history for '{custom_product_name}'..."):
                     custom_file_path = generate_custom_product_data(
                         custom_product_name, custom_base_sales, custom_weekly_peak,
-                        custom_summer_factor, custom_winter_factor, custom_store_key_for_gen, # Use renamed var
-                        spike_probability=spike_probability, 
-                        spike_multiplier=spike_multiplier
+                        custom_summer_factor, custom_winter_factor, custom_store_key_for_gen,
+                        spike_probability=0.01, 
+                        spike_multiplier=1.5
                     )
                 
-                # Update custom product catalog and save it
                 CUSTOM_PRODUCT_CATALOG[custom_product_id] = custom_product_name
-                save_custom_products(CUSTOM_PRODUCT_CATALOG) # SAVE TO FILE
+                save_custom_products(CUSTOM_PRODUCT_CATALOG)
 
                 st.success(f"Success! Data for '{custom_product_name}' at {STORE_LOCATIONS_ALL[custom_store_key_for_gen]} is ready. Product saved for future use!")
                 st.rerun() 
@@ -455,7 +447,6 @@ with tab2: # Data Management & Customization Tab
                 st.warning("Please enter a name for the new store location.")
     
     with st.expander("View and Delete Custom Stores"):
-        # Filter out predefined stores from the list for deletion
         custom_only_stores = {k: v for k, v in STORE_LOCATIONS_ALL.items() if k.startswith("custom_store_")}
 
         if custom_only_stores:
@@ -467,12 +458,12 @@ with tab2: # Data Management & Customization Tab
             )
             if st.button(f"Delete '{store_to_delete}'"):
                 key_to_delete = None
-                for k, v in custom_only_stores.items(): # Search only in custom_only_stores
+                for k, v in custom_only_stores.items():
                     if v == store_to_delete:
                         key_to_delete = k
                         break
                 if key_to_delete:
-                    del CUSTOM_STORE_LOCATIONS[key_to_delete] # Modify the dictionary that holds custom stores
+                    del CUSTOM_STORE_LOCATIONS[key_to_delete]
                     save_custom_stores(CUSTOM_STORE_LOCATIONS)
                     st.success(f"Store '{store_to_delete}' deleted.")
                     st.rerun()
@@ -481,98 +472,91 @@ with tab2: # Data Management & Customization Tab
         else:
             st.info("No custom stores defined yet.")
 
+
 with tab3: # Simulation Results Tab
     st.header("Simulation Results")
     st.markdown("Here's a breakdown of how the inventory assistant performed during the simulation period.")
+    
+    # --- Check for both scenario results, with robust error handling ---
+    if st.session_state.results_A and 'financial_log' in st.session_state.results_A and \
+       st.session_state.results_B and 'financial_log' in st.session_state.results_B:
+        st.subheader("Summary of Performance Metrics")
 
-    # Load Simulation Logs from session state (or directly from files if not in session state)
-    performance_logs = st.session_state.get('performance_logs', [])
-    inventory_logs = st.session_state.get('inventory_logs', [])
-    financial_logs = st.session_state.get('financial_logs', [])
-
-
-    # --- Financial Performance Metrics ---
-    st.subheader("Your Business Performance")
-    if inventory_logs and financial_logs: 
-        total_revenue, total_cost_of_products_sold, gross_profit, \
-        total_holding_cost, total_ordering_cost, total_stockout_cost, total_overall_cost = \
-            calculate_financial_metrics(inventory_logs, financial_logs, sales_price, unit_cost)
-
-        col_rev, col_cost, col_profit = st.columns(3)
-        with col_rev:
-            st.metric("Total Sales Revenue", f"${total_revenue:,.2f}")
-        with col_cost:
-            st.metric("Total Cost of Products Sold", f"${total_cost_of_products_sold:,.2f}")
-        with col_profit:
-            st.metric("Gross Profit", f"${gross_profit:,.2f}")
-
-        st.info(f"*(Calculated based on a **${sales_price:.2f} Selling Price** and **${unit_cost:.2f} Unit Cost**)*")
-
-        st.markdown("---") # Separator for costs below
-        st.markdown(f"**Total Holding Cost:** ${total_holding_cost:,.2f}")
-        st.markdown(f"**Total Ordering Cost:** ${total_ordering_cost:,.2f}")
-        st.markdown(f"**Total Stockout Cost:** ${total_stockout_cost:,.2f}")
-        st.markdown(f"**Total Overall Cost:** ${total_overall_cost:,.2f}")
-
-        # Daily Cost Breakdown Chart
-        st.write("Daily Cost Breakdown")
-        financial_df = pd.DataFrame(financial_logs)
-        financial_df['date'] = pd.to_datetime(financial_df['date'])
-        financial_df = financial_df.sort_values('date')
-        fig_costs = plot_daily_cost_breakdown(financial_df)
-        st.plotly_chart(fig_costs, use_container_width=True)
-
-    else:
-        st.info("No financial data available. Please run a simulation first to see this section.")
-
-
-    # --- Inventory Level Over Time ---
-    st.subheader("Inventory Levels & Orders Over Time")
-    if inventory_logs:
-        inventory_df = pd.DataFrame(inventory_logs)
-        inventory_df['date'] = pd.to_datetime(inventory_df['date'])
-        inventory_df = inventory_df.sort_values('date')
-
-        fig_inv = plot_inventory_levels(inventory_df, 
-                                        PRODUCT_CATALOG_ALL.get(selected_product_key, selected_product_key), 
-                                        STORE_LOCATIONS_ALL.get(selected_store_key, selected_store_key))
-        st.plotly_chart(fig_inv, use_container_width=True)
-    else:
-        st.info("No inventory data available. Please run a simulation first to see this chart.")
-
-    # --- Sales Prediction Accuracy ---
-    st.subheader("Sales Prediction Accuracy")
-    if performance_logs:
-        perf_df = pd.DataFrame(performance_logs)
-        perf_df['forecast_date'] = pd.to_datetime(perf_df['forecast_date'])
+        # Convert logs to DataFrames
+        df_A = pd.DataFrame(st.session_state.results_A['financial_log'])
+        df_B = pd.DataFrame(st.session_state.results_B['financial_log'])
         
-        avg_mape, avg_mae = calculate_prediction_accuracy_metrics(performance_logs)
+        df_inv_A = pd.DataFrame(st.session_state.results_A['inventory_log'])
+        df_inv_B = pd.DataFrame(st.session_state.results_B['inventory_log'])
 
-        col_mape, col_mae = st.columns(2)
-        with col_mape:
-            st.metric(
-                "Average Prediction Error (Percentage)", 
-                f"{avg_mape:,.2f}%", 
-                help="MAPE (Mean Absolute Percentage Error): On average, how much our sales prediction was off by, as a percentage of actual sales."
-            )
-        with col_mae:
-            st.metric(
-                "Average Prediction Error (Units)", 
-                f"{avg_mae:,.2f} units", 
-                help="MAE (Mean Absolute Error): On average, how many units our sales prediction was off by."
-            )
+        # Ensure date columns are datetime objects for plotting
+        df_A['date'] = pd.to_datetime(df_A['date'])
+        df_B['date'] = pd.to_datetime(df_B['date'])
+        df_inv_A['date'] = pd.to_datetime(df_inv_A['date'])
+        df_inv_B['date'] = pd.to_datetime(df_inv_B['date'])
+
+        # Calculate a more detailed summary
+        def calculate_summary_metrics(financial_df, inventory_df):
+            total_cost = financial_df['total_daily_cost'].sum()
+            holding_cost = financial_df['holding_cost'].sum()
+            ordering_cost = financial_df['ordering_cost'].sum()
+            stockout_cost = financial_df['stockout_cost'].sum()
+            lost_sales = inventory_df['lost_sales_today'].sum()
+            total_sales = inventory_df['actual_sales_today'].sum()
+            sales_processed = inventory_df['actual_sales_today'].sum()
+            service_level = (total_sales - lost_sales) / total_sales if total_sales > 0 else 1.0
+            
+            return {
+                "Total Cost": total_cost,
+                "Holding Cost": holding_cost,
+                "Ordering Cost": ordering_cost,
+                "Stockout Cost": stockout_cost,
+                "Total Lost Sales (Units)": lost_sales,
+                "Service Level": service_level
+            }
+
+        metrics_A = calculate_summary_metrics(df_A, df_inv_A)
+        metrics_B = calculate_summary_metrics(df_B, df_inv_B)
+
+        summary_df = pd.DataFrame({
+            "Metric": list(metrics_A.keys()),
+            "Scenario A": list(metrics_A.values()),
+            "Scenario B": list(metrics_B.values())
+        }).set_index("Metric")
         
-        st.write("Comparing Daily Sales: Predicted vs. Actual")
-        fig_perf = plot_sales_prediction(perf_df)
-        st.plotly_chart(fig_perf, use_container_width=True)
+        # Apply formatting to the Service Level row
+        def format_row(row):
+            if row.name == "Service Level":
+                return [f"{v:.2%}" for v in row]
+            else:
+                return [f"${v:,.2f}" if v > 10 else f"{v:,.2f}" for v in row]
 
-        st.write("Recent Daily Prediction Details:")
-        st.dataframe(perf_df.tail(10).set_index('forecast_date'))
+        summary_df_formatted = summary_df.apply(format_row, axis=1)
+
+        st.dataframe(summary_df_formatted, use_container_width=True)
+        
+        st.subheader("Visual Comparison")
+        
+        # Cumulative Cost Plot
+        fig_cost = go.Figure()
+        fig_cost.add_trace(go.Scatter(x=df_A['date'], y=df_A['total_daily_cost'].cumsum(), mode='lines', name='Scenario A', line=dict(color='royalblue')))
+        fig_cost.add_trace(go.Scatter(x=df_B['date'], y=df_B['total_daily_cost'].cumsum(), mode='lines', name='Scenario B', line=dict(color='firebrick')))
+        fig_cost.update_layout(title="Cumulative Total Costs Over Time", xaxis_title="Date", yaxis_title="Cumulative Cost ($)")
+        st.plotly_chart(fig_cost, use_container_width=True)
+
+        # Inventory Level Plot
+        fig_stock = go.Figure()
+        fig_stock.add_trace(go.Scatter(x=df_inv_A['date'], y=df_inv_A['ending_stock'], mode='lines', name='Scenario A', line=dict(color='royalblue')))
+        fig_stock.add_trace(go.Scatter(x=df_inv_B['date'], y=df_inv_B['ending_stock'], mode='lines', name='Scenario B', line=dict(color='firebrick')))
+        fig_stock.update_layout(title="Daily Ending Stock Levels Over Time", xaxis_title="Date", yaxis_title="Ending Stock (Units)")
+        st.plotly_chart(fig_stock, use_container_width=True)
+        
+        # Lost Sales Plot
+        fig_lost_sales = go.Figure()
+        fig_lost_sales.add_trace(go.Scatter(x=df_inv_A['date'], y=df_inv_A['lost_sales_today'].cumsum(), mode='lines', name='Scenario A', line=dict(color='royalblue')))
+        fig_lost_sales.add_trace(go.Scatter(x=df_inv_B['date'], y=df_inv_B['lost_sales_today'].cumsum(), mode='lines', name='Scenario B', line=dict(color='firebrick')))
+        fig_lost_sales.update_layout(title="Cumulative Lost Sales (Stockouts) Over Time", xaxis_title="Date", yaxis_title="Cumulative Lost Sales (Units)")
+        st.plotly_chart(fig_lost_sales, use_container_width=True)
+
     else:
-        st.info("No sales prediction data available. Please run a simulation first to see this analysis.")
-
-    # --- Prophet Cross-Validation Metrics (Conditional Display) ---
-    if forecasting_model == "Prophet":
-        # Load the full historical sales data to run CV on
-        sales_data_for_cv_analysis = load_all_enriched_sales_data_for_cv(selected_product_key, selected_store_key)
-        display_prophet_cv_metrics(sales_data_for_cv_analysis, debug_mode)
+        st.info("Please configure and run the simulation for both scenarios in the 'Welcome & Setup' tab to see the results here.")

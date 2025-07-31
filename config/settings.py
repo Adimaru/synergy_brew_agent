@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from datetime import date
 
 # --- Base Directory ---
 # This assumes settings.py is in synergy_brew_agent/config/
@@ -29,8 +30,8 @@ FINANCIAL_LOG_FILE = os.path.join(LOG_DIR, 'financial_log.json') # New financial
 INVENTORY_STATE_FILE = 'agent_state.json' # Filename for the agent's saved state
 
 # --- Simulation Date Range ---
-START_DATE = datetime(2024, 1, 1)
-END_DATE = datetime(2024, 12, 31)
+START_DATE = date(2023, 1, 1)  # The simulation starts on this day
+END_DATE = date(2023, 12, 31) # The simulation ends on this day
 
 # --- Holiday Data (Example: New Year's Day, Christmas Day) ---
 HOLIDAYS = [
