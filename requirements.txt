@@ -4,3 +4,4 @@ numpy
 prophet
 scipy
 plotly
+scikit-learn
