@@ -1,4 +1,5 @@
 # src/utils/plot_generator.py
+
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
@@ -111,8 +112,8 @@ def plot_daily_cost_breakdown(financial_df):
     Returns:
         go.Figure: Plotly figure object.
     """
-    fig_costs = px.area(financial_df, 
-                        x='date', 
+    fig_costs = px.area(financial_df,
+                        x='date',
                         y=['holding_cost', 'ordering_cost', 'stockout_cost'],
                         title='Daily Cost Breakdown Over Time',
                         labels={'value': 'Cost ($)', 'variable': 'Cost Type'},
@@ -123,3 +124,96 @@ def plot_daily_cost_breakdown(financial_df):
                         })
     fig_costs.update_layout(hovermode="x unified")
     return fig_costs
+
+def plot_cumulative_costs(df_A, df_B):
+    """
+    Generates a Plotly figure for cumulative costs of two scenarios.
+
+    Args:
+        df_A (pd.DataFrame): DataFrame with financial logs for scenario A.
+        df_B (pd.DataFrame): DataFrame with financial logs for scenario B.
+
+    Returns:
+        go.Figure: Plotly figure object.
+    """
+    # Calculate cumulative costs
+    df_A['cumulative_cost'] = df_A['total_daily_cost'].cumsum()
+    df_B['cumulative_cost'] = df_B['total_daily_cost'].cumsum()
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_A['date'], y=df_A['cumulative_cost'], mode='lines', name='Scenario A', line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=df_B['date'], y=df_B['cumulative_cost'], mode='lines', name='Scenario B', line=dict(color='red')))
+
+    fig.update_layout(
+        title="Cumulative Total Costs Over Simulation Period",
+        xaxis_title="Date",
+        yaxis_title="Cumulative Cost ($)",
+        hovermode="x unified",
+        height=500
+    )
+    return fig
+
+def plot_cumulative_lost_sales(df_inv_A, df_inv_B):
+    """
+    Generates a Plotly figure for cumulative lost sales of two scenarios.
+
+    Args:
+        df_inv_A (pd.DataFrame): DataFrame with inventory logs for scenario A.
+        df_inv_B (pd.DataFrame): DataFrame with inventory logs for scenario B.
+
+    Returns:
+        go.Figure: Plotly figure object.
+    """
+    # Calculate cumulative lost sales
+    df_inv_A['cumulative_lost_sales'] = df_inv_A['lost_sales_today'].cumsum()
+    df_inv_B['cumulative_lost_sales'] = df_inv_B['lost_sales_today'].cumsum()
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_inv_A['date'], y=df_inv_A['cumulative_lost_sales'], mode='lines', name='Scenario A', line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=df_inv_B['date'], y=df_inv_B['cumulative_lost_sales'], mode='lines', name='Scenario B', line=dict(color='red')))
+
+    fig.update_layout(
+        title="Cumulative Lost Sales Over Simulation Period",
+        xaxis_title="Date",
+        yaxis_title="Cumulative Lost Sales (Units)",
+        hovermode="x unified",
+        height=500
+    )
+    return fig
+
+def plot_inventory_comparison(df_inv_A, df_inv_B, selected_product_name, selected_store_name):
+    """
+    Generates a Plotly figure to compare daily inventory levels of two scenarios.
+
+    Args:
+        df_inv_A (pd.DataFrame): DataFrame with inventory logs for scenario A.
+        df_inv_B (pd.DataFrame): DataFrame with inventory logs for scenario B.
+        selected_product_name (str): The display name of the selected product.
+        selected_store_name (str): The display name of the selected store.
+
+    Returns:
+        go.Figure: Plotly figure object.
+    """
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df_inv_A['date'],
+        y=df_inv_A['ending_stock'],
+        mode='lines',
+        name='Scenario A (Ending Stock)',
+        line=dict(color='orange', width=2)
+    ))
+    fig.add_trace(go.Scatter(
+        x=df_inv_B['date'],
+        y=df_inv_B['ending_stock'],
+        mode='lines',
+        name='Scenario B (Ending Stock)',
+        line=dict(color='green', width=2)
+    ))
+    fig.update_layout(
+        title=f"Daily Inventory Levels Comparison for {selected_product_name} at {selected_store_name}",
+        xaxis_title="Date",
+        yaxis_title="Units in Stock",
+        hovermode="x unified",
+        height=500
+    )
+    return fig

@@ -3,29 +3,42 @@
 import pandas as pd
 import numpy as np
 import logging
-from datetime import timedelta, date, datetime
 import os
-import prophet
-from prophet import Prophet
-from prophet.diagnostics import cross_validation, performance_metrics
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import json
+from datetime import timedelta, date
+from typing import Dict, Any, List, Optional
 
 # Ensure src directory is in the path for imports
 import sys
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from config.settings import (
     SIM_DATA_DIR,
     HOLDING_COST_PER_UNIT_PER_DAY,
     ORDERING_COST_PER_ORDER,
     STOCKOUT_COST_PER_UNIT_LOST_SALE,
+    PRICE_PER_UNIT, # Added PRICE_PER_UNIT
     FINANCIAL_LOG_FILE,
     INVENTORY_LOG_FILE,
     PERFORMANCE_LOG_FILE,
     DEFAULT_FORECAST_HORIZON_DAYS,
-    BASE_DIR,
     START_DATE,
     END_DATE
 )
+
+# Optional: Add prophet and scipy if they're installed, otherwise provide a fallback
+try:
+    from prophet import Prophet
+    from prophet.diagnostics import cross_validation, performance_metrics
+except ImportError:
+    Prophet = None
+    logging.warning("Prophet not found. Prophet forecasting will not be available.")
+
+try:
+    from scipy.stats import norm
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
+    logging.warning("SciPy not found. Z-score calculation will use a simplified lookup table.")
 
 # Set up logging
 logging.basicConfig(
@@ -34,434 +47,414 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Global variables for simulation state
-simulation_state = {
-    'product_key': None,
-    'store_key': None,
-    'inventory': 0,
-    'days_until_delivery': {},  # {order_id: days_left}
-    'order_history': [],
-    'financial_log': [],
-    'inventory_log': [],
-    'performance_log': [],
-    'total_sales': 0,
-    'total_lost_sales': 0
-}
-
-def _get_forecasting_parameters(forecasting_model, moving_average_window, prophet_params):
+class InventorySimulationAgent:
     """
-    Returns a dictionary of parameters for the chosen forecasting model.
+    A class to simulate an inventory management agent for a single product at a single store.
+    This class encapsulates all the state and logic for a simulation run, avoiding global state.
     """
-    if forecasting_model == "Moving Average":
-        return {'window': moving_average_window}
-    elif forecasting_model == "Prophet":
-        # Ensure prophet_params is a dictionary, defaulting to an empty one if None
-        return {'prophet_params': prophet_params if prophet_params is not None else {}}
-    return {}
-
-def _check_and_load_sales_data(data_file_path, debug_mode):
-    """
-    Loads sales data, fills missing dates, and returns a DataFrame.
-    Returns None if the file does not exist or an error occurs.
-    """
-    if not os.path.exists(data_file_path):
-        logging.error(f"Sales data file not found: {data_file_path}")
-        return None
-
-    try:
-        df = pd.read_csv(data_file_path)
-        df['ds'] = pd.to_datetime(df['ds'])
-        
-        # Ensure data is sorted by date
-        df = df.sort_values(by='ds').reset_index(drop=True)
-
-        # Generate a complete date range and merge with existing data
-        full_date_range = pd.date_range(start=df['ds'].min(), end=df['ds'].max(), freq='D')
-        full_df = pd.DataFrame(full_date_range, columns=['ds'])
-        full_df = pd.merge(full_df, df, on='ds', how='left')
-
-        # Fill missing 'y' values (sales) with 0
-        full_df['y'] = full_df['y'].fillna(0)
-        
-        logging.info(f"Loaded {len(full_df)} rows of sales data from {data_file_path} after ensuring continuity and filling NaNs.")
-        if debug_mode:
-            logging.debug(f"Sales data head:\n{full_df.head()}")
-        return full_df
-
-    except Exception as e:
-        logging.error(f"Failed to load or process sales data from {data_file_path}: {e}")
-        return None
-
-def _calculate_safety_stock(forecast_df, service_level):
-    """
-    Calculates safety stock based on forecast error variance and desired service level.
-    This is a simplified approach, a more complex model would use a Z-score and lead time variance.
-    """
-    if forecast_df.empty:
-        return 0
-    
-    # Calculate forecast errors
-    forecast_df['error'] = forecast_df['y'] - forecast_df['yhat']
-    
-    # Get the standard deviation of forecast errors
-    forecast_error_std = forecast_df['error'].std()
-    
-    # Z-score for the desired service level (simplified, from a standard normal table)
-    # 80% SL -> Z=0.84, 90% SL -> Z=1.28, 95% SL -> Z=1.65, 99% SL -> Z=2.33
-    z_score_map = {
-        0.80: 0.84, 0.85: 1.04, 0.90: 1.28, 0.95: 1.65, 0.99: 2.33
-    }
-    z_score = z_score_map.get(service_level, 1.65) # Default to 95%
-    
-    safety_stock = z_score * forecast_error_std
-    
-    # Ensure safety stock is not negative and round up
-    return max(0, int(np.ceil(safety_stock)))
-
-def _perform_prophet_cv(df, initial, period, horizon):
-    """
-    Performs Prophet cross-validation and returns a performance metrics DataFrame.
-    """
-    try:
-        df_cv = cross_validation(
-            model=Prophet(),
-            df=df,
-            initial=initial,
-            period=period,
-            horizon=horizon,
-            cutoffs=None, # Use default cutoffs
-            parallel="processes"
+    def __init__(
+        self,
+        product_key: str,
+        store_key: str,
+        initial_stock: int,
+        lead_time_days: int,
+        min_order_quantity: int,
+        service_level: float,
+        forecasting_model: str,
+        moving_average_window: int,
+        prophet_params: Dict[str, Any],
+        debug_mode: bool
+    ):
+        """
+        Initializes the simulation agent with a set of parameters.
+        """
+        self.product_key = product_key
+        self.store_key = store_key
+        self.forecasting_model = forecasting_model
+        self.forecasting_params = self._get_forecasting_parameters(
+            forecasting_model, moving_average_window, prophet_params
         )
-        df_p = performance_metrics(df_cv)
-        return df_p
-    except ValueError as e:
-        logging.error(f"Prophet cross-validation failed: {e}")
-        logging.error("This may happen if the dataset is too small for the specified 'initial', 'period', or 'horizon' values.")
-        return None
+        self.lead_time_days = lead_time_days
+        self.min_order_quantity = min_order_quantity
+        self.service_level = service_level
+        self.debug_mode = debug_mode
 
-def _forecast_demand(historical_sales, forecasting_model, **kwargs):
-    """
-    Predicts future demand using the specified model.
-    """
-    forecast_horizon = kwargs.get('forecast_horizon_days', DEFAULT_FORECAST_HORIZON_DAYS)
-    
-    if forecasting_model == "Moving Average":
-        window = kwargs.get('window', 7)
-        if len(historical_sales) < window:
-            logging.warning(f"Historical sales data ({len(historical_sales)}) is less than MA window ({window}). Returning 0 forecast.")
-            return pd.DataFrame({'yhat': [0] * forecast_horizon})
-        
-        last_N_sales = historical_sales['y'].tail(window)
-        moving_average = last_N_sales.mean()
-        forecast_values = [moving_average] * forecast_horizon
-        return pd.DataFrame({'yhat': forecast_values})
-    
-    elif forecasting_model == "Prophet":
-        prophet_params = kwargs.get('prophet_params', {})
-        try:
-            m = Prophet(**prophet_params)
-            m.fit(historical_sales)
-            future = m.make_future_dataframe(periods=forecast_horizon)
-            forecast = m.predict(future)
-            return forecast[['ds', 'yhat']].tail(forecast_horizon)
-        except Exception as e:
-            logging.error(f"Prophet forecasting failed: {e}")
-            logging.error("Using a naive forecast (last day's sales) instead.")
-            last_day_sales = historical_sales['y'].iloc[-1] if not historical_sales.empty else 0
-            return pd.DataFrame({'yhat': [last_day_sales] * forecast_horizon})
-            
-    elif forecasting_model == "Actual Sales Data (Baseline)":
-        # This is for a baseline comparison, where we 'cheat' and use the actual future sales
-        future_dates = pd.date_range(start=historical_sales['ds'].max() + timedelta(days=1), periods=forecast_horizon)
-        actual_future_sales = pd.DataFrame({'ds': future_dates, 'yhat': [0] * forecast_horizon})
-        return actual_future_sales
-
-    else:
-        logging.error(f"Unknown forecasting model: {forecasting_model}. Returning a forecast of 0.")
-        return pd.DataFrame({'yhat': [0] * forecast_horizon})
-
-def _generate_and_log_recommendation(
-    sim_date,
-    current_inventory,
-    pending_orders_inventory,
-    sales_data_so_far,
-    forecasting_model,
-    forecasting_params,
-    min_order_quantity,
-    lead_time_days,
-    service_level,
-    actual_daily_sales,
-    lost_sales_today,
-    debug_mode
-):
-    """
-    Generates an inventory recommendation and logs the daily inventory state.
-    Returns the recommended order quantity.
-    """
-    # 1. Forecast Demand for the lead time period
-    forecast_df = _forecast_demand(
-        historical_sales=sales_data_so_far,
-        forecasting_model=forecasting_model,
-        forecast_horizon_days=lead_time_days,
-        **forecasting_params
-    )
-    
-    # 2. Calculate Safety Stock
-    # Only use Prophet for safety stock calculation if there's enough historical data (>= 2 rows).
-    if forecasting_model == "Prophet" and len(sales_data_so_far) >= 2:
-        try:
-            # Fit Prophet on historical data to get in-sample forecast errors
-            m_historical = Prophet(**forecasting_params['prophet_params'])
-            m_historical.fit(sales_data_so_far)
-            forecast_on_historical = m_historical.predict(sales_data_so_far)
-            
-            # Combine historical 'y' with the in-sample Prophet 'yhat'
-            forecast_historical_data = pd.merge(
-                sales_data_so_far,
-                forecast_on_historical[['ds', 'yhat']],
-                on='ds',
-                how='left'
-            )
-            
-            safety_stock = _calculate_safety_stock(forecast_historical_data, service_level)
-            
-        except Exception as e:
-            logging.error(f"Prophet failed to calculate safety stock with historical data: {e}")
-            logging.error("Falling back to a simpler safety stock calculation.")
-            
-            # Fallback for safety stock
-            z_score_map = {
-                0.80: 0.84, 0.85: 1.04, 0.90: 1.28, 0.95: 1.65, 0.99: 2.33
-            }
-            z_score = z_score_map.get(service_level, 1.65)
-            std_dev_daily_sales = sales_data_so_far['y'].std() if len(sales_data_so_far) > 1 else 0
-            safety_stock = int(np.ceil(z_score * std_dev_daily_sales * np.sqrt(lead_time_days)))
-
-    else:
-        # A simpler, more direct calculation for other models or when Prophet can't be used
-        z_score_map = {
-            0.80: 0.84, 0.85: 1.04, 0.90: 1.28, 0.95: 1.65, 0.99: 2.33
+        # Initialize the simulation state
+        self.state = {
+            'inventory': initial_stock,
+            'days_until_delivery': {},  # {order_id: days_left}
+            'order_history': [],
+            'financial_log': [],
+            'inventory_log': [],
+            'performance_log': [],
+            'total_sales': 0,
+            'total_lost_sales': 0,
         }
-        z_score = z_score_map.get(service_level, 1.65)
-        std_dev_daily_sales = sales_data_so_far['y'].std() if len(sales_data_so_far) > 1 else 0
-        safety_stock = int(np.ceil(z_score * std_dev_daily_sales * np.sqrt(lead_time_days)))
 
-    # 3. Calculate forecasted demand during lead time (DDLT)
-    forecasted_demand_during_lead_time = int(np.ceil(forecast_df['yhat'].sum()))
+    @staticmethod
+    def _get_forecasting_parameters(
+        forecasting_model: str, 
+        moving_average_window: int, 
+        prophet_params: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Returns a dictionary of parameters for the chosen forecasting model.
+        """
+        if forecasting_model == "Moving Average":
+            return {'window': moving_average_window}
+        elif forecasting_model == "Prophet":
+            # Ensure prophet_params is a dictionary, defaulting to an empty one if None
+            return {'prophet_params': prophet_params if prophet_params is not None else {}}
+        return {}
 
-    # 4. Calculate Reorder Point (ROP) and Target Inventory Level
-    target_inventory = forecasted_demand_during_lead_time + safety_stock
-    current_inventory_position = current_inventory + pending_orders_inventory
-    
-    # 5. Determine Order Quantity
-    order_qty = max(0, target_inventory - current_inventory_position)
+    @staticmethod
+    def _check_and_load_sales_data(
+        data_file_path: str, 
+        debug_mode: bool
+    ) -> Optional[pd.DataFrame]:
+        """
+        Loads sales data, fills missing dates, and returns a DataFrame.
+        Returns None if the file does not exist or an error occurs.
+        """
+        if not os.path.exists(data_file_path):
+            logging.error(f"Sales data file not found: {data_file_path}")
+            return None
 
-    # 6. Apply Minimum Order Quantity constraint
-    if order_qty > 0 and order_qty < min_order_quantity:
-        order_qty = min_order_quantity
-    
-    # 7. Log the daily state
-    total_inventory_position = current_inventory + pending_orders_inventory
-    
-    if debug_mode:
-        logging.info(f"--- Inventory Report for {sim_date.strftime('%Y-%m-%d')} ---")
-        logging.info(f"Current Stock: {current_inventory}")
-        logging.info(f"Pending Orders: {pending_orders_inventory} units")
-        logging.info(f"Forecasted Demand during LT ({lead_time_days} days): {forecasted_demand_during_lead_time}")
-        logging.info(f"Safety Stock ({service_level*100}% SL): {safety_stock}")
-        logging.info(f"Target Inventory Level: {target_inventory}")
-        logging.info(f"Current Inventory Position: {current_inventory_position}")
-        logging.info(f"Recommended Order Quantity: {order_qty}")
+        try:
+            df = pd.read_csv(data_file_path)
+            # Ensure the necessary columns exist
+            if 'ds' not in df.columns or 'y' not in df.columns:
+                logging.error(f"Required columns 'ds' and 'y' not found in {data_file_path}")
+                return None
 
-    # Now, let's log the inventory state for the day
-    simulation_state['inventory_log'].append({
-        'date': sim_date,
-        'actual_sales_today': actual_daily_sales,
-        'lost_sales_today': lost_sales_today, # NEW: Use the lost_sales_today parameter
-        'starting_stock': current_inventory + lost_sales_today + pending_orders_inventory, # Corrected calculation
-        'ending_stock': current_inventory,
-        'pending_orders': pending_orders_inventory,
-        'lead_time_forecast': forecasted_demand_during_lead_time,
-        'safety_stock': safety_stock,
-        'order_placed': order_qty,
-        'service_level_target': service_level
-    })
-    
-    return order_qty
+            df['ds'] = pd.to_datetime(df['ds'])
+            df = df.sort_values(by='ds').reset_index(drop=True)
 
+            full_date_range = pd.date_range(start=df['ds'].min(), end=df['ds'].max(), freq='D')
+            full_df = pd.DataFrame(full_date_range, columns=['ds'])
+            full_df = pd.merge(full_df, df, on='ds', how='left')
+            full_df['y'] = full_df['y'].fillna(0)
 
-def simulate_agent_for_n_days(
-    num_days,
-    product_key,
-    store_key,
-    data_file_path,
-    initial_stock,
-    lead_time_days,
-    safety_stock_factor, # Not used in service-level based calculation, kept for compatibility
-    min_order_quantity,
-    service_level,
-    forecasting_model,
-    moving_average_window,
-    prophet_params,
-    debug_mode_for_run=False
-):
-    """
-    Main function to run the inventory simulation.
-    """
-    
-    # Reset the global state for a new simulation run
-    simulation_state.update({
-        'product_key': product_key,
-        'store_key': store_key,
-        'inventory': initial_stock,
-        'days_until_delivery': {},
-        'order_history': [],
-        'financial_log': [],
-        'inventory_log': [],
-        'performance_log': [],
-        'total_sales': 0,
-        'total_lost_sales': 0
-    })
-    
-    logging.info(f"Starting simulation for {product_key} at {store_key} for {num_days} days.")
-    logging.info(f"Simulation parameters: Lead Time={lead_time_days} days, Service Level={service_level*100}%, Min Order Qty={min_order_quantity}, Forecasting Model='{forecasting_model}', MA Window={moving_average_window}")
+            logging.info(f"Loaded {len(full_df)} rows of sales data from {data_file_path}.")
+            if debug_mode:
+                logging.debug(f"Sales data head:\n{full_df.head()}")
+            return full_df
 
-    all_sales_data = _check_and_load_sales_data(data_file_path, debug_mode_for_run)
-    if all_sales_data is None or all_sales_data.empty:
-        logging.error("Failed to load sales data. Simulation aborted.")
-        return None
+        except Exception as e:
+            logging.error(f"Failed to load or process sales data from {data_file_path}: {e}")
+            return None
 
-    # Check if the requested simulation period is valid
-    sim_start_date = START_DATE
-    sim_end_date = sim_start_date + timedelta(days=num_days - 1)
+    def _calculate_z_score(self, service_level: float) -> float:
+        """
+        Calculates the z-score for a given service level.
+        Uses scipy if available, otherwise uses a simplified lookup table.
+        """
+        if SCIPY_AVAILABLE:
+            # norm.ppf calculates the percent point function (inverse of CDF)
+            return norm.ppf(service_level)
+        else:
+            # Fallback to a simplified lookup table
+            z_score_map = {0.80: 0.84, 0.85: 1.04, 0.90: 1.28, 0.95: 1.65, 0.99: 2.33}
+            # Use the closest z-score if an exact match isn't found
+            return z_score_map.get(service_level, 1.65)
 
-    start_ts = pd.Timestamp(sim_start_date)
-    end_ts = pd.Timestamp(sim_end_date)
-    
-    # Check if the requested simulation range is valid with respect to the loaded data
-    if start_ts < all_sales_data['ds'].min() or end_ts > all_sales_data['ds'].max():
-        logging.error(f"No simulation data found for the period {sim_start_date.strftime('%Y-%m-%d')} to {sim_end_date.strftime('%Y-%m-%d')}.")
-        logging.error(f"Available data range is from {all_sales_data['ds'].min().strftime('%Y-%m-%d')} to {all_sales_data['ds'].max().strftime('%Y-%m-%d')}.")
-        return None
-    
-    
-    # Slice the sales data for the simulation period
-    sim_sales_data = all_sales_data[
-        (all_sales_data['ds'] >= start_ts) & 
-        (all_sales_data['ds'] <= end_ts)
-    ].reset_index(drop=True)
+    def _calculate_safety_stock(self, forecast_df: pd.DataFrame) -> int:
+        """
+        Calculates safety stock based on forecast error variance and desired service level.
+        Assumes `forecast_df` contains 'y' (actual) and 'yhat' (forecast) columns.
+        """
+        if forecast_df.empty or len(forecast_df) < 2:
+            return 0
 
-    # Dictionary to hold forecasting-specific parameters
-    forecasting_params = _get_forecasting_parameters(forecasting_model, moving_average_window, prophet_params)
+        # Calculate forecast errors
+        forecast_df['error'] = forecast_df['y'] - forecast_df['yhat']
+        forecast_error_std = forecast_df['error'].std()
 
-    for i, row in sim_sales_data.iterrows():
-        sim_date = row['ds']
-        actual_sales_today = row['y']
-
-        # --- Daily Operations ---
+        # Get the z-score for the desired service level
+        z_score = self._calculate_z_score(self.service_level)
         
-        # 1. Receive incoming orders
-        deliveries_received_today = 0
-        orders_to_remove = []
-        for order_id, days_left in list(simulation_state['days_until_delivery'].items()):
-            if days_left == 0:
-                deliveries_received_today += simulation_state['order_history'][order_id]['quantity']
-                orders_to_remove.append(order_id)
-        
-        for order_id in orders_to_remove:
-            del simulation_state['days_until_delivery'][order_id]
+        # This formula assumes a normal distribution of forecast errors.
+        safety_stock = z_score * forecast_error_std
+        return max(0, int(np.ceil(safety_stock)))
 
-        simulation_state['inventory'] += deliveries_received_today
-        
-        # 2. Process Sales
-        sales_processed_today = min(simulation_state['inventory'], actual_sales_today)
-        lost_sales_today = actual_sales_today - sales_processed_today
-        simulation_state['inventory'] -= sales_processed_today
+    def _forecast_demand(self, historical_sales: pd.DataFrame, forecast_horizon_days: int) -> pd.DataFrame:
+        """
+        Predicts future demand using the specified model.
+        """
+        if self.forecasting_model == "Moving Average":
+            window = self.forecasting_params.get('window', 7)
+            if len(historical_sales) < window:
+                logging.warning(f"Historical sales data ({len(historical_sales)}) is less than MA window ({window}). Returning 0 forecast.")
+                return pd.DataFrame({'yhat': [0] * forecast_horizon_days})
 
-        simulation_state['total_sales'] += sales_processed_today
-        simulation_state['total_lost_sales'] += lost_sales_today
+            last_n_sales = historical_sales['y'].tail(window)
+            moving_average = last_n_sales.mean()
+            forecast_values = [moving_average] * forecast_horizon_days
+            return pd.DataFrame({'yhat': forecast_values})
+
+        elif self.forecasting_model == "Prophet" and Prophet is not None:
+            prophet_params = self.forecasting_params.get('prophet_params', {})
+            try:
+                m = Prophet(**prophet_params)
+                m.fit(historical_sales)
+                future = m.make_future_dataframe(periods=forecast_horizon_days)
+                forecast = m.predict(future)
+                return forecast[['ds', 'yhat']].tail(forecast_horizon_days)
+            except Exception as e:
+                logging.error(f"Prophet forecasting failed: {e}. Using a naive forecast instead.")
+                last_day_sales = historical_sales['y'].iloc[-1] if not historical_sales.empty else 0
+                return pd.DataFrame({'yhat': [last_day_sales] * forecast_horizon_days})
+
+        elif self.forecasting_model == "Actual Sales Data (Baseline)":
+            # A more useful baseline is a naive forecast (last known value).
+            last_day_sales = historical_sales['y'].iloc[-1] if not historical_sales.empty else 0
+            future_dates = pd.date_range(start=historical_sales['ds'].max() + timedelta(days=1), periods=forecast_horizon_days)
+            return pd.DataFrame({'ds': future_dates, 'yhat': [last_day_sales] * forecast_horizon_days})
+            
+        else:
+            logging.error(f"Unknown forecasting model: {self.forecasting_model}. Returning a forecast of 0.")
+            return pd.DataFrame({'yhat': [0] * forecast_horizon_days})
+
+    def _run_daily_agent_logic(self, sim_date: pd.Timestamp, historical_data_for_forecast: pd.DataFrame, actual_daily_sales: int, lost_sales_today: int) -> int:
+        """
+        Contains the core logic for the agent's daily decision-making.
+        """
+        # 1. Forecast Demand for the lead time period
+        forecast_df = self._forecast_demand(
+            historical_sales=historical_data_for_forecast,
+            forecast_horizon_days=self.lead_time_days
+        )
         
-        # 3. Calculate Daily Costs
-        holding_cost = simulation_state['inventory'] * HOLDING_COST_PER_UNIT_PER_DAY
-        stockout_cost = lost_sales_today * STOCKOUT_COST_PER_UNIT_LOST_SALE
+        # 2. Calculate Safety Stock
+        safety_stock = 0
+        if self.forecasting_model == "Prophet" and len(historical_data_for_forecast) >= 2:
+            try:
+                m_historical = Prophet(**self.forecasting_params['prophet_params'])
+                m_historical.fit(historical_data_for_forecast)
+                forecast_on_historical = m_historical.predict(historical_data_for_forecast)
+                forecast_historical_data = pd.merge(
+                    historical_data_for_forecast,
+                    forecast_on_historical[['ds', 'yhat']],
+                    on='ds',
+                    how='left'
+                )
+                safety_stock = self._calculate_safety_stock(forecast_historical_data)
+            except Exception as e:
+                logging.error(f"Prophet failed to calculate safety stock: {e}. Falling back to simpler method.")
+                # Fallback to a simpler safety stock calculation
+                z_score = self._calculate_z_score(self.service_level)
+                std_dev_daily_sales = historical_data_for_forecast['y'].std() if len(historical_data_for_forecast) > 1 else 0
+                safety_stock = int(np.ceil(z_score * std_dev_daily_sales * np.sqrt(self.lead_time_days)))
+        else:
+            # Standard safety stock formula for non-Prophet models
+            z_score = self._calculate_z_score(self.service_level)
+            std_dev_daily_sales = historical_data_for_forecast['y'].std() if len(historical_data_for_forecast) > 1 else 0
+            # Note: This formula assumes demand is normally distributed and independent from day to day.
+            safety_stock = int(np.ceil(z_score * std_dev_daily_sales * np.sqrt(self.lead_time_days)))
         
-        # 4. Place a new order? (Agent's decision)
-        
-        # Get historical data up to this point for forecasting
-        historical_data_for_forecast = sim_sales_data[sim_sales_data['ds'] < sim_date].copy()
-        
-        # Calculate pending inventory from orders in transit
+        # 3. Calculate forecasted demand during lead time (DDLT)
+        forecasted_demand_during_lead_time = int(np.ceil(forecast_df['yhat'].sum()))
+
+        # 4. Calculate Reorder Point (ROP) and Target Inventory Level
+        target_inventory = forecasted_demand_during_lead_time + safety_stock
         pending_orders_inventory = sum(
-            simulation_state['order_history'][order_id]['quantity']
-            for order_id in simulation_state['days_until_delivery']
+            self.state['order_history'][order_id]['quantity']
+            for order_id in self.state['days_until_delivery']
+        )
+        current_inventory_position = self.state['inventory'] + pending_orders_inventory
+        
+        # 5. Determine Order Quantity
+        order_qty = max(0, target_inventory - current_inventory_position)
+
+        # 6. Apply Minimum Order Quantity constraint
+        if 0 < order_qty < self.min_order_quantity:
+            order_qty = self.min_order_quantity
+        
+        # Log the daily state
+        self._log_daily_state(
+            sim_date,
+            actual_daily_sales,
+            lost_sales_today,
+            pending_orders_inventory,
+            forecasted_demand_during_lead_time,
+            safety_stock,
+            order_qty
         )
         
-        # The agent decides to place an order
-        order_qty = _generate_and_log_recommendation(
-            sim_date=sim_date,
-            current_inventory=simulation_state['inventory'],
-            pending_orders_inventory=pending_orders_inventory,
-            sales_data_so_far=historical_data_for_forecast,
-            forecasting_model=forecasting_model,
-            forecasting_params=forecasting_params,
-            min_order_quantity=min_order_quantity,
-            lead_time_days=lead_time_days,
-            service_level=service_level,
-            actual_daily_sales=sales_processed_today,
-            lost_sales_today=lost_sales_today,
-            debug_mode=debug_mode_for_run
-        )
-        
-        ordering_cost = 0
-        if order_qty > 0:
-            ordering_cost = ORDERING_COST_PER_ORDER
-            
-            # Place the order with a lead time
-            order_id = len(simulation_state['order_history'])
-            simulation_state['order_history'].append({
-                'id': order_id,
-                'quantity': order_qty,
-                'order_date': sim_date
-            })
-            simulation_state['days_until_delivery'][order_id] = lead_time_days
-            
-        # 5. Log Financials
+        return order_qty
+
+    def _log_daily_state(self, sim_date: pd.Timestamp, actual_sales_today: int, lost_sales_today: int, pending_orders_inventory: int, forecast: int, safety_stock: int, order_placed: int):
+        """
+        Logs the daily inventory and financial state.
+        """
+        # Log inventory state
+        self.state['inventory_log'].append({
+            'date': sim_date,
+            'actual_sales_today': actual_sales_today,
+            'lost_sales_today': lost_sales_today,
+            'starting_stock': self.state['inventory'] + pending_orders_inventory,
+            'ending_stock': self.state['inventory'],
+            'pending_orders': pending_orders_inventory,
+            'lead_time_forecast': forecast,
+            'safety_stock': safety_stock,
+            'order_placed': order_placed,
+            'service_level_target': self.service_level
+        })
+
+        # Calculate daily costs
+        holding_cost = self.state['inventory'] * HOLDING_COST_PER_UNIT_PER_DAY
+        stockout_cost = lost_sales_today * STOCKOUT_COST_PER_UNIT_LOST_SALE
+        ordering_cost = ORDERING_COST_PER_ORDER if order_placed > 0 else 0
         total_daily_cost = holding_cost + ordering_cost + stockout_cost
-        simulation_state['financial_log'].append({
+        
+        # Calculate daily revenue
+        daily_revenue = actual_sales_today * PRICE_PER_UNIT
+
+        # Log financial state
+        self.state['financial_log'].append({
             'date': sim_date,
             'holding_cost': holding_cost,
             'ordering_cost': ordering_cost,
             'stockout_cost': stockout_cost,
             'total_daily_cost': total_daily_cost,
-            'deliveries_received': deliveries_received_today
+            'daily_revenue': daily_revenue, # Added daily revenue
+            'deliveries_received': 0 # Will be updated later in the main loop
         })
 
-        # 6. Update pending order days
-        for order_id in simulation_state['days_until_delivery']:
-            simulation_state['days_until_delivery'][order_id] -= 1
+    def _calculate_kpis(self) -> None:
+        """
+        Calculates key performance indicators (KPIs) for the simulation and logs them.
+        """
+        total_cost = sum(d['total_daily_cost'] for d in self.state['financial_log'])
+        total_revenue = sum(d['daily_revenue'] for d in self.state['financial_log'])
+        total_lost_sales_units = self.state['total_lost_sales']
+        total_actual_demand = self.state['total_sales'] + total_lost_sales_units
+        service_level_achieved = (self.state['total_sales'] / total_actual_demand) if total_actual_demand > 0 else 1.0
+        
+        total_ordering_cost = sum(d['ordering_cost'] for d in self.state['financial_log'])
+        total_holding_cost = sum(d['holding_cost'] for d in self.state['financial_log'])
+        total_stockout_cost = sum(d['stockout_cost'] for d in self.state['financial_log'])
 
-    logging.info(f"Simulation for {product_key} at {store_key} finished.")
-    
-    # Store results in a dictionary and return
-    results = {
-        'product_key': product_key,
-        'store_key': store_key,
-        'financial_log': simulation_state['financial_log'],
-        'inventory_log': simulation_state['inventory_log'],
-        'total_sales': simulation_state['total_sales'],
-        'total_lost_sales': simulation_state['total_lost_sales'],
-        'final_inventory': simulation_state['inventory']
-    }
-    
-    return results
+        kpis = {
+            'product_key': self.product_key,
+            'store_key': self.store_key,
+            'total_simulation_cost': total_cost,
+            'total_revenue': total_revenue,
+            'total_profit': total_revenue - total_cost,
+            'service_level_achieved': service_level_achieved,
+            'total_lost_sales_units': total_lost_sales_units,
+            'total_ordering_cost': total_ordering_cost,
+            'total_holding_cost': total_holding_cost,
+            'total_stockout_cost': total_stockout_cost,
+        }
+        self.state['performance_log'].append(kpis)
+        logging.info("Simulation KPIs calculated.")
+        if self.debug_mode:
+            logging.info(f"Final KPIs:\n{json.dumps(kpis, indent=2)}")
 
-def clear_all_state_data(debug_mode=False):
+    def run_simulation(self, num_days: int, data_file_path: str) -> Optional[Dict[str, Any]]:
+        """
+        Main function to run the inventory simulation for a specified number of days.
+        """
+        logging.info(f"Starting simulation for {self.product_key} at {self.store_key} for {num_days} days.")
+        
+        all_sales_data = self._check_and_load_sales_data(data_file_path, self.debug_mode)
+        if all_sales_data is None or all_sales_data.empty:
+            logging.error("Failed to load sales data. Simulation aborted.")
+            return None
+
+        sim_start_date = START_DATE
+        sim_end_date = sim_start_date + timedelta(days=num_days - 1)
+        start_ts = pd.Timestamp(sim_start_date)
+        end_ts = pd.Timestamp(sim_end_date)
+        
+        if start_ts < all_sales_data['ds'].min() or end_ts > all_sales_data['ds'].max():
+            logging.error(f"Simulation period {sim_start_date} to {sim_end_date} is outside the available data range.")
+            return None
+        
+        sim_sales_data = all_sales_data[
+            (all_sales_data['ds'] >= start_ts) & 
+            (all_sales_data['ds'] <= end_ts)
+        ].reset_index(drop=True)
+
+        # Loop through each day of the simulation
+        for i, row in sim_sales_data.iterrows():
+            sim_date = row['ds']
+            actual_sales_today = row['y']
+
+            # 1. Receive incoming orders and process deliveries
+            deliveries_received_today = 0
+            orders_to_remove = []
+            for order_id, days_left in list(self.state['days_until_delivery'].items()):
+                if days_left <= 1: # Delivered today or delivery is imminent
+                    deliveries_received_today += self.state['order_history'][order_id]['quantity']
+                    orders_to_remove.append(order_id)
+            
+            for order_id in orders_to_remove:
+                del self.state['days_until_delivery'][order_id]
+
+            self.state['inventory'] += deliveries_received_today
+            
+            # 2. Process Sales
+            sales_processed_today = min(self.state['inventory'], actual_sales_today)
+            lost_sales_today = actual_sales_today - sales_processed_today
+            self.state['inventory'] -= sales_processed_today
+
+            self.state['total_sales'] += sales_processed_today
+            self.state['total_lost_sales'] += lost_sales_today
+            
+            # 3. Agent's Decision: Generate recommendation and log state
+            historical_data_for_forecast = sim_sales_data[sim_sales_data['ds'] < sim_date].copy()
+            order_qty = self._run_daily_agent_logic(
+                sim_date=sim_date,
+                historical_data_for_forecast=historical_data_for_forecast,
+                actual_daily_sales=sales_processed_today,
+                lost_sales_today=lost_sales_today
+            )
+            
+            # Update the deliveries_received count in the financial log for today
+            if self.state['financial_log'] and self.state['financial_log'][-1]['date'] == sim_date:
+                self.state['financial_log'][-1]['deliveries_received'] = deliveries_received_today
+
+            # 4. Place a new order if needed
+            if order_qty > 0:
+                order_id = len(self.state['order_history'])
+                self.state['order_history'].append({
+                    'id': order_id,
+                    'quantity': order_qty,
+                    'order_date': sim_date
+                })
+                self.state['days_until_delivery'][order_id] = self.lead_time_days
+                
+            # 5. Update pending order days for the next day
+            for order_id in list(self.state['days_until_delivery'].keys()):
+                self.state['days_until_delivery'][order_id] -= 1
+
+        logging.info(f"Simulation for {self.product_key} at {self.store_key} finished.")
+        
+        self._calculate_kpis()
+
+        # Store results in a dictionary and return
+        results = {
+            'product_key': self.product_key,
+            'store_key': self.store_key,
+            'financial_log': self.state['financial_log'],
+            'inventory_log': self.state['inventory_log'],
+            'performance_log': self.state['performance_log'],
+            'total_sales': self.state['total_sales'],
+            'total_lost_sales': self.state['total_lost_sales'],
+            'final_inventory': self.state['inventory']
+        }
+        
+        return results
+
+# The `clear_all_state_data` function is kept as a standalone utility.
+def clear_all_state_data(debug_mode: bool = False):
     """
     Deletes all saved state files and simulation data files.
     """
     files_to_delete = [FINANCIAL_LOG_FILE, INVENTORY_LOG_FILE, PERFORMANCE_LOG_FILE]
     
-    # Delete state files
     for file_path in files_to_delete:
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -469,11 +462,14 @@ def clear_all_state_data(debug_mode=False):
                 logging.info(f"Deleted state file: {file_path}")
     
     # Delete simulation data files
-    for file_name in os.listdir(SIM_DATA_DIR):
-        file_path = os.path.join(SIM_DATA_DIR, file_name)
-        if os.path.isfile(file_path):
-            os.remove(file_path)
-            if debug_mode:
-                logging.info(f"Deleted simulation data file: {file_path}")
+    if os.path.exists(SIM_DATA_DIR):
+        for file_name in os.listdir(SIM_DATA_DIR):
+            file_path = os.path.join(SIM_DATA_DIR, file_name)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                if debug_mode:
+                    logging.info(f"Deleted simulation data file: {file_path}")
+    else:
+        logging.warning(f"Simulation data directory not found: {SIM_DATA_DIR}")
 
     logging.info("All saved state and simulation data files have been deleted.")
